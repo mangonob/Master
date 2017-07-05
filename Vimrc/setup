@@ -1,0 +1,36 @@
+#!/bin/bash
+
+if [ "$1"x = "-h"x -o "$1"x = "--help"x ]
+then
+	echo "usage: [-h|--help][pull][restore]"
+  echo ""
+  echo "  pull: copy form local"
+  echo "  restore: restore from ~/.vimrc.pre"
+	exit 1
+fi
+
+if [ "$1"x = "restore"x ] 
+then 
+	echo "Restore ~/.vimrc.pre"
+	cp ~/.vimrc.pre ~/.vimrc
+	exit 1
+fi
+
+if [ "$1"x = "pull"x ]
+then
+	echo "Pull vimrc from ~/.vimrc"
+	cp ~/.vimrc vimrc
+	exit 1
+fi
+
+if [ "$1"x = x ]
+then
+	echo "Backup ~/.vimrc to ~/.vimrc.pre"
+	cp ~/.vimrc ~/.vimrc.pre
+	echo "Push vimrc to ~/.vimrc"
+	cp vimrc ~/.vimrc
+	exit 1
+fi
+
+echo "usage: [-h|--help][pull][restore]"
+exit 0

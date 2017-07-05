@@ -1,0 +1,185 @@
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
+set backspace=2
+set expandtab
+set wildmenu
+set wildmode=full
+set history=1024
+"set backspace = indent, eol, start
+set number
+set ignorecase
+set mouse=a
+set cursorline
+"set cursorcolumn
+let mapleader = "\<Space>"
+
+set background=dark
+colorscheme Tomorrow-Night 
+
+syntax enable 
+
+set autoindent
+
+""" vundle Configure ==========================================
+
+set nocompatible	"required
+filetype off
+set rtp+=~/.vim/bundle/Vundle.vim/
+call vundle#rc()
+
+" Let Vundle manage itself.
+Plugin 'gmarik/Vundle.vim'
+
+" Bundle
+
+" Plugins
+Plugin 'scrooloose/nerdtree'
+Plugin 'tpope/vim-surround'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'easymotion/vim-easymotion'
+"Plugin 'Valloric/YouCompleteMe'
+Plugin 'nathanaelkane/vim-indent-guides'
+Plugin 'jiangmiao/auto-pairs'
+Plugin 'scrooloose/nerdcommenter'
+"Plugin 'MattesGroeger/vim-bookmarks'
+
+" Color schemes
+
+" Requered, plugins available after.
+call vundle#end()
+filetype plugin indent on	"required
+
+""" vundle Configure End ======================================
+
+"" see all number as decimal
+set nrformats=hex
+
+"" make <C-p> and <C-n> can filte the Ex command select
+cnoremap <C-p> <Up>
+cnoremap <C-n> <Down>
+
+"" make buffer switch map
+nnoremap <silent> <b :bprevious<CR>
+nnoremap <silent> >b :bnext<CR>
+nnoremap <silent> <u :bnext<CR>
+nnoremap <silent> >u :bnext<CR>
+
+"" make buffer switch map
+nnoremap <silent> <a :prev<CR>
+nnoremap <silent> >a :next<CR>
+nnoremap <silent> <r :first<CR>
+nnoremap <silent> >r :last<CR>
+
+"" make buffer switch map
+nnoremap <silent> >t :tabnext<CR>
+nnoremap <silent> <t :tabprevious<CR>
+
+nnoremap <silent> <Leader>nt :tabnew<CR>
+nnoremap <silent> <Leader>xt :tabclose<CR>
+
+"" disable direction keys (Only Normal-Mode)
+noremap <Up> <Nop>
+noremap <Down> <Nop>
+noremap <Right> <Nop>
+noremap <Left> <Nop>
+
+"" remap jk to move in screen or real
+noremap j gj
+noremap gj j
+noremap k gk
+noremap gk k
+
+"" enable hidden
+set hidden
+
+"" set mouse on
+" set mouse = n
+
+"" set map to scroll
+noremap <C-d> <C-d>zz
+noremap <C-u> <C-u>zz
+
+"" set map to jump list 
+noremap <C-o> <C-o>zz
+noremap <C-i> <C-i>zz
+
+""" Set Airline ===============================================
+"" Always show Airline
+set laststatus=2
+
+let g:airline_powerline_fonts = 1
+let g:airline_section_b = '%{strftime("%c")}'
+let g:airline_section_y = 'BN: %{bufnr("%")}'
+let g:airline#extensions#tabline#enable = 1
+
+"" Random Airline Scheme
+function Rand()
+	return str2nr(matchstr(reltimestr(reltime()), '\v\.@<=\d+')[1:])
+endfunction
+
+function RandArr(arr)
+	return a:arr[Rand() % len(a:arr)]
+endfunction
+
+let g:airline_themes = [ 
+	\ "aurora", 
+	\ "cobalt2", 
+	\ "durant", 
+	\ "jellybeans", 
+	\ "kolor", 
+	\ "light", 
+	\ "luna", 
+	\ "papercolor", 
+	\ "powerlineish", 
+	\ "sol", 
+	\ "solarized", 
+	\ "ubaryd", 
+	\ ]
+
+let g:airline_theme = RandArr(g:airline_themes)
+
+command AirlineChange execute "AirlineTheme " . RandArr(g:airline_themes)
+
+nmap <Leader>>> :AirlineChange<CR>
+""" Set Airline End ===========================================
+
+""" Set EasyMotion ============================================
+map <Leader> <Plug>(easymotion-prefix)
+map / <Plug>(easymotion-sn)
+omap / <Plug>(easymotion-tn)
+
+map n <Plug>(easymotion-next)
+map N <Plug>(easymotion-prev)
+""" Set EasyMotion End ========================================
+
+"" Indent Guides Configure
+let g:indent_guides_start_level = 2
+let g:indent_guides_auto_colors = 0
+hi IndentGuidesOdd	ctermbg=darkgrey
+hi IndentGuidesEven	ctermbg=237
+
+""" YouCompleteMe Configure ====================================
+let g:ycm_min_num_of_chars_for_completion = 0
+let g:ycm_auto_trigger = 1 " Default: 1
+let g:ycm_complete_in_strings = 1
+let g:ycm_autoclose_preview_window_after_completion = 1
+let g:ycm_autoclose_preview_window_after_insertion = 1
+""" YouCompleteMe Configure End ================================
+
+set foldmethod=indent
+set foldlevel=99
+nmap <Space><Space> za
+
+""" NerdCommenter Configure ===================================
+let g:NERDSpaceDelims = 1
+let g:NREDCompactSexyComs = 1
+let g:NERDDefaultAlign = 'left'
+let g:NERDAltDelims_java = 1
+let g:NERDCustomDelimiters = {'c': {'left': '/**', 'right': '*/'}}
+let g:NERDCommentEmptyLines = 1
+let g:NERDTrimTrailingWhitespace = 1
+""" NerdCommenter Configure end ===============================
+
+autocmd FileType python set tabstop=4 | set softtabstop=4 | set shiftwidth=4
