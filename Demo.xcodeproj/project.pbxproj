@@ -28,6 +28,7 @@
 		4ADCB79D1F0A319400910A59 /* CDRadio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ADCB79C1F0A319400910A59 /* CDRadio.swift */; };
 		4ADCB7A71F0A421700910A59 /* CDArcLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ADCB7A61F0A421700910A59 /* CDArcLoadingView.swift */; };
 		4ADDA7621ECEF4EA0051A722 /* CDDotLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ADDA7611ECEF4EA0051A722 /* CDDotLoadingView.swift */; };
+		4AEE54621F0D0C3D0046D9C0 /* AutoGrowUpTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AEE54611F0D0C3D0046D9C0 /* AutoGrowUpTextView.swift */; };
 		4AF4E7A71E889EC8002A5B15 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF4E7A61E889EC8002A5B15 /* AppDelegate.swift */; };
 		4AF4E7A91E889EC8002A5B15 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF4E7A81E889EC8002A5B15 /* ViewController.swift */; };
 		4AF4E7AC1E889EC8002A5B15 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4AF4E7AA1E889EC8002A5B15 /* Main.storyboard */; };
@@ -58,6 +59,7 @@
 		4ADCB79C1F0A319400910A59 /* CDRadio.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDRadio.swift; sourceTree = "<group>"; };
 		4ADCB7A61F0A421700910A59 /* CDArcLoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDArcLoadingView.swift; sourceTree = "<group>"; };
 		4ADDA7611ECEF4EA0051A722 /* CDDotLoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDDotLoadingView.swift; sourceTree = "<group>"; };
+		4AEE54611F0D0C3D0046D9C0 /* AutoGrowUpTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoGrowUpTextView.swift; sourceTree = "<group>"; };
 		4AF4E7A31E889EC8002A5B15 /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4AF4E7A61E889EC8002A5B15 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4AF4E7A81E889EC8002A5B15 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -122,6 +124,7 @@
 				4ADDA7611ECEF4EA0051A722 /* CDDotLoadingView.swift */,
 				4A1FB3A01EE7D86200FABB33 /* CDLShapeView.swift */,
 				4A824C831EEF8964002580AA /* CDDebugView.swift */,
+				4AEE54611F0D0C3D0046D9C0 /* AutoGrowUpTextView.swift */,
 				4A355F5A1EFCD0490022B97B /* image1.png */,
 				4A355F5B1EFCD0490022B97B /* image2.png */,
 				4A355F5C1EFCD0490022B97B /* image3.png */,
@@ -291,6 +294,7 @@
 				4ADCB7A71F0A421700910A59 /* CDArcLoadingView.swift in Sources */,
 				4A1B3B0D1EF3DDBA00317614 /* CDCoveredQRCodeController.swift in Sources */,
 				4AB8F4101EF7DED600B36821 /* TableViewCell.swift in Sources */,
+				4AEE54621F0D0C3D0046D9C0 /* AutoGrowUpTextView.swift in Sources */,
 				4ADCB79B1F0A28E400910A59 /* CDChecker.swift in Sources */,
 				4AC562B01F0CDEBB00C73F1D /* CDNumberSteper.swift in Sources */,
 				4A824C841EEF8964002580AA /* CDDebugView.swift in Sources */,
