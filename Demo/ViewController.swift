@@ -28,6 +28,9 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view, typically from a nib.
+        let asset = AVAsset(url: Bundle.main.url(forResource: "video", withExtension: "mp4")!)
+        
+        print(asset.tracks(withMediaType: AVMediaTypeVideo).first)
     }
 }
 
