@@ -24,18 +24,19 @@ class AVPlayerView: UIView {
 }
 
 class ViewController: UIViewController {
-    @IBOutlet weak var textField: UITextField!
+    @IBOutlet weak var imageProgress: CDImagedProgress!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        UIFont.familyNames.flatMap { UIFont.fontNames(forFamilyName: $0) }.forEach { print($0) }
-        
-        let v = UIView()
-        v.frame = CGRect(origin: .zero, size: CGSize(width: 0, height: 0.5))
-        v.backgroundColor = UIColor.lightGray
-        textField.inputAccessoryView = v
         // Do any additional setup after loading the view, typically from a nib.
+        imageProgress.image = UIImage(named: "leaf")
+        imageProgress.originInImage = CGPoint(x: 6, y: 16)
+    }
+    
+    
+    @IBAction func sliderAction(_ sender: UISlider) {
+        imageProgress.value = sender.value
     }
 }
 

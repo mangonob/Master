@@ -19,6 +19,7 @@
 		4A355F5E1EFCD0490022B97B /* image2.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A355F5B1EFCD0490022B97B /* image2.png */; };
 		4A355F5F1EFCD0490022B97B /* image3.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A355F5C1EFCD0490022B97B /* image3.png */; };
 		4A5F6D651EFBDFB6007CBF7C /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5F6D641EFBDFB6007CBF7C /* View.swift */; };
+		4A61D4931F0E183B00ED3B14 /* CDImagedProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A61D4921F0E183B00ED3B14 /* CDImagedProgress.swift */; };
 		4A824C841EEF8964002580AA /* CDDebugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A824C831EEF8964002580AA /* CDDebugView.swift */; };
 		4AB8F4061EF7CCD900B36821 /* CDGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB8F4051EF7CCD900B36821 /* CDGradientView.swift */; };
 		4AB8F40E1EF7DEC700B36821 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB8F40D1EF7DEC700B36821 /* TableViewController.swift */; };
@@ -50,6 +51,7 @@
 		4A355F5B1EFCD0490022B97B /* image2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image2.png; sourceTree = "<group>"; };
 		4A355F5C1EFCD0490022B97B /* image3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image3.png; sourceTree = "<group>"; };
 		4A5F6D641EFBDFB6007CBF7C /* View.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
+		4A61D4921F0E183B00ED3B14 /* CDImagedProgress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDImagedProgress.swift; sourceTree = "<group>"; };
 		4A824C831EEF8964002580AA /* CDDebugView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDDebugView.swift; sourceTree = "<group>"; };
 		4AB8F4051EF7CCD900B36821 /* CDGradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDGradientView.swift; sourceTree = "<group>"; };
 		4AB8F40D1EF7DEC700B36821 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
@@ -125,6 +127,7 @@
 				4A1FB3A01EE7D86200FABB33 /* CDLShapeView.swift */,
 				4A824C831EEF8964002580AA /* CDDebugView.swift */,
 				4AEE54611F0D0C3D0046D9C0 /* AutoGrowUpTextView.swift */,
+				4A61D4921F0E183B00ED3B14 /* CDImagedProgress.swift */,
 				4A355F5A1EFCD0490022B97B /* image1.png */,
 				4A355F5B1EFCD0490022B97B /* image2.png */,
 				4A355F5C1EFCD0490022B97B /* image3.png */,
@@ -297,6 +300,7 @@
 				4AEE54621F0D0C3D0046D9C0 /* AutoGrowUpTextView.swift in Sources */,
 				4ADCB79B1F0A28E400910A59 /* CDChecker.swift in Sources */,
 				4AC562B01F0CDEBB00C73F1D /* CDNumberSteper.swift in Sources */,
+				4A61D4931F0E183B00ED3B14 /* CDImagedProgress.swift in Sources */,
 				4A824C841EEF8964002580AA /* CDDebugView.swift in Sources */,
 				4A5F6D651EFBDFB6007CBF7C /* View.swift in Sources */,
 				4AF4E7A91E889EC8002A5B15 /* ViewController.swift in Sources */,
