@@ -24,8 +24,6 @@ class AVPlayerView: UIView {
 }
 
 class ViewController: UIViewController {
-    @IBOutlet weak var imageProgress: CDImagedProgress!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -36,26 +34,27 @@ class ViewController: UIViewController {
         
         let videoCompositionTrack = mutableComposition.addMutableTrack(withMediaType: AVMediaTypeVideo, preferredTrackID: kCMPersistentTrackID_Invalid)
         
-        guard let videoTrack = asset.tracks(withMediaType: AVMediaTypeVideo).first else { return }
+        guard let videoAssetTrack = asset.tracks(withMediaType: AVMediaTypeVideo).first else { return }
         
         let allRange = CMTimeRange(start: kCMTimeZero, end: asset.duration)
-        try? videoCompositionTrack.insertTimeRange(allRange, of: videoTrack, at: kCMTimeZero)
+        try? videoCompositionTrack.insertTimeRange(allRange, of: videoAssetTrack, at: kCMTimeZero)
         
-        let mutableVideoCompositoin = AVMutableVideoComposition()
         let instruction = AVMutableVideoCompositionInstruction()
-        let layerInstruction = AVMutableVideoCompositionLayerInstruction()
+        let layerInstruction = AVMutableVideoCompositionLayerInstruction(assetTrack: videoCompositionTrack)
         
         let endTransform = CGAffineTransform.identity.scaledBy(x: 0.49, y: 0.49)
         layerInstruction.setTransformRamp(fromStart: CGAffineTransform.identity, toEnd: endTransform, timeRange: allRange)
         
         instruction.timeRange = allRange
         instruction.layerInstructions = [layerInstruction]
-        mutableVideoCompositoin.instructions = [instruction]
+        
+        let mutableVideoComposition = AVMutableVideoComposition()
+        mutableVideoComposition.instructions = [instruction]
         
         let exportSession = AVAssetExportSession(asset: mutableComposition, presetName: AVAssetExportPresetHighestQuality)
-        exportSession?.videoComposition = mutableVideoCompositoin.copy() as! AVVideoComposition
+        exportSession?.videoComposition = mutableVideoComposition
         exportSession?.outputFileType = AVFileTypeMPEG4
-        let path = "\(NSHomeDirectory())/Documents/a.mp4"
+        let path = "\(NSHomeDirectory())/Documents/\(arc4random()).mp4"
         print(path)
         exportSession?.outputURL = URL(fileURLWithPath: path)
         exportSession?.exportAsynchronously(completionHandler: {
