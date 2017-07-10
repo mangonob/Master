@@ -86,7 +86,7 @@ class CDImagedProgress: UIControl {
         
         context.saveGState()
         defer { context.restoreGState() }
-       
+        
         var margin: CGFloat = 0
         
         if let w = image?.size.width {
