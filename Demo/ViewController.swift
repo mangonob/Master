@@ -30,13 +30,9 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view, typically from a nib.
-        imageProgress.image = UIImage(named: "leaf")
-        imageProgress.originInImage = CGPoint(x: 6, y: 16)
-    }
-    
-    
-    @IBAction func sliderAction(_ sender: UISlider) {
-        imageProgress.value = sender.value
+        let asset = AVAsset(url: Bundle.main.url(forResource: "video", withExtension: "mp4")!)
+        
+        print(asset.tracks(withMediaType: AVMediaTypeVideo).first)
     }
 }
 
