@@ -11,15 +11,35 @@ import UIKit
 private let kCDCircledCrossRaito: CGFloat = 0.8
 
 private class CDCircledCrossLayer: CALayer {
-    var lineWidth: CGFloat = 4
+    var lineWidth: CGFloat = 3 {
+        didSet {
+            setNeedsDisplay()
+        }
+    }
     
-    var lineColor: UIColor = .blue
+    var lineColor: UIColor = .blue {
+        didSet {
+            setNeedsDisplay()
+        }
+    }
     
-    var centerLineFactor: CGFloat = sqrt(3) / 3
+    var centerLineFactor: CGFloat = sqrt(3) / 3 {
+        didSet {
+            setNeedsDisplay()
+        }
+    }
     
-    var radius: CGFloat = 20
+    var radius: CGFloat = 20 {
+        didSet {
+            setNeedsDisplay()
+        }
+    }
     
-    var progress: CGFloat = 0
+    var progress: CGFloat = 0 {
+        didSet {
+            setNeedsDisplay()
+        }
+    }
     
     var theta: CGFloat {
         return asin(min(max( (1 - pow(centerLineFactor, 2)) / (1 + pow(centerLineFactor, 2)), -1), 1))
@@ -91,6 +111,8 @@ private class CDCircledCrossLayer: CALayer {
             return true
         case "radius":
             return true
+        case "progress":
+            return true
         default:
             return super.needsDisplay(forKey: forKey)
         }
@@ -102,7 +124,7 @@ private class CDCircledCrossLayer: CALayer {
             var end: CGFloat
             var scale: CGFloat = 1
             
-            func progressed(progress: CGFloat) -> CGFloat {
+            func progressed(_ progress: CGFloat) -> CGFloat {
                 return start + (end - start) * progress * scale
             }
             
@@ -131,7 +153,6 @@ private class CDCircledCrossLayer: CALayer {
         let A = CGPoint(x: -centerLineFactor, y: 0)
         let B = CGPoint(x: centerLineFactor, y: 0)
         let O = CGPoint(x: B.x, y: r)
-        let C = CGPoint(x: cos(theta), y: sin(theta))
         
         let angle1 = CGFloat.pi * 3 / 2
         let angle2 = angle1 + CGFloat.pi / 2 + theta
@@ -139,10 +160,10 @@ private class CDCircledCrossLayer: CALayer {
         let angle4 = theta + L
         
         let startRangeTiny = AngleRange(start: angle1, end: angle2, scale: L1 / self.C)
-        let startRangeLarge = AngleRange(start: angle3, end: angle4, scale: L1 / self.C)
+        let startRangeLarge = AngleRange(start: angle3, end: angle4 + CGFloat.pi * 2, scale: L1 / (self.L + CGFloat.pi * 2))
         
         let endRangeTiny = AngleRange(start: angle1, end: angle2, scale: L2 / self.C)
-        let endRangeLarge = AngleRange(start: angle3, end: angle4, scale: L2 / self.C)
+        let endRangeLarge = AngleRange(start: angle3, end: angle4, scale: L2 / self.L)
         
         let path = UIBezierPath()
         path.lineWidth = lineWidth / radius
@@ -150,24 +171,52 @@ private class CDCircledCrossLayer: CALayer {
         path.lineCapStyle = .round
         
         switch (progress, progress) {
-        case (-CGFloat.infinity..<startProgressPhase2, -CGFloat.infinity..<endProgressPhase1):
+        case (-CGFloat.infinity...startProgressPhase1, -CGFloat.infinity..<endProgressPhase1):
             path.move(to: CGPoint(x: A.x + progress * L2 , y: 0))
             path.addLine(to: CGPoint(x: B.x + progress * L1, y: 0))
-            break;
+        case (startProgressPhase1..<startProgressPhase2, -CGFloat.infinity..<endProgressPhase1):
+            path.move(to: CGPoint(x: A.x + progress * L2, y: 0))
+            path.addLine(to: B)
+            path.addArc(withCenter: O, radius: r, startAngle: startRangeTiny.start, endAngle: startRangeTiny.progressed(progress - startProgressPhase1), clockwise: true)
         case (startProgressPhase1..<startProgressPhase2, endProgressPhase1..<endProgressPhase2):
-            break;
+            path.addArc(withCenter: O, radius: r, startAngle: endRangeTiny.progressed(progress - endProgressPhase1), endAngle: startRangeTiny.progressed(progress - startProgressPhase1), clockwise: true)
         case (startProgressPhase2..<CGFloat.infinity, -CGFloat.infinity..<endProgressPhase1):
-            break;
+            path.move(to: CGPoint(x: A.x + progress * L2, y: 0))
+            path.addLine(to: B)
+            path.addArc(withCenter: O, radius: r, startAngle: startRangeTiny.start, endAngle: startRangeTiny.end, clockwise: true)
+            path.addArc(withCenter: .zero, radius: 1, startAngle: startRangeLarge.start, endAngle: startRangeLarge.progressed(progress - startProgressPhase2), clockwise: true)
         case (startProgressPhase2..<CGFloat.infinity, endProgressPhase1..<endProgressPhase2):
+            path.addArc(withCenter: O, radius: r, startAngle: endRangeTiny.progressed(progress - endProgressPhase1), endAngle: endRangeTiny.end, clockwise: true)
+            path.addArc(withCenter: .zero, radius: 1, startAngle: startRangeLarge.start, endAngle: startRangeLarge.progressed(progress - startProgressPhase2), clockwise: true)
             break;
         case (startProgressPhase2..<CGFloat.infinity, endProgressPhase2..<CGFloat.infinity):
-            break;
+            path.addArc(withCenter: .zero, radius: 1, startAngle: endRangeLarge.progressed(progress - endProgressPhase2), endAngle: startRangeLarge.progressed(progress - startProgressPhase2), clockwise: true)
         default:
             break
         }
         
         lineColor.setStroke()
         path.stroke()
+        
+        path.removeAllPoints()
+        
+        path.move(to: A)
+        path.addLine(to: B)
+        
+        let H = kCDCircledCrossRaito * centerLineFactor
+        let reverse = 1 - progress
+        
+        ctx.saveGState()
+        ctx.translateBy(x: 0, y: H * reverse)
+        ctx.rotate(by: CGFloat.pi / 4 * progress)
+        path.stroke()
+        ctx.restoreGState()
+        
+        ctx.saveGState()
+        ctx.translateBy(x: 0, y: -H * reverse)
+        ctx.rotate(by: -CGFloat.pi / 4 * progress)
+        path.stroke()
+        ctx.restoreGState()
     }
     
     //MARK: - Configure
@@ -177,9 +226,33 @@ private class CDCircledCrossLayer: CALayer {
 }
 
 class CDCircledCrossControl: UIControl {
-    var isClosed = false
+    func setClosed(_ closed: Bool, animated: Bool) {
+        if animated {
+            drawLayer.removeAllAnimations()
+            let ani = CASpringAnimation(keyPath: "progress")
+            ani.fromValue = closed ? 0 : 1
+            ani.toValue = closed ? 1 : 0
+            ani.duration = ani.settlingDuration
+            isClosed = closed
+            drawLayer.add(ani, forKey: nil)
+        } else {
+            isClosed = closed
+        }
+    }
     
-    func setClosed(animeted: Bool) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        setClosed(!isClosed, animated: true)
+    }
+    
+    var isClosed = false {
+        didSet {
+            if isClosed {
+                progress = 1
+            } else {
+                progress = 0
+            }
+        }
     }
     
     var progress: CGFloat {
@@ -187,7 +260,13 @@ class CDCircledCrossControl: UIControl {
             return drawLayer.progress
         }
         set {
-            drawLayer.progress = progress
+            drawLayer.progress = newValue
+        }
+    }
+    
+    override var tintColor: UIColor! {
+        didSet {
+            drawLayer.lineColor = tintColor
         }
     }
     
@@ -219,6 +298,7 @@ class CDCircledCrossControl: UIControl {
     private func configure() {
         backgroundColor = .clear
         layer.contentsScale = UIScreen.main.scale
+        drawLayer.lineColor = tintColor
     }
 }
 

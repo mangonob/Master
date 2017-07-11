@@ -21,18 +21,27 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ys9-98-mqg" customClass="CDCircledCrossControl" customModule="Demo" customModuleProvider="target">
-                                <rect key="frame" x="46" y="93" width="240" height="128"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ys9-98-mqg" customClass="CDCircledCrossControl" customModule="Demo" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" red="0.90823972225189209" green="0.92638683319091797" blue="0.9317171573638916" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="tintColor" red="0.99963909387588501" green="1" blue="0.99975615739822388" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.27156969904899597" green="0.68836516141891479" blue="0.26791179180145264" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="Ys9-98-mqg" secondAttribute="trailing" id="1xI-LZ-3fi"/>
+                            <constraint firstItem="Ys9-98-mqg" firstAttribute="top" secondItem="fMV-j1-bgq" secondAttribute="top" id="TVj-7j-ly6"/>
+                            <constraint firstItem="Ys9-98-mqg" firstAttribute="leading" secondItem="fMV-j1-bgq" secondAttribute="leading" id="WqM-e1-2cK"/>
+                            <constraint firstItem="VGE-UF-BKC" firstAttribute="top" secondItem="Ys9-98-mqg" secondAttribute="bottom" id="vm2-AB-Ler"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="circleControl" destination="Ys9-98-mqg" id="b78-HJ-foO"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vBD-Me-OEb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="438" y="-998"/>
+            <point key="canvasLocation" x="-210.40000000000001" y="-1200.4497751124438"/>
         </scene>
     </scenes>
 </document>
