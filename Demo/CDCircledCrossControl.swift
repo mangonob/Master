@@ -11,7 +11,7 @@ import UIKit
 private let kCDCircledCrossRaito: CGFloat = 0.8
 
 private class CDCircledCrossLayer: CALayer {
-    var lineWidth: CGFloat = 3 {
+    var lineWidth: CGFloat = 4 {
         didSet {
             setNeedsDisplay()
         }
@@ -29,7 +29,7 @@ private class CDCircledCrossLayer: CALayer {
         }
     }
     
-    var radius: CGFloat = 20 {
+    var radius: CGFloat = 30 {
         didSet {
             setNeedsDisplay()
         }
@@ -240,10 +240,13 @@ class CDCircledCrossControl: UIControl {
         }
     }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesBegan(touches, with: event)
-        setClosed(!isClosed, animated: true)
-        sendActions(for: .valueChanged)
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesEnded(touches, with: event)
+        guard let location = touches.first?.location(in: self) else { return }
+        if bounds.contains(location) {
+            setClosed(!isClosed, animated: true)
+            sendActions(for: .valueChanged)
+        }
     }
     
     var isClosed = false {
