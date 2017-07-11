@@ -11,6 +11,7 @@
 		4A01AA071ED6B800008F0CBA /* image.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4A01AA061ED6B800008F0CBA /* image.jpg */; };
 		4A01AA091ED6B83F008F0CBA /* images.gif in Resources */ = {isa = PBXBuildFile; fileRef = 4A01AA081ED6B83F008F0CBA /* images.gif */; };
 		4A06A38B1F063CDB0014238C /* TableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4A06A38A1F063CDB0014238C /* TableViewCell.xib */; };
+		4A0A2DF31F14A3E3005C6B8A /* CDCircledCrossControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0A2DF21F14A3E3005C6B8A /* CDCircledCrossControl.swift */; };
 		4A1B3B091EF3906800317614 /* CDQRCodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1B3B081EF3906800317614 /* CDQRCodeController.swift */; };
 		4A1B3B0D1EF3DDBA00317614 /* CDCoveredQRCodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1B3B0C1EF3DDBA00317614 /* CDCoveredQRCodeController.swift */; };
 		4A1FB3A11EE7D86200FABB33 /* CDLShapeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1FB3A01EE7D86200FABB33 /* CDLShapeView.swift */; };
@@ -44,6 +45,7 @@
 		4A01AA061ED6B800008F0CBA /* image.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = image.jpg; sourceTree = "<group>"; };
 		4A01AA081ED6B83F008F0CBA /* images.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = images.gif; sourceTree = "<group>"; };
 		4A06A38A1F063CDB0014238C /* TableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TableViewCell.xib; sourceTree = "<group>"; };
+		4A0A2DF21F14A3E3005C6B8A /* CDCircledCrossControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDCircledCrossControl.swift; sourceTree = "<group>"; };
 		4A1B3B081EF3906800317614 /* CDQRCodeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDQRCodeController.swift; sourceTree = "<group>"; };
 		4A1B3B0C1EF3DDBA00317614 /* CDCoveredQRCodeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDCoveredQRCodeController.swift; sourceTree = "<group>"; };
 		4A1FB3A01EE7D86200FABB33 /* CDLShapeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDLShapeView.swift; sourceTree = "<group>"; };
@@ -130,6 +132,7 @@
 				4A824C831EEF8964002580AA /* CDDebugView.swift */,
 				4AEE54611F0D0C3D0046D9C0 /* AutoGrowUpTextView.swift */,
 				4A61D4921F0E183B00ED3B14 /* CDImagedProgress.swift */,
+				4A0A2DF21F14A3E3005C6B8A /* CDCircledCrossControl.swift */,
 				4A73C5F11F126363005E0C94 /* video.mp4 */,
 				4A355F5A1EFCD0490022B97B /* image1.png */,
 				4A355F5B1EFCD0490022B97B /* image2.png */,
@@ -195,7 +198,7 @@
 				TargetAttributes = {
 					4AF4E7A21E889EC8002A5B15 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = 658Q7J5C89;
+						DevelopmentTeam = 4GM649GA4F;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -309,6 +312,7 @@
 				4A5F6D651EFBDFB6007CBF7C /* View.swift in Sources */,
 				4AF4E7A91E889EC8002A5B15 /* ViewController.swift in Sources */,
 				4ADDA7621ECEF4EA0051A722 /* CDDotLoadingView.swift in Sources */,
+				4A0A2DF31F14A3E3005C6B8A /* CDCircledCrossControl.swift in Sources */,
 				4AF4E7A71E889EC8002A5B15 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -433,7 +437,7 @@
 			baseConfigurationReference = DCDE17DC674AD1B951A2BC29 /* Pods-Demo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 658Q7J5C89;
+				DEVELOPMENT_TEAM = 4GM649GA4F;
 				INFOPLIST_FILE = Demo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mangonob.Demo;
@@ -447,7 +451,7 @@
 			baseConfigurationReference = DF6C25355C0D3979C1574CCB /* Pods-Demo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 658Q7J5C89;
+				DEVELOPMENT_TEAM = 4GM649GA4F;
 				INFOPLIST_FILE = Demo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mangonob.Demo;
