@@ -24,16 +24,10 @@ class AVPlayerView: UIView {
 }
 
 class ViewController: UIViewController {
-    @IBOutlet weak var circleControl: CDCircledCrossControl!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view, typically from a nib.
-    }
-    
-    @IBAction func sliderAction(_ sender: UISlider) {
-        circleControl.progress = CGFloat(sender.value)
     }
 }
 
