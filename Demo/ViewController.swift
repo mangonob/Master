@@ -47,7 +47,7 @@ class ViewController: UIViewController {
         
         instruction.timeRange = allRange
         instruction.layerInstructions = [layerInstruction]
-        
+    
         let mutableVideoComposition = AVMutableVideoComposition()
         mutableVideoComposition.instructions = [instruction]
         
