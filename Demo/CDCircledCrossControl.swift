@@ -243,6 +243,7 @@ class CDCircledCrossControl: UIControl {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         setClosed(!isClosed, animated: true)
+        sendActions(for: .valueChanged)
     }
     
     var isClosed = false {
