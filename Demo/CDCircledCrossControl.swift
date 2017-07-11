@@ -300,6 +300,7 @@ class CDCircledCrossControl: UIControl {
         backgroundColor = .clear
         layer.contentsScale = UIScreen.main.scale
         drawLayer.lineColor = tintColor
+        contentMode = .redraw
     }
 }
 
