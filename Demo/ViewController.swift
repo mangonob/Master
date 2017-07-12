@@ -42,14 +42,18 @@ class ViewController: UIViewController {
         let instruction = AVMutableVideoCompositionInstruction()
         let layerInstruction = AVMutableVideoCompositionLayerInstruction(assetTrack: videoCompositionTrack)
         
-        let endTransform = CGAffineTransform.identity.scaledBy(x: 0.49, y: 0.49)
-        layerInstruction.setTransformRamp(fromStart: CGAffineTransform.identity, toEnd: endTransform, timeRange: allRange)
+        let endTransform = CGAffineTransform.identity.scaledBy(x: 0.49, y: 0.49).translatedBy(x: videoCompositionTrack.naturalSize.width / 2, y: videoCompositionTrack.naturalSize.height / 2)
+        layerInstruction.setTransformRamp(fromStart: CGAffineTransform.identity, toEnd: endTransform,
+                                          timeRange: CMTimeRangeMake(kCMTimeZero, CMTime(seconds: 1, preferredTimescale: 30)))
         
         instruction.timeRange = allRange
         instruction.layerInstructions = [layerInstruction]
     
         let mutableVideoComposition = AVMutableVideoComposition()
         mutableVideoComposition.instructions = [instruction]
+        
+        mutableVideoComposition.renderSize = videoAssetTrack.naturalSize
+        mutableVideoComposition.frameDuration = videoCompositionTrack.minFrameDuration
         
         let exportSession = AVAssetExportSession(asset: mutableComposition, presetName: AVAssetExportPresetHighestQuality)
         exportSession?.videoComposition = mutableVideoComposition
