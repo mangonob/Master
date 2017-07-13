@@ -62,7 +62,37 @@ class CDQRCodeController: UIViewController {
     }
     
     private (set) lazy var output = AVCaptureMetadataOutput()
-    private (set) lazy var session = AVCaptureSession()
+    
+    private var _session: AVCaptureSession!
+    var session: AVCaptureSession {
+        get {
+            if _session == nil {
+                _session = AVCaptureSession()
+                
+                output.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
+                
+                if _session.canAddInput(input) && _session.canAddOutput(output) {
+                    _session.addInput(input)
+                    _session.addOutput(output)
+                } else {
+                    let alert = UIAlertController(title: nil, message: "打开摄像头失败，请到\"设置->隐私->相机\"开启权限", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "确认", style: .cancel, handler: { [weak self] (_) in
+                        self?.navigationController?.popViewController(animated: true)
+                        
+                        if let url = URL(string: UIApplicationOpenSettingsURLString) {
+                            UIApplication.shared.openURL(url)
+                        }
+                    }))
+                    present(alert, animated: true, completion: nil)
+                }
+                
+                output.metadataObjectTypes = output.availableMetadataObjectTypes.filter { ($0 as? String) != AVMetadataObjectTypeFace }
+                output.rectOfInterest = CGRect(x: 0, y: 0, width: 1, height: 1)
+            }
+            return _session
+        }
+    }
+    
     private (set) lazy var previewView = AVCapturePreviewView()
     
     init() {
@@ -85,30 +115,7 @@ class CDQRCodeController: UIViewController {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        view.backgroundColor = UIColor.red
-        
-        DispatchQueue.global().async { [weak self] in
-            guard let this = self else { return }
-            this.output.setMetadataObjectsDelegate(this, queue: DispatchQueue.main)
-            this.session.addInput(this.input)
-            this.session.addOutput(this.output)
-            
-            this.output.metadataObjectTypes = this.output.availableMetadataObjectTypes.filter { ($0 as? String) != AVMetadataObjectTypeFace }
-            this.output.rectOfInterest = CGRect(x: 0, y: 0, width: 1, height: 1)
-            
-            this.previewView.layer.session = this.session
-            
-            this.previewView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-            this.previewView.frame = this.view.bounds
-            DispatchQueue.main.async {
-                this.previewView.alpha = 0
-                this.view.addSubview(this.previewView)
-                UIView.animate(withDuration: this.cameraFadeInDuration, animations: {
-                    this.previewView.alpha = 1
-                })
-            }
-            this.session.startRunning()
-        }
+        view.backgroundColor = UIColor.black
     }
     
     override func didReceiveMemoryWarning() {
@@ -118,6 +125,19 @@ class CDQRCodeController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+
+        previewView.layer.session = session
+        
+        previewView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        previewView.frame = view.bounds
+        view.addSubview(previewView)
+        
+        previewView.alpha = 0
+        UIView.animate(withDuration: cameraFadeInDuration) { [weak self] in
+            self?.previewView.alpha = 1
+        }
+        
         session.startRunning()
     }
     

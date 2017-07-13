@@ -32,6 +32,9 @@ class ViewController: UIViewController {
         let session = AVCaptureSession()
         session.sessionPreset = AVCaptureSessionPresetHigh
     }
+    @IBAction func pushAction(_ sender: Any) {
+        navigationController?.pushViewController(CDCoveredQRCodeController(), animated: true)
+    }
 }
 
 
