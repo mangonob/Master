@@ -11,7 +11,6 @@
         <!--View Controller-->
         <scene sceneID="OVs-Ne-E2x">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="vBD-Me-OEb" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="Icf-TP-tLk" customClass="ViewController" customModule="Demo" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="8wC-0r-w8f"/>
@@ -34,6 +33,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="rUe-6U-PXs"/>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vBD-Me-OEb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="480.80000000000001" y="-1424.4377811094455"/>
         </scene>
