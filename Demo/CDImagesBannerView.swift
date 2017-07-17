@@ -9,7 +9,7 @@
 import UIKit
 
 
-private extension UIView {
+extension UIView {
     class LayoutHint {
         internal weak var view: UIView!
         internal var attribute: NSLayoutAttribute
@@ -66,6 +66,19 @@ private extension UIView {
 }
 
 class CDImagesBannerView: UIView {
+    @IBInspectable
+    var currentImage: UIImage? {
+        didSet {
+            (pageControl as? CDImagePageControl)?.currentImage = currentImage
+        }
+    }
+    
+    @IBInspectable
+    var noCurrentImage: UIImage? {
+        didSet {
+            (pageControl as? CDImagePageControl)?.noCurrentImage = noCurrentImage
+        }
+    }
     var images = [UIImage?]() {
         didSet {
             pageControl.numberOfPages = images.count
@@ -76,6 +89,20 @@ class CDImagesBannerView: UIView {
             }
             
             currentIndex = 0
+        }
+    }
+    
+    private var timer: Timer!
+    var isRunning = false {
+        didSet {
+            if isRunning {
+                timer = Timer(timeInterval: 3, target: self, selector: #selector(self.timerAction(sender:)), userInfo: nil, repeats: true)
+                RunLoop.main.add(timer, forMode: .commonModes)
+                timer.fire()
+            } else {
+                timer.invalidate()
+                timer = nil
+            }
         }
     }
     
@@ -234,7 +261,101 @@ class CDImagesBannerView: UIView {
     
     lazy private (set) var scrollView: UIScrollView = UIScrollView()
     lazy private var imageViews = [UIImageView(), UIImageView(), UIImageView()]
-    lazy private (set) var pageControl: UIPageControl = UIPageControl()
+    lazy private (set) var pageControl: UIPageControl = CDImagePageControl()
+    
+    //MARK: - Action
+    func timerAction(sender: Timer) {
+        isTraced = true
+        nextImage()
+    }
+}
+
+
+
+class CDImagePageControl: UIPageControl {
+    override var intrinsicContentSize: CGSize {
+        return CGSize(width: distance * CGFloat(numberOfPages - 1) + pageIndicatorSize.width,
+                      height: max(60, pageIndicatorSize.height))
+    }
+    
+    init() {
+        super.init(frame: .zero)
+        configure()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        configure()
+    }
+    
+    @IBInspectable
+    var currentImage: UIImage? {
+        didSet {
+            setNeedsDisplay()
+        }
+    }
+    
+    @IBInspectable
+    var noCurrentImage: UIImage? {
+        didSet {
+            setNeedsDisplay()
+        }
+    }
+    
+    @IBInspectable
+    var distance: CGFloat = 20 {
+        didSet {
+            setNeedsDisplay()
+        }
+    }
+    
+    @IBInspectable
+    var pageIndicatorSize = CGSize(width: 8, height: 8) {
+        didSet {
+            setNeedsDisplay()
+        }
+    }
+    
+    override var currentPage: Int {
+        didSet {
+            setNeedsDisplay()
+        }
+    }
+    
+    override var numberOfPages: Int {
+        didSet {
+            setNeedsDisplay()
+        }
+    }
+    
+    //MARK: - Draw
+    override func draw(_ rect: CGRect) {
+        super.draw(rect)
+        
+        guard let context = UIGraphicsGetCurrentContext() else { return }
+        
+        context.saveGState()
+        defer { context.restoreGState() }
+        
+        context.translateBy(x: bounds.midX, y: bounds.midY)
+        context.translateBy(x: -distance * CGFloat(numberOfPages - 1) / 2, y: 0)
+        
+        for i in 0..<numberOfPages {
+            if let image = i == currentPage ? currentImage : noCurrentImage {
+                image.draw(in: CGRect(origin: CGPoint(x: -pageIndicatorSize.width / 2, y: -pageIndicatorSize.height / 2), size: pageIndicatorSize))
+            }
+            context.translateBy(x: distance, y: 0)
+        }
+    }
+    
+    //MARK: - Configure
+    func configure() {
+        pageIndicatorTintColor = .clear
+        currentPageIndicatorTintColor = .clear
+        backgroundColor = .clear
+        
+        setNeedsDisplay()
+    }
 }
 
 
