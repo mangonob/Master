@@ -9,21 +9,30 @@
 import UIKit
 
 @objc protocol TableViewCellDelegate {
-    @objc optional func tableViewCellCommit(tableViewCell: TableViewCell)
-}
-
-class OtherView: UIView {
-    override var intrinsicContentSize: CGSize {
-        return CGSize(width: 40, height: 400)
-    }
 }
 
 class TableViewCell: UITableViewCell {
+    @IBOutlet weak var collectionView: UICollectionView!
+    
     weak var delegate: TableViewCellDelegate?
+    
+    override var intrinsicContentSize: CGSize {
+        return collectionView.contentSize
+    }
 
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        
+        collectionView.addObserver(self, forKeyPath: "contentSize", options: [.initial, .new], context: nil)
+    }
+    
+    deinit {
+        collectionView.removeObserver(self, forKeyPath: "contentSize")
+    }
+    
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        invalidateIntrinsicContentSize()
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

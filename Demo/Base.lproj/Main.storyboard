@@ -11,7 +11,7 @@
         <!--View Controller-->
         <scene sceneID="iIV-1T-uFm">
             <objects>
-                <viewController id="PsF-PE-IfU" sceneMemberID="viewController">
+                <viewController id="PsF-PE-IfU" customClass="ViewController" customModule="Demo" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="4Un-aE-Tfp"/>
                         <viewControllerLayoutGuide type="bottom" id="cPO-wg-8ip"/>
@@ -20,28 +20,46 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <pageControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="doq-n8-94e" customClass="CDImagePageControl" customModule="Demo" customModuleProvider="target">
-                                <rect key="frame" x="42" y="90" width="242" height="37"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="image" keyPath="currentImage" value="轮播点"/>
-                                    <userDefinedRuntimeAttribute type="image" keyPath="noCurrentImage" value="轮播点-拷贝"/>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="distance">
-                                        <real key="value" value="20"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </pageControl>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="G0d-tW-9bu">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="pQB-YP-L7t">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="Cell" id="eQV-KT-eyu">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </view>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="PsF-PE-IfU" id="Mgl-nU-Tq6"/>
+                                    <outlet property="delegate" destination="PsF-PE-IfU" id="0sW-6L-5dt"/>
+                                </connections>
+                            </collectionView>
                         </subviews>
-                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="G0d-tW-9bu" firstAttribute="top" secondItem="7Cw-Ey-rRb" secondAttribute="top" id="1i6-qi-b9E"/>
+                            <constraint firstItem="G0d-tW-9bu" firstAttribute="leading" secondItem="7Cw-Ey-rRb" secondAttribute="leading" id="HH3-n9-k7k"/>
+                            <constraint firstAttribute="trailing" secondItem="G0d-tW-9bu" secondAttribute="trailing" id="UmL-oN-I2B"/>
+                            <constraint firstItem="cPO-wg-8ip" firstAttribute="top" secondItem="G0d-tW-9bu" secondAttribute="bottom" id="zik-1B-Qqq"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="collectionView" destination="G0d-tW-9bu" id="mde-UY-KQ0"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sRc-Th-KsL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1792.8" y="-706.59670164917543"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="轮播点" width="16" height="16"/>
-        <image name="轮播点-拷贝" width="16" height="16"/>
-    </resources>
 </document>

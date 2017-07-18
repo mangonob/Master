@@ -17,19 +17,28 @@
                 <rect key="frame" x="0.0" y="0.0" width="340" height="113"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="62H-c1-uM3" customClass="OtherView" customModule="Demo" customModuleProvider="target">
-                        <rect key="frame" x="4" y="4" width="332" height="104.5"/>
-                        <color key="backgroundColor" red="0.54885083436965942" green="0.59121841192245483" blue="0.83719748258590698" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    </view>
+                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="Mvd-Kb-SSZ">
+                        <rect key="frame" x="0.0" y="0.0" width="340" height="112.5"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="VfC-ck-OEd">
+                            <size key="itemSize" width="50" height="50"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                    </collectionView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="62H-c1-uM3" firstAttribute="leading" secondItem="9tG-6H-QRO" secondAttribute="leading" constant="4" id="ViS-Z3-Kbk"/>
-                    <constraint firstItem="62H-c1-uM3" firstAttribute="top" secondItem="9tG-6H-QRO" secondAttribute="top" constant="4" id="jAA-pR-FHM"/>
-                    <constraint firstAttribute="bottom" secondItem="62H-c1-uM3" secondAttribute="bottom" constant="4" id="jh5-vA-TkJ"/>
-                    <constraint firstAttribute="trailing" secondItem="62H-c1-uM3" secondAttribute="trailing" constant="4" id="yll-7a-lwx"/>
+                    <constraint firstItem="Mvd-Kb-SSZ" firstAttribute="leading" secondItem="9tG-6H-QRO" secondAttribute="leading" id="SmW-JS-2h8"/>
+                    <constraint firstAttribute="bottom" secondItem="Mvd-Kb-SSZ" secondAttribute="bottom" id="TCQ-Xp-f4c"/>
+                    <constraint firstItem="Mvd-Kb-SSZ" firstAttribute="top" secondItem="9tG-6H-QRO" secondAttribute="top" id="bbi-d0-hgP"/>
+                    <constraint firstAttribute="trailing" secondItem="Mvd-Kb-SSZ" secondAttribute="trailing" id="gQm-RB-KTX"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" red="0.90823972230000005" green="0.92638683320000004" blue="0.93171715740000005" alpha="1" colorSpace="calibratedRGB"/>
+            <connections>
+                <outlet property="collectionView" destination="Mvd-Kb-SSZ" id="z5v-zb-pLM"/>
+            </connections>
             <point key="canvasLocation" x="44" y="146.5"/>
         </tableViewCell>
     </objects>
