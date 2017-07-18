@@ -44,12 +44,20 @@
                                     <outlet property="delegate" destination="PsF-PE-IfU" id="0sW-6L-5dt"/>
                                 </connections>
                             </collectionView>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NBx-ad-M9A">
+                                <rect key="frame" x="163" y="616" width="51" height="31"/>
+                                <connections>
+                                    <action selector="sender:" destination="PsF-PE-IfU" eventType="valueChanged" id="wLw-pd-niH"/>
+                                </connections>
+                            </switch>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="G0d-tW-9bu" firstAttribute="top" secondItem="7Cw-Ey-rRb" secondAttribute="top" id="1i6-qi-b9E"/>
                             <constraint firstItem="G0d-tW-9bu" firstAttribute="leading" secondItem="7Cw-Ey-rRb" secondAttribute="leading" id="HH3-n9-k7k"/>
+                            <constraint firstItem="cPO-wg-8ip" firstAttribute="top" secondItem="NBx-ad-M9A" secondAttribute="bottom" constant="20" id="Qdy-fY-0Sg"/>
                             <constraint firstAttribute="trailing" secondItem="G0d-tW-9bu" secondAttribute="trailing" id="UmL-oN-I2B"/>
+                            <constraint firstItem="NBx-ad-M9A" firstAttribute="centerX" secondItem="7Cw-Ey-rRb" secondAttribute="centerX" id="acz-D0-sbt"/>
                             <constraint firstItem="cPO-wg-8ip" firstAttribute="top" secondItem="G0d-tW-9bu" secondAttribute="bottom" id="zik-1B-Qqq"/>
                         </constraints>
                     </view>
@@ -59,7 +67,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sRc-Th-KsL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1792.8" y="-706.59670164917543"/>
+            <point key="canvasLocation" x="1972" y="-813"/>
         </scene>
     </scenes>
 </document>

@@ -24,19 +24,39 @@ class AVPlayerView: UIView {
 }
 
 class ViewController: UIViewController {
-    fileprivate var metrics = [Dim2Metrics](repeating: Dim2Metrics(width: .percentage(1), height: .length(10)), count: 1024)
+    fileprivate var metrics = [Dim2Metrics](repeating: Dim2Metrics(width: .percentage(1), height: .length(5)), count: 1024 * 4)
     
     @IBOutlet weak var collectionView: UICollectionView!
+    
+    lazy var layout1 = Layout1()
+    lazy var layout2 = Layout2()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view, typically from a nib.
-        print()
+        collectionView.setCollectionViewLayout(layout2, animated: true)
+    }
+    
+    private var isBegin = false
+    private var is2 = true
+    
+    @IBAction func sender(_ sender: UISwitch) {
+        collectionView.setCollectionViewLayout(sender.isOn ? layout2 : layout1, animated: true)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
     }
 }
 
 extension ViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        cell.transform = CGAffineTransform.identity.rotated(by: CGFloat(arc4random()) / CGFloat(UInt32.max) * 4 * CGFloat.pi - 2 * CGFloat.pi).scaledBy(x: 0.0001, y: 0.0001)
+        UIView.animate(withDuration: 1, delay: 0, options: [.allowUserInteraction], animations: {
+            cell.transform = CGAffineTransform.identity
+        }, completion: nil)
+    }
 }
 
 struct Dim2Metrics {
@@ -131,20 +151,75 @@ extension ViewController: UICollectionViewDataSource {
     }
 }
 
-
-extension ViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 0
+class Layout1: UICollectionViewFlowLayout {
+    override var minimumLineSpacing: CGFloat {
+        get {
+            return 0
+        }
+        set {
+        }
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 0
+    override var minimumInteritemSpacing: CGFloat {
+        get {
+            return 0
+        }
+        set {
+        }
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return metrics[indexPath.row].calculate(collectionView.bounds.size)
+    override var itemSize: CGSize {
+        get {
+            return CGSize(width: 40, height: 40)
+        }
+        set {
+            super.itemSize = newValue
+        }
     }
 }
+
+
+class Layout2: UICollectionViewFlowLayout {
+    override var minimumLineSpacing: CGFloat {
+        get {
+            return 0
+        }
+        set {
+        }
+    }
+    
+    override var minimumInteritemSpacing: CGFloat {
+        get {
+            return 0
+        }
+        set {
+        }
+    }
+    
+    override var itemSize: CGSize {
+        get {
+            return CGSize(width: 70, height: 70)
+        }
+        set {
+            super.itemSize = newValue
+        }
+    }
+}
+
+
+//extension ViewController: UICollectionViewDelegateFlowLayout {
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+//        return 0
+//    }
+//    
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+//        return 0
+//    }
+//    
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//        return metrics[indexPath.row].calculate(collectionView.bounds.size)
+//    }
+//}
 
 
 
