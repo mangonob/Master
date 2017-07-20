@@ -11,7 +11,7 @@ import UIKit
 
 class CLSliderPageIndicatorAttribute: NSObject {
     var frame: CGRect = .zero
-    var backgroundColor: UIColor = .red
+    var backgroundColor: UIColor = UIColor(colorLiteralRed: 64/255.0, green: 176/255.0, blue: 231/255.0, alpha: 1)
     fileprivate (set) var parentSize: CGSize = .zero
     fileprivate (set) var contentSize: CGSize = .zero
     var alpha: CGFloat = 1
@@ -470,6 +470,9 @@ class CLSliderPageController: UIViewController {
         pageController.delegate = self
         
         indicatorBarView.frame = .zero
+        
+        indicatorBarView.layer.cornerRadius = 2
+        
         contentView.addSubview(indicatorBarView)
         
         topScrollView.autoresizingMask = [.flexibleWidth, .flexibleBottomMargin]
