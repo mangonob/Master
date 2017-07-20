@@ -24,6 +24,7 @@ class AVPlayerView: UIView {
 }
 
 class ViewController: UIViewController {
+    @IBOutlet weak var button: UIButton!
     @IBAction func pushAction(_ sender: Any) {
         let vc = CLSliderPageController()
         vc.dataSource = self
@@ -40,17 +41,17 @@ class ViewController: UIViewController {
 
 extension ViewController: CLSliderPageControllerDataSource {
     func numberOfPages(in controller: CLSliderPageController) -> Int {
-        return 3
+        return 5
     }
     
     func sliderPageController(_ controller: CLSliderPageController, viewControllerAt index: Int) -> UIViewController? {
         let vc = UIViewController()
-        vc.view.backgroundColor = [UIColor.red, UIColor.blue, UIColor.green][index]
+        vc.view.backgroundColor = [UIColor.red, UIColor.blue, UIColor.green, UIColor.cyan, UIColor.purple][index]
         return vc
     }
     
-    func sliderPageController(_ controller: CLSliderPageController, titleForPageAt index: Int, highlight: Bool) -> String? {
-        return ["A", "B", "CCCCCCCC"][index]
+    func sliderPageController(_ controller: CLSliderPageController, titleForPageAt index: Int, highlighted: Bool) -> String? {
+        return ["AAAAAAA", "BBBBBBB", "CCCCCCCC", "DDDDDDDD", "EEEEEEEE"][index]
     }
 }
 

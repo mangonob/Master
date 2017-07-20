@@ -21,9 +21,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fBH-2x-tNl">
-                                <rect key="frame" x="164" y="341" width="46" height="30"/>
+                                <rect key="frame" x="168" y="286" width="38" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
+                                <state key="normal" title="Label"/>
                                 <connections>
                                     <action selector="pushAction:" destination="PsF-PE-IfU" eventType="touchUpInside" id="zUB-vo-alo"/>
                                 </connections>
@@ -32,6 +32,9 @@
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" id="p76-Oc-Chd"/>
+                    <connections>
+                        <outlet property="button" destination="fBH-2x-tNl" id="rlu-Iq-mBJ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sRc-Th-KsL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -71,27 +71,58 @@ class CLSliderPageController: UIViewController {
     private var defaultHighlightedFont = UIFont.boldSystemFont(ofSize: 16)
     private var defaultNormalFont = UIFont.systemFont(ofSize: 16)
     
-    private var defaultHighlightedBackgroundColor = UIColor.white
-    private var defaultNormalBackgroundColor = UIColor.lightGray.withAlphaComponent(0.5)
+    private var defaultHighlightedBackgroundColor = /* UIColor.lightGray.withAlphaComponent(0.5) */ UIColor.clear
+    private var defaultNormalBackgroundColor = UIColor.white
     
-    private lazy var buttons = [UIButton]()
+    private lazy var _buttons = [UIButton]()
+    internal var buttons: [UIButton] {
+        while _buttons.count > number { _buttons.removeLast() }
+        while _buttons.count < number { _buttons.append(
+            {
+                let button = UIButton()
+                contentView.insertSubview(button, at: 0)
+                button.addTarget(self, action: #selector(self.buttonCheckedAction(sender:)), for: .touchUpInside)
+                return button
+            }()
+        ) }
+        
+        assert(_buttons.count == number, "\(Date()) Not correct number of button \(#function) \(#line)")
+        
+        return _buttons
+    }
+    
     
     private var isSetSelectedIndexAnimatedEnable = false
+    private var isShouldChangeViewControllerWhenSelecedIndex = true
+    fileprivate var isLastButtonInteraction = false
     
     var selectedIndex: Int = 0 {
         didSet {
-            if let vc = viewControllers[selectedIndex] {
+            if let vc = viewControllers[selectedIndex], isShouldChangeViewControllerWhenSelecedIndex {
                 pageController.setViewControllers([vc], direction: selectedIndex > oldValue ? .forward : .reverse, animated: isSetSelectedIndexAnimatedEnable, completion: nil)
             }
             
             let attribute = attributes[selectedIndex]
-            UIView.animate(withDuration: isSetSelectedIndexAnimatedEnable ? 0.25 : 0) { [weak self] in
+            UIView.animate(withDuration: isSetSelectedIndexAnimatedEnable ? 0.25 : 0, animations: { [weak self] in
                 self?.indicatorBarView.frame = self?.contentView.convert(attribute.frame, from: self?.buttons[self!.selectedIndex]) ?? .zero
                 self?.indicatorBarView.backgroundColor = attribute.backgroundColor
                 self?.indicatorBarView.alpha = attribute.alpha
                 self?.indicatorBarView.transform = attribute.transform
-            }
+            })
+            
+            let reset = (topScrollView.bounds.width - buttons[selectedIndex].bounds.width) / 2
+            topScrollView.scrollRectToVisible(buttons[selectedIndex].frame.insetBy(dx: -reset, dy: 0), animated: true)
+            
+            updateButtonsStyle()
         }
+    }
+    
+    fileprivate func setSelectIndexWithOutChangeViewCotroller(_ index: Int) {
+        isShouldChangeViewControllerWhenSelecedIndex = false
+        
+        selectedIndex = index
+        
+        isShouldChangeViewControllerWhenSelecedIndex = true
     }
     
     func setSelectedIndex(index: Int, animated: Bool) {
@@ -295,7 +326,7 @@ class CLSliderPageController: UIViewController {
     private var _originalSizes: [CGSize]!
     var originalSizes: [CGSize] {
         if _originalSizes == nil {
-            let buttons = (0..<number).map { _ in UIButton() }
+            updateButtonsStyle()
             
             zip(buttons, normalTitles).forEach { $0.0.setTitle($0.1, for: .normal) }
             let normalSizes = buttons.map { $0.systemLayoutSizeFitting(.zero) }
@@ -377,7 +408,6 @@ class CLSliderPageController: UIViewController {
         _recommendAttributes = nil
         _attributes = nil
         
-        
         _highlightedTextColors = nil
         _normalTextColors = nil
         
@@ -392,19 +422,9 @@ class CLSliderPageController: UIViewController {
         contentView.frame = remainderRect
         topScrollView.contentSize = contentSize
         
-        while buttons.count > number { buttons.removeLast() }
-        while buttons.count < number { buttons.append(
-            {
-                let button = UIButton()
-                contentView.addSubview(button)
-                button.addTarget(self, action: #selector(self.buttonCheckedAction(sender:)), for: .touchUpInside)
-                return button
-            }()
-        ) }
-        
-        assert(buttons.count == number, "\(Date()) Not correct number of button \(#function) \(#line)")
-        
-        zip(buttons, normalTitles).forEach { $0.0.setTitle($0.1, for: .normal) }
+        zip(buttons, normalTitles).forEach {
+            $0.0.setTitle($0.1, for: .normal)
+        }
         
         zip(buttons, fitSizes).forEach {
             $0.0.frame = remainderRect.divided(atDistance: $0.1.width, from: .minXEdge).slice
@@ -443,6 +463,9 @@ class CLSliderPageController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        topScrollView.showsHorizontalScrollIndicator = false
+        topScrollView.bounces = false
+        
         pageController.dataSource = self
         pageController.delegate = self
         
@@ -463,8 +486,50 @@ class CLSliderPageController: UIViewController {
         pageContainer.addSubview(pageController.view)
         addChildViewController(pageController)
         
+        if let queueScrollView = pageController.view.subviews.first as? UIScrollView {
+            queueScrollView.addObserver(self, forKeyPath: "contentOffset", options: [.initial, .new], context: nil)
+        }
+        
         view.backgroundColor = .white
         reloadData()
+    }
+    
+    deinit {
+        if let queueScrollView = pageController.view.subviews.first as? UIScrollView {
+            queueScrollView.removeObserver(self, forKeyPath: "contentOffset")
+        }
+    }
+    
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        guard let scrollView = object as? UIScrollView, let contentOffset = (change?[.newKey] as? NSValue)?.cgPointValue else { return }
+        
+        if scrollView.isTracking {
+            isLastButtonInteraction = false
+        }
+        
+        guard !isLastButtonInteraction else { return }
+        
+        let L = topScrollView.bounds.width
+        var progress = (contentOffset.x - L) / L
+        
+        let currentIndex = selectedIndex
+        let nextIndex = currentIndex + (progress > 0 ? 1 : -1)
+        
+        progress = abs(progress)
+        
+        if nextIndex >= 0 && nextIndex < number {
+            let from = contentView.convert(attributes[currentIndex].frame, from: buttons[currentIndex])
+            let to = contentView.convert(attributes[nextIndex].frame, from: buttons[nextIndex])
+            
+            let current = CGRect(
+                x: (to.origin.x - from.origin.x) * progress + from.origin.x,
+                y: (to.origin.y - from.origin.y) * progress + from.origin.y,
+                width: (to.size.width - from.size.width) * progress + from.size.width,
+                height: (to.size.height - from.size.height) * progress + from.size.height
+                )
+            
+            indicatorBarView.frame = current
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -473,6 +538,7 @@ class CLSliderPageController: UIViewController {
     }
     
     func buttonCheckedAction(sender: UIButton) {
+        isLastButtonInteraction = true
         guard let index = buttons.index(of: sender) else { return }
         
         setSelectedIndex(index: index, animated: true)
@@ -491,6 +557,11 @@ class CLSliderPageController: UIViewController {
 
 
 extension CLSliderPageController: UIPageViewControllerDelegate {
+    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+        if let index = (viewControllers.index{ $0 == pageViewController.viewControllers?.first }) {
+            setSelectIndexWithOutChangeViewCotroller(index)
+        }
+    }
 }
 
 
