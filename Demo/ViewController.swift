@@ -14,31 +14,35 @@ import AssetsLibrary
 
 
 class ViewController: UIViewController {
-    @IBOutlet var switcher: UISwitch!
-    
-    @IBAction func action(sender: UISwitch) {
-        isTorchOn = !isTorchOn
-    }
-    
-    override func motionBegan(_ motion: UIEventSubtype, with event: UIEvent?) {
-        super.motionBegan(motion, with: event)
-        
-        isTorchOn = !isTorchOn
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        guard let device = AVCaptureDevice.devices(withMediaType: AVMediaTypeVideo).first as? AVCaptureDevice else { return }
+        
+        guard let input = try? AVCaptureDeviceInput(device: device) else { return }
+        
+        let session = AVCaptureSession()
+        
+        session.sessionPreset = AVCaptureSessionPresetHigh
+        
+        session.addInput(input)
+        
+        let output = AVCaptureMovieFileOutput()
+        
+        
+        session.addOutput(output)
+        session.startRunning()
+        
+        output.startRecording(toOutputFileURL: URL(string: "file://\(NSHomeDirectory())/Documents/temp.mp4")!, recordingDelegate: self)
+    }
+}
+
+extension ViewController: AVCaptureFileOutputRecordingDelegate {
+    func capture(_ captureOutput: AVCaptureFileOutput!, didFinishRecordingToOutputFileAt outputFileURL: URL!, fromConnections connections: [Any]!, error: Error!) {
+        
     }
     
-    var isTorchOn: Bool = false {
-        didSet {
-            if let device = AVCaptureDevice.devices(withMediaType: AVMediaTypeVideo).first as? AVCaptureDevice {
-                try? device.lockForConfiguration()
-                device.torchMode = isTorchOn ? .on : .off
-                device.unlockForConfiguration()
-                
-                switcher.setOn(isTorchOn, animated: true)
-            }
-        }
+    func capture(_ captureOutput: AVCaptureFileOutput!, didStartRecordingToOutputFileAt fileURL: URL!, fromConnections connections: [Any]!) {
+        print("Start")
     }
 }
