@@ -37,7 +37,7 @@ class ViewController: UIViewController {
                                                            nil)!
         
         for i in 0..<count {
-            CGImageDestinationAddImageFromSource(destination, imageSource, i, nil)
+            CGImageDestinationAddImageFromSource(destination, imageSource, count - 1 - i, nil)
         }
         
         CGImageDestinationFinalize(destination)
