@@ -16,7 +16,7 @@ import AssetsLibrary
 class ViewController: UIViewController {
     @IBOutlet weak var imageView: UIImageView!
     
-    lazy var imageSource = CGImageSourceCreateWithURL(Bundle.main.url(forResource: "images", withExtension: "gif")! as CFURL,
+    lazy var imageSource = CGImageSourceCreateWithURL(Bundle.main.url(forResource: "clock", withExtension: "png")! as CFURL,
                                    [
                                     kCGImageSourceShouldCache as String: true,
                                     kCGImageSourceShouldAllowFloat as String: true,
@@ -29,15 +29,15 @@ class ViewController: UIViewController {
         
         let count = CGImageSourceGetCount(imageSource)
         
-        let path = "\(NSHomeDirectory())/Documents/temp.gif"
+        let path = "\(NSHomeDirectory())/Documents/temp.png"
         print(path)
         let destination = CGImageDestinationCreateWithURL(URL(fileURLWithPath: path) as CFURL,
-                                                           "com.compuserve.gif" as CFString,
+                                                           "public.png" as CFString,
                                                            count,
                                                            nil)!
         
         for i in 0..<count {
-            CGImageDestinationAddImageFromSource(destination, imageSource, count - 1 - i, nil)
+            CGImageDestinationAddImageFromSource(destination, imageSource, i, nil)
         }
         
         CGImageDestinationFinalize(destination)
