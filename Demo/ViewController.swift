@@ -27,28 +27,19 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        timer = Timer(timeInterval: 0.1,
-                      target: self,
-                      selector: #selector(self.timerAction(sender:)),
-                      userInfo: nil, repeats: true)
-        
-        timer.fire()
-        RunLoop.main.add(timer, forMode: .commonModes)
-    }
-    
-    var currentIndex = 0
-    
-    func timerAction(sender: Timer) {
         let count = CGImageSourceGetCount(imageSource)
         
-        guard let cgimage = CGImageSourceCreateImageAtIndex(imageSource, currentIndex, nil) else {
-            timer.invalidate()
-            timer = nil
-            return
+        let path = "\(NSHomeDirectory())/Documents/temp.gif"
+        print(path)
+        let destination = CGImageDestinationCreateWithURL(URL(fileURLWithPath: path) as CFURL,
+                                                           "com.compuserve.gif" as CFString,
+                                                           count,
+                                                           nil)!
+        
+        for i in 0..<count {
+            CGImageDestinationAddImageFromSource(destination, imageSource, i, nil)
         }
         
-    currentIndex = (currentIndex + 1) % count
-        
-        imageView.image = UIImage(cgImage: cgimage)
+        CGImageDestinationFinalize(destination)
     }
 }
