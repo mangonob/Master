@@ -19,9 +19,24 @@
                     <view key="view" contentMode="scaleToFill" id="7Cw-Ey-rRb">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="fnX-Zh-egq">
+                                <rect key="frame" x="163" y="318" width="51" height="31"/>
+                                <connections>
+                                    <action selector="actionWithSender:" destination="PsF-PE-IfU" eventType="valueChanged" id="OTc-UC-EJv"/>
+                                </connections>
+                            </switch>
+                        </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="fnX-Zh-egq" firstAttribute="centerY" secondItem="7Cw-Ey-rRb" secondAttribute="centerY" id="SgV-S5-tOr"/>
+                            <constraint firstItem="fnX-Zh-egq" firstAttribute="centerX" secondItem="7Cw-Ey-rRb" secondAttribute="centerX" id="t1I-sx-CE4"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="p76-Oc-Chd"/>
+                    <connections>
+                        <outlet property="switcher" destination="fnX-Zh-egq" id="a0s-Z2-QKe"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sRc-Th-KsL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
