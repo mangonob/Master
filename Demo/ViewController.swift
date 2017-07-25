@@ -14,31 +14,41 @@ import AssetsLibrary
 
 
 class ViewController: UIViewController {
-    @IBOutlet var switcher: UISwitch!
+    @IBOutlet weak var imageView: UIImageView!
     
-    @IBAction func action(sender: UISwitch) {
-        isTorchOn = !isTorchOn
-    }
+    lazy var imageSource = CGImageSourceCreateWithURL(Bundle.main.url(forResource: "images", withExtension: "gif")! as CFURL,
+                                   [
+                                    kCGImageSourceShouldCache as String: true,
+                                    kCGImageSourceShouldAllowFloat as String: true,
+                                    ] as CFDictionary)!
     
-    override func motionBegan(_ motion: UIEventSubtype, with event: UIEvent?) {
-        super.motionBegan(motion, with: event)
-        
-        isTorchOn = !isTorchOn
-    }
+    var timer: Timer!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        timer = Timer(timeInterval: 0.1,
+                      target: self,
+                      selector: #selector(self.timerAction(sender:)),
+                      userInfo: nil, repeats: true)
+        
+        timer.fire()
+        RunLoop.main.add(timer, forMode: .commonModes)
     }
     
-    var isTorchOn: Bool = false {
-        didSet {
-            if let device = AVCaptureDevice.devices(withMediaType: AVMediaTypeVideo).first as? AVCaptureDevice {
-                try? device.lockForConfiguration()
-                device.torchMode = isTorchOn ? .on : .off
-                device.unlockForConfiguration()
-                
-                switcher.setOn(isTorchOn, animated: true)
-            }
+    var currentIndex = 0
+    
+    func timerAction(sender: Timer) {
+        let count = CGImageSourceGetCount(imageSource)
+        
+        guard let cgimage = CGImageSourceCreateImageAtIndex(imageSource, currentIndex, nil) else {
+            timer.invalidate()
+            timer = nil
+            return
         }
+        
+    currentIndex = (currentIndex + 1) % count
+        
+        imageView.image = UIImage(cgImage: cgimage)
     }
 }
