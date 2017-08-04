@@ -7,39 +7,50 @@
 //
 
 import UIKit
-import ImageIO
-import MediaPlayer
-import AVKit
-import AssetsLibrary
+import RxSwift
+import RxCocoa
 
+struct Speaker: CustomStringConvertible {
+    let name: String
+    let twitterHandle: String
+    
+    var description: String {
+        return "\(name) \(twitterHandle)"
+    }
+}
+
+
+struct SpeakerListViewModel {
+    let data = Observable.just([
+        Speaker(name: "Ben Sandofsky", twitterHandle: "@sandofsky"),
+        Speaker(name: "Carla White", twitterHandle: "@carlawhite"),
+        Speaker(name: "Jaimee Newberry", twitterHandle: "@jaimeejaimee"),
+        Speaker(name: "Natasha Murashev", twitterHandle: "@natashatherobot"),
+        Speaker(name: "Robi Ganguly", twitterHandle: "@rganguly"),
+        Speaker(name: "Virginia Roberts",  twitterHandle: "@askvirginia"),
+        Speaker(name: "Scott Gardner", twitterHandle: "@scotteg"),
+        ])
+}
 
 class ViewController: UIViewController {
-    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var tableView: UITableView!
     
-    lazy var imageSource = CGImageSourceCreateWithURL(Bundle.main.url(forResource: "clock", withExtension: "png")! as CFURL,
-                                   [
-                                    kCGImageSourceShouldCache as String: true,
-                                    kCGImageSourceShouldAllowFloat as String: true,
-                                    ] as CFDictionary)!
-    
-    var timer: Timer!
+    lazy var sepakerViewModel = SpeakerListViewModel()
+    lazy var disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let count = CGImageSourceGetCount(imageSource)
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        sepakerViewModel.data.bind(to: tableView.rx.items(cellIdentifier: "Cell")) { (index, speak, cell) in
+            cell.textLabel?.text = speak.name
+            cell.detailTextLabel?.text = speak.twitterHandle
+        }.addDisposableTo(disposeBag)
         
-        let path = "\(NSHomeDirectory())/Documents/temp.png"
-        print(path)
-        let destination = CGImageDestinationCreateWithURL(URL(fileURLWithPath: path) as CFURL,
-                                                           "public.png" as CFString,
-                                                           count,
-                                                           nil)!
-        
-        for i in 0..<count {
-            CGImageDestinationAddImageFromSource(destination, imageSource, i, nil)
-        }
-        
-        CGImageDestinationFinalize(destination)
+        tableView.rx.modelSelected(Speaker.self)
+        .subscribe(onNext: { (speaker) in
+            print(speaker)
+        })
+        .addDisposableTo(disposeBag)
     }
 }

@@ -9,5 +9,7 @@ target 'Demo' do
 	pod 'Alamofire', '~> 4.0'
 	pod 'SwiftyJSON'
 	pod 'Mantle', '~> 2.1.0'
+	pod 'RxSwift', '~> 3.0'
+	pod 'RxCocoa', '~> 3.0'
 	pod 'ChameleonFramework/Swift', :git => 'https://github.com/ViccAlexander/Chameleon.git'
 end
