@@ -25,6 +25,7 @@
 		4A67F5F81F274DA100B22B6F /* clock.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A67F5F71F274DA100B22B6F /* clock.png */; };
 		4A73C5F21F126363005E0C94 /* video.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 4A73C5F11F126363005E0C94 /* video.mp4 */; };
 		4A824C841EEF8964002580AA /* CDDebugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A824C831EEF8964002580AA /* CDDebugView.swift */; };
+		4AA6AA151F38058100640653 /* UIAlertView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA6AA141F38058100640653 /* UIAlertView+.swift */; };
 		4AB8F4061EF7CCD900B36821 /* CDGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB8F4051EF7CCD900B36821 /* CDGradientView.swift */; };
 		4AB8F40E1EF7DEC700B36821 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB8F40D1EF7DEC700B36821 /* TableViewController.swift */; };
 		4AB8F4101EF7DED600B36821 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB8F40F1EF7DED600B36821 /* TableViewCell.swift */; };
@@ -61,6 +62,7 @@
 		4A67F5F71F274DA100B22B6F /* clock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = clock.png; sourceTree = "<group>"; };
 		4A73C5F11F126363005E0C94 /* video.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = video.mp4; sourceTree = "<group>"; };
 		4A824C831EEF8964002580AA /* CDDebugView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDDebugView.swift; sourceTree = "<group>"; };
+		4AA6AA141F38058100640653 /* UIAlertView+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIAlertView+.swift"; sourceTree = "<group>"; };
 		4AB8F4051EF7CCD900B36821 /* CDGradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDGradientView.swift; sourceTree = "<group>"; };
 		4AB8F40D1EF7DEC700B36821 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		4AB8F40F1EF7DED600B36821 /* TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
@@ -137,6 +139,7 @@
 				4AEE54611F0D0C3D0046D9C0 /* AutoGrowUpTextView.swift */,
 				4A61D4921F0E183B00ED3B14 /* CDImagedProgress.swift */,
 				4A0A2DF21F14A3E3005C6B8A /* CDCircledCrossControl.swift */,
+				4AA6AA141F38058100640653 /* UIAlertView+.swift */,
 				4A3CE8E91F1F858F0024DCBA /* CLSliderPageController.swift */,
 				4A73C5F11F126363005E0C94 /* video.mp4 */,
 				4A355F5A1EFCD0490022B97B /* image1.png */,
@@ -302,6 +305,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4AFCB8FB1EEFDE470052AC3C /* CDWindow.swift in Sources */,
+				4AA6AA151F38058100640653 /* UIAlertView+.swift in Sources */,
 				4A1B3B091EF3906800317614 /* CDQRCodeController.swift in Sources */,
 				4A1FB3A11EE7D86200FABB33 /* CDLShapeView.swift in Sources */,
 				4A355F591EFCAB120022B97B /* CDImagesBannerView.swift in Sources */,

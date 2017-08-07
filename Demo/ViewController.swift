@@ -19,7 +19,6 @@ struct Speaker: CustomStringConvertible {
     }
 }
 
-
 struct SpeakerListViewModel {
     let data = Observable.just([
         Speaker(name: "Ben Sandofsky", twitterHandle: "@sandofsky"),
@@ -45,12 +44,12 @@ class ViewController: UIViewController {
         sepakerViewModel.data.bind(to: tableView.rx.items(cellIdentifier: "Cell")) { (index, speak, cell) in
             cell.textLabel?.text = speak.name
             cell.detailTextLabel?.text = speak.twitterHandle
-        }.addDisposableTo(disposeBag)
+            }.addDisposableTo(disposeBag)
         
         tableView.rx.modelSelected(Speaker.self)
-        .subscribe(onNext: { (speaker) in
-            print(speaker)
-        })
-        .addDisposableTo(disposeBag)
+            .subscribe(onNext: { (speaker) in
+                print(speaker)
+            })
+            .addDisposableTo(disposeBag)
     }
 }
