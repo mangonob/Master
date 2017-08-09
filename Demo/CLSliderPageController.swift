@@ -11,7 +11,7 @@ import UIKit
 
 class CLSliderPageIndicatorAttribute: NSObject {
     var frame: CGRect = .zero
-    var backgroundColor: UIColor = UIColor(colorLiteralRed: 64/255.0, green: 176/255.0, blue: 231/255.0, alpha: 1)
+    var backgroundColor: UIColor?
     fileprivate (set) var parentSize: CGSize = .zero
     fileprivate (set) var contentSize: CGSize = .zero
     var alpha: CGFloat = 1
@@ -55,18 +55,29 @@ class CLSliderPageIndicatorAttribute: NSObject {
 }
 
 class CLSliderPageController: UIViewController {
+    private let defaultIndicatorBarHeight: CGFloat = 4
+    
     private (set) lazy var topScrollView = UIScrollView()
     fileprivate lazy var pageContainer = UIView()
     private (set) lazy var pageController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
-    private lazy var indicatorBarView = UIView()
+    private (set) lazy var indicatorBarView = UIView()
     
     weak var delegate: CLSliderPageControllerDelegate?
     weak var dataSource: CLSliderPageControllerDataSource?
     
     private (set) var defaultTopHeight: CGFloat = 40
     
-    private var defaultHighlightedTextColor = UIColor.black
-    private var defaultNormalTextColor = UIColor.darkGray
+    var indicatorBarColor: UIColor? {
+        didSet {
+            if let color = indicatorBarColor {
+                indicatorBarView.backgroundColor = color
+            }
+        }
+    }
+    
+    private var defaultIndicatorBarColor = UIColor(colorLiteralRed: 64/255.0, green: 176/255.0, blue: 231/255.0, alpha: 1)
+    private var defaultHighlightedTextColor = UIColor(colorLiteralRed: 64/255.0, green: 176/255.0, blue: 231/255.0, alpha: 1)
+    private var defaultNormalTextColor = UIColor.lightGray
     
     private var defaultHighlightedFont = UIFont.boldSystemFont(ofSize: 16)
     private var defaultNormalFont = UIFont.systemFont(ofSize: 16)
@@ -84,7 +95,7 @@ class CLSliderPageController: UIViewController {
                 button.addTarget(self, action: #selector(self.buttonCheckedAction(sender:)), for: .touchUpInside)
                 return button
             }()
-        ) }
+            ) }
         
         assert(_buttons.count == number, "\(Date()) Not correct number of button \(#function) \(#line)")
         
@@ -105,7 +116,7 @@ class CLSliderPageController: UIViewController {
             let attribute = attributes[selectedIndex]
             UIView.animate(withDuration: isSetSelectedIndexAnimatedEnable ? 0.25 : 0, animations: { [weak self] in
                 self?.indicatorBarView.frame = self?.contentView.convert(attribute.frame, from: self?.buttons[self!.selectedIndex]) ?? .zero
-                self?.indicatorBarView.backgroundColor = attribute.backgroundColor
+                self?.indicatorBarView.backgroundColor = attribute.backgroundColor ?? self?.indicatorBarColor ?? self?.defaultIndicatorBarColor
                 self?.indicatorBarView.alpha = attribute.alpha
                 self?.indicatorBarView.transform = attribute.transform
             })
@@ -156,7 +167,7 @@ class CLSliderPageController: UIViewController {
     private var _normalTextColors: [UIColor]!
     internal var normalTextColors: [UIColor] {
         if _normalTextColors == nil {
-            _normalTextColors = [UIColor](repeating: defaultNormalTextColor, count: number)
+            _normalTextColors = [UIColor](repeating: normalTextColor ?? defaultNormalTextColor, count: number)
             
             for i in 0..<number {
                 if let color = dataSource?.sliderPageController?(self, textColorOfButtonAt: i, highlighted: false) {
@@ -171,7 +182,7 @@ class CLSliderPageController: UIViewController {
     private var _highlightedTextColors: [UIColor]!
     internal var highlightedTextColors: [UIColor] {
         if _highlightedTextColors == nil {
-            _highlightedTextColors = [UIColor](repeating: defaultHighlightedTextColor, count: number)
+            _highlightedTextColors = [UIColor](repeating: highlightedTextColor ?? defaultHighlightedTextColor, count: number)
             
             for i in 0..<number {
                 if let color = dataSource?.sliderPageController?(self, textColorOfButtonAt: i, highlighted: true) {
@@ -186,7 +197,7 @@ class CLSliderPageController: UIViewController {
     private var _normalBackgroundColors: [UIColor]!
     internal var normalBackgroundColors: [UIColor] {
         if _normalBackgroundColors == nil {
-            _normalBackgroundColors = [UIColor](repeating: defaultNormalBackgroundColor, count: number)
+            _normalBackgroundColors = [UIColor](repeating: normalBackgroundColor ?? defaultNormalBackgroundColor, count: number)
             
             for i in 0..<number {
                 if let color = dataSource?.sliderPageController?(self, backgroundColorOfButtonAt: i, highlighted: false) {
@@ -201,7 +212,7 @@ class CLSliderPageController: UIViewController {
     private var _highlightedBackgroundColors: [UIColor]!
     internal var highlightedBackgroundColors: [UIColor] {
         if _highlightedBackgroundColors == nil {
-            _highlightedBackgroundColors = [UIColor](repeating: defaultHighlightedBackgroundColor, count: number)
+            _highlightedBackgroundColors = [UIColor](repeating: highlightedBackgroundColor ?? defaultHighlightedBackgroundColor, count: number)
             
             for i in 0..<number {
                 if let color = dataSource?.sliderPageController?(self, backgroundColorOfButtonAt: i, highlighted: true) {
@@ -216,7 +227,7 @@ class CLSliderPageController: UIViewController {
     private var _normalFonts: [UIFont]!
     internal var normalFonts: [UIFont] {
         if _normalFonts == nil {
-            _normalFonts = [UIFont](repeating: defaultNormalFont, count: number)
+            _normalFonts = [UIFont](repeating: normalFont ?? defaultNormalFont, count: number)
             
             for i in 0..<number {
                 if let font = dataSource?.sliderPageController?(self, fontOfButtonAt: i, highlighted: false) {
@@ -231,7 +242,7 @@ class CLSliderPageController: UIViewController {
     private var _highlightedFonts: [UIFont]!
     internal var highlightedFonts: [UIFont] {
         if _highlightedFonts == nil {
-            _highlightedFonts = [UIFont](repeating: defaultHighlightedFont, count: number)
+            _highlightedFonts = [UIFont](repeating: highlightedFont ?? defaultHighlightedFont, count: number)
             
             for i in 0..<number {
                 if let font = dataSource?.sliderPageController?(self, fontOfButtonAt: i, highlighted: true) {
@@ -341,24 +352,28 @@ class CLSliderPageController: UIViewController {
         return _originalSizes
     }
     
-    private var _fitSizes: [CGSize]!
     var fitSizes: [CGSize] {
-        if _fitSizes == nil {
-            _fitSizes = originalSizes
-            for i in 0..<number {
-                var originalSize = _fitSizes[i]
-                if let size = dataSource?.sliderPageController?(self, sizeOfButtonAt: i, withContentSize: originalSize) {
-                    originalSize = size
-                } else {
-                    originalSize.width += 32
-                    originalSize.height += 16
-                }
-                _fitSizes[i] = originalSize
+        var _fitSizes = originalSizes
+        
+        for i in 0..<number {
+            var originalSize = _fitSizes[i]
+            if let size = dataSource?.sliderPageController?(self, sizeOfButtonAt: i, withContentSize: originalSize) {
+                originalSize = size
+            } else {
+                originalSize.width += 32
+                originalSize.height += 16
             }
+            _fitSizes[i] = originalSize
         }
         
         if let maxHeight = _fitSizes.map({ $0.height }).max() {
             _fitSizes = _fitSizes.map { CGSize(width: $0.width, height: max(maxHeight, defaultTopHeight)) }
+        }
+        
+        let totalWidth = _fitSizes.reduce(0) { $0.0 + $0.1.width }
+        
+        if totalWidth < view.bounds.width && totalWidth > 0 {
+            _fitSizes = _fitSizes.map { CGSize(width: $0.width * (view.bounds.width / totalWidth), height: $0.height) }
         }
         
         return _fitSizes
@@ -375,7 +390,7 @@ class CLSliderPageController: UIViewController {
                 let margin = max((fitSize.width - originalSize.width) / 2, 0)
                 
                 attribute.frame = CGRect(origin: .zero, size: fitSize)
-                    .divided(atDistance: 4, from: .maxYEdge).slice
+                    .divided(atDistance: defaultIndicatorBarHeight, from: .maxYEdge).slice
                     .divided(atDistance: margin, from: .minXEdge).remainder
                     .divided(atDistance: margin, from: .maxXEdge).remainder
             }
@@ -404,7 +419,6 @@ class CLSliderPageController: UIViewController {
         _normalTitles = nil
         _highlightTitles = nil
         _originalSizes = nil
-        _fitSizes = nil
         _recommendAttributes = nil
         _attributes = nil
         
@@ -417,7 +431,7 @@ class CLSliderPageController: UIViewController {
         _highlightedFonts = nil
         _normalFonts = nil
         
-        let contentSize = CGSize(width: fitSizes.map{ $0.width }.reduce(0) { CGFloat($0.0) + $0.1 }, height: fitSizes.first?.height ?? 0)
+        let contentSize = CGSize(width: fitSizes.reduce(0) { $0.0 + $0.1.width }, height: fitSizes.first?.height ?? 0)
         var remainderRect = CGRect(origin: .zero, size: contentSize)
         contentView.frame = remainderRect
         topScrollView.contentSize = contentSize
@@ -461,7 +475,7 @@ class CLSliderPageController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
         topScrollView.showsHorizontalScrollIndicator = false
         topScrollView.bounces = false
@@ -471,7 +485,7 @@ class CLSliderPageController: UIViewController {
         
         indicatorBarView.frame = .zero
         
-        indicatorBarView.layer.cornerRadius = 2
+        indicatorBarView.layer.cornerRadius = defaultIndicatorBarHeight / 2
         
         contentView.addSubview(indicatorBarView)
         
@@ -491,6 +505,7 @@ class CLSliderPageController: UIViewController {
         
         if let queueScrollView = pageController.view.subviews.first as? UIScrollView {
             queueScrollView.addObserver(self, forKeyPath: "contentOffset", options: [.initial, .new], context: nil)
+            queueScrollView.delegate = self
         }
         
         view.backgroundColor = .white
@@ -504,11 +519,7 @@ class CLSliderPageController: UIViewController {
     }
     
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        guard let scrollView = object as? UIScrollView, let contentOffset = (change?[.newKey] as? NSValue)?.cgPointValue else { return }
-        
-        if scrollView.isTracking {
-            isLastButtonInteraction = false
-        }
+        guard let _ = object as? UIScrollView, let contentOffset = (change?[.newKey] as? NSValue)?.cgPointValue, keyPath == "contentOffset" else { return }
         
         guard !isLastButtonInteraction else { return }
         
@@ -529,12 +540,12 @@ class CLSliderPageController: UIViewController {
                 y: (to.origin.y - from.origin.y) * progress + from.origin.y,
                 width: (to.size.width - from.size.width) * progress + from.size.width,
                 height: (to.size.height - from.size.height) * progress + from.size.height
-                )
+            )
             
             indicatorBarView.frame = current
         }
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -546,18 +557,38 @@ class CLSliderPageController: UIViewController {
         
         setSelectedIndex(index: index, animated: true)
     }
-
+    
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
 }
 
+
+extension CLSliderPageController: UIScrollViewDelegate {
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        contentView.isUserInteractionEnabled = false
+    }
+    
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        isLastButtonInteraction = false
+    }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if !decelerate {
+            contentView.isUserInteractionEnabled = true
+        }
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        contentView.isUserInteractionEnabled = true
+    }
+}
 
 extension CLSliderPageController: UIPageViewControllerDelegate {
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {

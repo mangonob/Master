@@ -7,49 +7,34 @@
 //
 
 import UIKit
-import RxSwift
-import RxCocoa
 
-struct Speaker: CustomStringConvertible {
-    let name: String
-    let twitterHandle: String
+
+class ViewController: UIViewController {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
     
-    var description: String {
-        return "\(name) \(twitterHandle)"
+    @IBAction func pushToSlider() {
+        let vc = CLSliderPageController()
+        vc.delegate = self
+        vc.dataSource = self
+        navigationController?.pushViewController(vc, animated: true)
+        vc.titles = ["A", "AA", "A", "AA", "A"]
     }
 }
 
-struct SpeakerListViewModel {
-    let data = Observable.just([
-        Speaker(name: "Ben Sandofsky", twitterHandle: "@sandofsky"),
-        Speaker(name: "Carla White", twitterHandle: "@carlawhite"),
-        Speaker(name: "Jaimee Newberry", twitterHandle: "@jaimeejaimee"),
-        Speaker(name: "Natasha Murashev", twitterHandle: "@natashatherobot"),
-        Speaker(name: "Robi Ganguly", twitterHandle: "@rganguly"),
-        Speaker(name: "Virginia Roberts",  twitterHandle: "@askvirginia"),
-        Speaker(name: "Scott Gardner", twitterHandle: "@scotteg"),
-        ])
+
+extension ViewController: CLSliderPageControllerDelegate {
 }
 
-class ViewController: UIViewController {
-    @IBOutlet weak var tableView: UITableView!
+extension ViewController: CLSliderPageControllerDataSource {
+    func numberOfPages(in controller: CLSliderPageController) -> Int {
+        return 5
+    }
     
-    lazy var sepakerViewModel = SpeakerListViewModel()
-    lazy var disposeBag = DisposeBag()
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
-        sepakerViewModel.data.bind(to: tableView.rx.items(cellIdentifier: "Cell")) { (index, speak, cell) in
-            cell.textLabel?.text = speak.name
-            cell.detailTextLabel?.text = speak.twitterHandle
-            }.addDisposableTo(disposeBag)
-        
-        tableView.rx.modelSelected(Speaker.self)
-            .subscribe(onNext: { (speaker) in
-                print(speaker)
-            })
-            .addDisposableTo(disposeBag)
+    func sliderPageController(_ controller: CLSliderPageController, viewControllerAt index: Int) -> UIViewController? {
+        let vc = UIViewController()
+        vc.view.backgroundColor = UIColor.randomFlat
+        return vc
     }
 }
