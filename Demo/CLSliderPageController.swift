@@ -109,7 +109,9 @@ class CLSliderPageController: UIViewController {
     
     var selectedIndex: Int = 0 {
         didSet {
-            if let vc = viewControllers[selectedIndex], isShouldChangeViewControllerWhenSelecedIndex {
+            guard selectedIndex >= 0 && selectedIndex < viewControllers.count else { return }
+            
+            if isShouldChangeViewControllerWhenSelecedIndex, let vc = viewControllers[selectedIndex]{
                 pageController.setViewControllers([vc], direction: selectedIndex > oldValue ? .forward : .reverse, animated: isSetSelectedIndexAnimatedEnable, completion: nil)
             }
             
