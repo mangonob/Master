@@ -10,31 +10,21 @@ import UIKit
 
 
 class ViewController: UIViewController {
+    @IBOutlet weak var imageView: UIImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-    }
-    
-    @IBAction func pushToSlider() {
-        let vc = CLSliderPageController()
-        vc.delegate = self
-        vc.dataSource = self
-        navigationController?.pushViewController(vc, animated: true)
-        vc.titles = ["A", "AA", "A", "AA", "A"]
-    }
-}
-
-
-extension ViewController: CLSliderPageControllerDelegate {
-}
-
-extension ViewController: CLSliderPageControllerDataSource {
-    func numberOfPages(in controller: CLSliderPageController) -> Int {
-        return 5
-    }
-    
-    func sliderPageController(_ controller: CLSliderPageController, viewControllerAt index: Int) -> UIViewController? {
-        let vc = UIViewController()
-        vc.view.backgroundColor = UIColor.randomFlat
-        return vc
+        
+        let context = CIContext()
+        
+        let filter = CIFilter(name: "CISepiaTone")!                         // 2
+        filter.setValue(0.8, forKey: kCIInputIntensityKey)
+        let image = CIImage(contentsOf: Bundle.main.url(forResource: "image", withExtension: "jpg")!)
+        filter.setValue(image, forKey: kCIInputImageKey)
+        let result = filter.outputImage!                                    // 4
+        
+        if let cgImage = context.createCGImage(result, from: result.extent) {
+            imageView.image = UIImage(cgImage: cgImage)
+        }
     }
 }
