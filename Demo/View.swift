@@ -9,24 +9,15 @@
 import UIKit
 
 class View: UIView {
-    override var frame: CGRect {
-        get {
-            return CGRect(x: 0, y: 0, width: 100, height: 100)
-        }
-        set {
-            super.frame = CGRect(x: 0, y: 0, width: 100, height: 100) 
-        }
-    }
-    
-    override var intrinsicContentSize: CGSize {
-        return CGSize(width: 100, height: 100)
-    }
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
     override func draw(_ rect: CGRect) {
-        // Drawing code
+        super.draw(rect)
+        
+        guard let context = UIGraphicsGetCurrentContext() else { return }
+        context.translateBy(x: 0, y: bounds.height)
+        context.scaleBy(x: 1, y: -1)
+        
+        let cicontext = CIContext(cgContext: context, options: nil)
+        let image = CIImage(contentsOf: Bundle.main.url(forResource: "image", withExtension: "jpg")!)!
+        cicontext.draw(image, in: bounds, from: image.extent)
     }
-    */
-
 }
