@@ -16,16 +16,30 @@
                         <viewControllerLayoutGuide type="top" id="4Un-aE-Tfp"/>
                         <viewControllerLayoutGuide type="bottom" id="cPO-wg-8ip"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="7Cw-Ey-rRb" customClass="View" customModule="Demo" customModuleProvider="target">
+                    <view key="view" clearsContextBeforeDrawing="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" id="7Cw-Ey-rRb">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nGB-ek-bhU">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="nGB-ek-bhU" secondAttribute="trailing" id="a2s-Be-121"/>
+                            <constraint firstItem="nGB-ek-bhU" firstAttribute="top" secondItem="7Cw-Ey-rRb" secondAttribute="top" id="aav-Lq-fU0"/>
+                            <constraint firstItem="nGB-ek-bhU" firstAttribute="leading" secondItem="7Cw-Ey-rRb" secondAttribute="leading" id="cTK-QE-tRo"/>
+                            <constraint firstItem="cPO-wg-8ip" firstAttribute="top" secondItem="nGB-ek-bhU" secondAttribute="bottom" id="tc3-wZ-UG3"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="p76-Oc-Chd"/>
+                    <connections>
+                        <outlet property="imageView" destination="nGB-ek-bhU" id="bpq-dr-fuP"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sRc-Th-KsL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2556" y="-990.85457271364328"/>
+            <point key="canvasLocation" x="2004" y="-1053"/>
         </scene>
     </scenes>
 </document>

@@ -25,6 +25,9 @@
 		4A67F5F81F274DA100B22B6F /* clock.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A67F5F71F274DA100B22B6F /* clock.png */; };
 		4A73C5F21F126363005E0C94 /* video.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 4A73C5F11F126363005E0C94 /* video.mp4 */; };
 		4A824C841EEF8964002580AA /* CDDebugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A824C831EEF8964002580AA /* CDDebugView.swift */; };
+		4A90A3BE1F4446970077445A /* PaintView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A90A3BD1F4446970077445A /* PaintView.swift */; };
+		4A90A3E61F4470AD0077445A /* green.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A90A3E51F4470AD0077445A /* green.png */; };
+		4A90A3E81F4470B90077445A /* background.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A90A3E71F4470B90077445A /* background.png */; };
 		4AA6AA151F38058100640653 /* UIAlertView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA6AA141F38058100640653 /* UIAlertView+.swift */; };
 		4AB8F4061EF7CCD900B36821 /* CDGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB8F4051EF7CCD900B36821 /* CDGradientView.swift */; };
 		4AB8F40E1EF7DEC700B36821 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB8F40D1EF7DEC700B36821 /* TableViewController.swift */; };
@@ -62,6 +65,9 @@
 		4A67F5F71F274DA100B22B6F /* clock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = clock.png; sourceTree = "<group>"; };
 		4A73C5F11F126363005E0C94 /* video.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = video.mp4; sourceTree = "<group>"; };
 		4A824C831EEF8964002580AA /* CDDebugView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDDebugView.swift; sourceTree = "<group>"; };
+		4A90A3BD1F4446970077445A /* PaintView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaintView.swift; sourceTree = "<group>"; };
+		4A90A3E51F4470AD0077445A /* green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = green.png; sourceTree = "<group>"; };
+		4A90A3E71F4470B90077445A /* background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = background.png; sourceTree = "<group>"; };
 		4AA6AA141F38058100640653 /* UIAlertView+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIAlertView+.swift"; sourceTree = "<group>"; };
 		4AB8F4051EF7CCD900B36821 /* CDGradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDGradientView.swift; sourceTree = "<group>"; };
 		4AB8F40D1EF7DEC700B36821 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
@@ -148,6 +154,8 @@
 				4A355F5C1EFCD0490022B97B /* image3.png */,
 				4A01AA081ED6B83F008F0CBA /* images.gif */,
 				4A01AA061ED6B800008F0CBA /* image.jpg */,
+				4A90A3E51F4470AD0077445A /* green.png */,
+				4A90A3E71F4470B90077445A /* background.png */,
 				4AF4E7AA1E889EC8002A5B15 /* Main.storyboard */,
 				4AB8F40F1EF7DED600B36821 /* TableViewCell.swift */,
 				4A06A38A1F063CDB0014238C /* TableViewCell.xib */,
@@ -156,6 +164,7 @@
 				4AF4E7B21E889EC8002A5B15 /* Info.plist */,
 				4AB8F40D1EF7DEC700B36821 /* TableViewController.swift */,
 				4A5F6D641EFBDFB6007CBF7C /* View.swift */,
+				4A90A3BD1F4446970077445A /* PaintView.swift */,
 				4ADCB79A1F0A28E400910A59 /* CDChecker.swift */,
 				4ADCB7A61F0A421700910A59 /* CDArcLoadingView.swift */,
 				4ADCB79C1F0A319400910A59 /* CDRadio.swift */,
@@ -244,8 +253,10 @@
 				4AF4E7AC1E889EC8002A5B15 /* Main.storyboard in Resources */,
 				4A67F5F81F274DA100B22B6F /* clock.png in Resources */,
 				4A355F5F1EFCD0490022B97B /* image3.png in Resources */,
+				4A90A3E81F4470B90077445A /* background.png in Resources */,
 				4A01AA071ED6B800008F0CBA /* image.jpg in Resources */,
 				4A01AA091ED6B83F008F0CBA /* images.gif in Resources */,
+				4A90A3E61F4470AD0077445A /* green.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -321,6 +332,7 @@
 				4A3CE8EA1F1F858F0024DCBA /* CLSliderPageController.swift in Sources */,
 				4A61D4931F0E183B00ED3B14 /* CDImagedProgress.swift in Sources */,
 				4A824C841EEF8964002580AA /* CDDebugView.swift in Sources */,
+				4A90A3BE1F4446970077445A /* PaintView.swift in Sources */,
 				4A5F6D651EFBDFB6007CBF7C /* View.swift in Sources */,
 				4AF4E7A91E889EC8002A5B15 /* ViewController.swift in Sources */,
 				4ADDA7621ECEF4EA0051A722 /* CDDotLoadingView.swift in Sources */,

@@ -7,6 +7,15 @@
 //
 
 import UIKit
+import OpenAL
+
+
+extension CGRect {
+    init(center: CGPoint, width: CGFloat, height: CGFloat) {
+        self.init(origin: .zero, size: CGSize(width: width, height: height))
+        origin = CGPoint(x: center.x - width / 2, y: center.y - height / 2)
+    }
+}
 
 class View: UIView {
     override func draw(_ rect: CGRect) {
@@ -25,11 +34,16 @@ class View: UIView {
         
         cicontext.draw(image, in: image.extent, from: image.extent)
         
+        CIFilter.filterNames(inCategories: nil).forEach { print(CIFilter(name: $0)!.attributes) }
+        
         detector?.features(in: image).forEach({ (feature) in
-            let path = UIBezierPath(rect: feature.bounds)
-            path.lineWidth = 4
+            guard let faceFeature = feature as? CIFaceFeature else { return }
             UIColor.green.setStroke()
-            path.stroke()
+            context.setLineWidth(4)
+            context.stroke(faceFeature.bounds)
+            context.stroke(CGRect(center: faceFeature.leftEyePosition, width: 10, height: 10))
+            context.stroke(CGRect(center: faceFeature.rightEyePosition, width: 10, height: 10))
+            context.stroke(CGRect(center: faceFeature.mouthPosition, width: 10, height: 10))
         })
     }
 }
