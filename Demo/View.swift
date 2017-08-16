@@ -14,10 +14,22 @@ class View: UIView {
         
         guard let context = UIGraphicsGetCurrentContext() else { return }
         context.translateBy(x: 0, y: bounds.height)
-        context.scaleBy(x: 1, y: -1)
         
         let cicontext = CIContext(cgContext: context, options: nil)
         let image = CIImage(contentsOf: Bundle.main.url(forResource: "image", withExtension: "jpg")!)!
-        cicontext.draw(image, in: bounds, from: image.extent)
+        
+        context.scaleBy(x: bounds.width / image.extent.width, y: -bounds.height / image.extent.height)
+        
+        let detector = CIDetector(ofType: CIDetectorTypeFace,
+                                  context: cicontext, options: [ CIDetectorAccuracy: CIDetectorAccuracyHigh ])
+        
+        cicontext.draw(image, in: image.extent, from: image.extent)
+        
+        detector?.features(in: image).forEach({ (feature) in
+            let path = UIBezierPath(rect: feature.bounds)
+            path.lineWidth = 4
+            UIColor.green.setStroke()
+            path.stroke()
+        })
     }
 }
