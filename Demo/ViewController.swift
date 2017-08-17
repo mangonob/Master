@@ -56,7 +56,7 @@ class ViewController: UIViewController {
         let image = CIImage(contentsOf: Bundle.main.url(forResource: "green", withExtension: "png")!)!
         
         let filter = CIFilter(name: "CIColorCube")
-        filter?.setValue(image, forKey: "inputImage")
+        filter?.setValue(image, forKey: kCIInputImageKey)
         filter?.setValue(NSNumber(value: size), forKey: "inputCubeDimension")
         filter?.setValue(data, forKey: "inputCubeData")
         
