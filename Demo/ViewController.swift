@@ -21,52 +21,30 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let size = 64
-        let length = size * size * size * 4
-        var cube = [Float](repeating: 0, count: length)
+        let face = CIImage(contentsOf: Bundle.main.url(forResource: "face", withExtension: "png")!)!
+        let detector = CIDetector(ofType: CIDetectorTypeFace, context: nil, options: nil)
         
-        for b in 0..<size {
-            for g in 0..<size {
-                for r in 0..<size {
-                    let red = Float(r) / Float(size - 1)
-                    let green = Float(g) / Float(size - 1)
-                    let blue = Float(b) / Float(size - 1)
-                    
-                    var h: CGFloat = 0
-                
-                    UIColor(red: CGFloat(red),
-                            green: CGFloat(green),
-                            blue: CGFloat(blue),
-                            alpha: 1).getHue(&h, saturation: nil, brightness: nil, alpha: nil)
-                    
-                    h *= 360
-                    
-                    let step = (((b * size) + g) * size + r) * 4
-                    let alpha: Float = (h > 100.0 && h < 140.0) ? 0.0 : 1.0
-                    cube[step] = red * alpha
-                    cube[step + 1] = green * alpha
-                    cube[step + 2] = blue * alpha
-                    cube[step + 3] = alpha
-                }
+        var center: CIVector = CIVector(cgPoint: .zero)
+        
+        if let faceBounds = detector?.features(in: face).first?.bounds {
+            center = CIVector(x: faceBounds.midX, y: faceBounds.midY)
+            
+            let filter = CIFilter(name: "CIRadialGradient")
+            filter?.setValue(NSNumber(value: Double(max(face.extent.width, face.extent.height))), forKey: "inputRadius0")
+            filter?.setValue(NSNumber(value: Double(max(faceBounds.width, faceBounds.height)) * 2), forKey: "inputRadius1")
+            filter?.setValue(CIColor(color: .white), forKey: "inputColor0")
+            filter?.setValue(CIColor(color: UIColor.white.withAlphaComponent(0)), forKey: "inputColor1")
+            filter?.setValue(center, forKey: kCIInputCenterKey)
+            
+            let blend = CIFilter(name: "CISourceOverCompositing")
+            blend?.setValue(filter?.outputImage, forKey: kCIInputImageKey)
+            blend?.setValue(face, forKey: "inputBackgroundImage")
+            
+            let context = CIContext()
+            if let cgImage = context.createCGImage(blend!.outputImage!, from: face.extent) {
+                imageView.image = UIImage(cgImage: cgImage)
             }
         }
         
-        let data = NSData(bytes: UnsafeRawPointer(cube), length: length * MemoryLayout<Float>.size)
-        
-        let image = CIImage(contentsOf: Bundle.main.url(forResource: "green", withExtension: "png")!)!
-        let background = CIImage(contentsOf: Bundle.main.url(forResource: "background", withExtension: "png")!)!
-        
-        let filter = CIFilter(name: "CIColorCube")
-        filter?.setValue(image, forKey: kCIInputImageKey)
-        filter?.setValue(NSNumber(value: size), forKey: "inputCubeDimension")
-        filter?.setValue(data, forKey: "inputCubeData")
-        
-        let ciImage = filter?.outputImage?.applyingFilter("CISourceOverCompositing", withInputParameters: [
-            "inputBackgroundImage": background
-            ])
-        
-        if let image = ciImage {
-            imageView.image = UIImage(ciImage: image)
-        }
     }
 }
