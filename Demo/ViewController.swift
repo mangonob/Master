@@ -21,37 +21,41 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let face = CIImage(contentsOf: Bundle.main.url(forResource: "square", withExtension: "png")!)!
+        let family = CIImage(contentsOf: Bundle.main.url(forResource: "family", withExtension: "png")!)!
         
         let context = CIContext()
         
-        let gauss = CIFilter(name: "CIGaussianBlur")
-        gauss?.setValue(face, forKey: kCIInputImageKey)
-        gauss?.setValue(NSNumber(value: 10), forKey: kCIInputRadiusKey)
+        let pixellate = CIFilter(name: "CIPixellate")
+        pixellate?.setValue(family, forKey: kCIInputImageKey)
+        pixellate?.setValue(10, forKey: "inputScale")
         
-        let gradient1 = CIFilter(name: "CILinearGradient")
-        gradient1?.setValue(CIVector(x: 0, y: 0.75 * face.extent.height), forKey: "inputPoint0")
-        gradient1?.setValue(CIColor(color: .green), forKey: "inputColor0")
-        gradient1?.setValue(CIVector(x: 0, y: 0.5 * face.extent.height), forKey: "inputPoint1")
-        gradient1?.setValue(CIColor(color: UIColor.green.withAlphaComponent(0)), forKey: "inputColor1")
+        let detector = CIDetector(ofType: CIDetectorTypeFace, context: nil, options: nil)
         
-        let gradient2 = CIFilter(name: "CILinearGradient")
-        gradient2?.setValue(CIVector(x: 0, y: 0.25 * face.extent.height), forKey: "inputPoint0")
-        gradient2?.setValue(CIColor(color: .green), forKey: "inputColor0")
-        gradient2?.setValue(CIVector(x: 0, y: 0.5 * face.extent.height), forKey: "inputPoint1")
-        gradient2?.setValue(CIColor(color: UIColor.green.withAlphaComponent(0)), forKey: "inputColor1")
+        let images = detector?.features(in: family).map { (feature) -> CIImage? in
+            let filter = CIFilter(name: "CIRadialGradient")!
+            let radius = max(feature.bounds.width, feature.bounds.height) / 2 * 1.2
+            filter.setValue(NSNumber(value: Float(radius)), forKey: "inputRadius0")
+            filter.setValue(NSNumber(value: Float(radius) - 10), forKey: "inputRadius1")
+            filter.setValue(CIColor(color: .clear), forKey: "inputColor0")
+            filter.setValue(CIColor(color: .green), forKey: "inputColor1")
+            filter.setValue(CIVector(x: feature.bounds.midX, y: feature.bounds.midY), forKey: kCIInputCenterKey)
+            return filter.outputImage
+        }
         
-        let addition = CIFilter(name: "CIAdditionCompositing")
-        addition?.setValue(gradient1?.outputImage, forKey: kCIInputImageKey)
-        addition?.setValue(gradient2?.outputImage, forKey: "inputBackgroundImage")
+        let combinedImage = images?.reduce(CIImage(), { (currentImage, nextImage) -> CIImage? in
+            let filter = CIFilter(name: "CISourceOverCompositing")
+            filter?.setValue(currentImage, forKey: "inputBackgroundImage")
+            filter?.setValue(nextImage, forKey: kCIInputImageKey)
+            return filter?.outputImage
+        })
         
         let blend = CIFilter(name: "CIBlendWithMask")
-        blend?.setValue(gauss?.outputImage, forKey: kCIInputImageKey)
-        blend?.setValue(addition?.outputImage, forKey: "inputMaskImage")
-        blend?.setValue(face, forKey: "inputBackgroundImage")
+        blend?.setValue(pixellate?.outputImage, forKey: kCIInputImageKey)
+        blend?.setValue(combinedImage, forKey: "inputMaskImage")
+        blend?.setValue(family, forKey: "inputBackgroundImage")
         
         if let result = blend?.outputImage {
-            if let cgImage = context.createCGImage(result, from: face.extent) {
+            if let cgImage = context.createCGImage(result, from: family.extent) {
                 imageView.image = UIImage(cgImage: cgImage)
             }
         }
