@@ -54,13 +54,18 @@ class ViewController: UIViewController {
         let data = NSData(bytes: UnsafeRawPointer(cube), length: length * MemoryLayout<Float>.size)
         
         let image = CIImage(contentsOf: Bundle.main.url(forResource: "green", withExtension: "png")!)!
+        let background = CIImage(contentsOf: Bundle.main.url(forResource: "background", withExtension: "png")!)!
         
         let filter = CIFilter(name: "CIColorCube")
         filter?.setValue(image, forKey: kCIInputImageKey)
         filter?.setValue(NSNumber(value: size), forKey: "inputCubeDimension")
         filter?.setValue(data, forKey: "inputCubeData")
         
-        if let image = filter?.outputImage {
+        let ciImage = filter?.outputImage?.applyingFilter("CISourceOverCompositing", withInputParameters: [
+            "inputBackgroundImage": background
+            ])
+        
+        if let image = ciImage {
             imageView.image = UIImage(ciImage: image)
         }
     }
