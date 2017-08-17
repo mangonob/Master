@@ -23,12 +23,21 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nGB-ek-bhU">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="4x2-3b-SGJ">
+                                <rect key="frame" x="30" y="605" width="315" height="31"/>
+                                <connections>
+                                    <action selector="sliderActionWithSender:" destination="PsF-PE-IfU" eventType="valueChanged" id="vLc-iq-qpS"/>
+                                </connections>
+                            </slider>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="4x2-3b-SGJ" firstAttribute="leading" secondItem="7Cw-Ey-rRb" secondAttribute="leading" constant="32" id="8Io-eF-iCV"/>
+                            <constraint firstItem="cPO-wg-8ip" firstAttribute="top" secondItem="4x2-3b-SGJ" secondAttribute="bottom" constant="32" id="JcE-rU-YVB"/>
                             <constraint firstAttribute="trailing" secondItem="nGB-ek-bhU" secondAttribute="trailing" id="a2s-Be-121"/>
                             <constraint firstItem="nGB-ek-bhU" firstAttribute="top" secondItem="7Cw-Ey-rRb" secondAttribute="top" id="aav-Lq-fU0"/>
                             <constraint firstItem="nGB-ek-bhU" firstAttribute="leading" secondItem="7Cw-Ey-rRb" secondAttribute="leading" id="cTK-QE-tRo"/>
+                            <constraint firstAttribute="trailing" secondItem="4x2-3b-SGJ" secondAttribute="trailing" constant="32" id="lOb-A9-4bu"/>
                             <constraint firstItem="cPO-wg-8ip" firstAttribute="top" secondItem="nGB-ek-bhU" secondAttribute="bottom" id="tc3-wZ-UG3"/>
                         </constraints>
                     </view>

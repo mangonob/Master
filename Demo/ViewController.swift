@@ -18,44 +18,37 @@ import ChameleonFramework
 class ViewController: UIViewController {
     @IBOutlet weak var imageView: UIImageView!
     
+    let from = CIImage(contentsOf: Bundle.main.url(forResource: "from", withExtension: "png")!)!
+    let to = CIImage(contentsOf: Bundle.main.url(forResource: "to", withExtension: "png")!)!
+    
+    var filter: CIFilter!
+    var pixellate: CIFilter!
+    
+    lazy var context = CIContext()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let family = CIImage(contentsOf: Bundle.main.url(forResource: "family", withExtension: "png")!)!
+        filter = CIFilter(name: "CIDissolveTransition")!
+        filter.setValue(from, forKey: kCIInputImageKey)
+        filter.setValue(to, forKey: "inputTargetImage")
         
-        let context = CIContext()
+        pixellate = CIFilter(name: "CIPixellate")
         
-        let pixellate = CIFilter(name: "CIPixellate")
-        pixellate?.setValue(family, forKey: kCIInputImageKey)
-        pixellate?.setValue(10, forKey: "inputScale")
+        sliderAction(sender: nil)
+    }
+    
+    @IBAction func sliderAction(sender: UISlider?) {
+        let x = sender?.value ?? 0.0
+        let y = 1 - 2 * abs(x - 0.5)
         
-        let detector = CIDetector(ofType: CIDetectorTypeFace, context: nil, options: nil)
+        filter.setValue(NSNumber(value: x), forKey: "inputTime")
         
-        let images = detector?.features(in: family).map { (feature) -> CIImage? in
-            let filter = CIFilter(name: "CIRadialGradient")!
-            let radius = max(feature.bounds.width, feature.bounds.height) / 2 * 1.2
-            filter.setValue(NSNumber(value: Float(radius)), forKey: "inputRadius0")
-            filter.setValue(NSNumber(value: Float(radius) - 10), forKey: "inputRadius1")
-            filter.setValue(CIColor(color: .clear), forKey: "inputColor0")
-            filter.setValue(CIColor(color: .green), forKey: "inputColor1")
-            filter.setValue(CIVector(x: feature.bounds.midX, y: feature.bounds.midY), forKey: kCIInputCenterKey)
-            return filter.outputImage
-        }
+        pixellate.setValue(filter.outputImage, forKey: kCIInputImageKey)
+        pixellate.setValue(NSNumber(value: y * 90 + 0.1), forKey: "inputScale")
         
-        let combinedImage = images?.reduce(CIImage(), { (currentImage, nextImage) -> CIImage? in
-            let filter = CIFilter(name: "CISourceOverCompositing")
-            filter?.setValue(currentImage, forKey: "inputBackgroundImage")
-            filter?.setValue(nextImage, forKey: kCIInputImageKey)
-            return filter?.outputImage
-        })
-        
-        let blend = CIFilter(name: "CIBlendWithMask")
-        blend?.setValue(pixellate?.outputImage, forKey: kCIInputImageKey)
-        blend?.setValue(combinedImage, forKey: "inputMaskImage")
-        blend?.setValue(family, forKey: "inputBackgroundImage")
-        
-        if let result = blend?.outputImage {
-            if let cgImage = context.createCGImage(result, from: family.extent) {
+        if let ciImage = pixellate.outputImage {
+            if let cgImage = context.createCGImage(ciImage, from: .init(origin: .zero, size: .init(width: 391, height: 300))) {
                 imageView.image = UIImage(cgImage: cgImage)
             }
         }
