@@ -39,6 +39,7 @@
 		4AB8F40E1EF7DEC700B36821 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB8F40D1EF7DEC700B36821 /* TableViewController.swift */; };
 		4AB8F4101EF7DED600B36821 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB8F40F1EF7DED600B36821 /* TableViewCell.swift */; };
 		4AC562B01F0CDEBB00C73F1D /* CDNumberSteper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC562AF1F0CDEBB00C73F1D /* CDNumberSteper.swift */; };
+		4ADA7CBD1F4A16900073B088 /* MyHazeFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ADA7CBC1F4A16900073B088 /* MyHazeFilter.swift */; };
 		4ADCB79B1F0A28E400910A59 /* CDChecker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ADCB79A1F0A28E400910A59 /* CDChecker.swift */; };
 		4ADCB79D1F0A319400910A59 /* CDRadio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ADCB79C1F0A319400910A59 /* CDRadio.swift */; };
 		4ADCB7A71F0A421700910A59 /* CDArcLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ADCB7A61F0A421700910A59 /* CDArcLoadingView.swift */; };
@@ -85,6 +86,7 @@
 		4AB8F40D1EF7DEC700B36821 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		4AB8F40F1EF7DED600B36821 /* TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
 		4AC562AF1F0CDEBB00C73F1D /* CDNumberSteper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDNumberSteper.swift; sourceTree = "<group>"; };
+		4ADA7CBC1F4A16900073B088 /* MyHazeFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyHazeFilter.swift; sourceTree = "<group>"; };
 		4ADCB79A1F0A28E400910A59 /* CDChecker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDChecker.swift; sourceTree = "<group>"; };
 		4ADCB79C1F0A319400910A59 /* CDRadio.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDRadio.swift; sourceTree = "<group>"; };
 		4ADCB7A61F0A421700910A59 /* CDArcLoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDArcLoadingView.swift; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 				4A355F581EFCAB120022B97B /* CDImagesBannerView.swift */,
 				4ADDA7611ECEF4EA0051A722 /* CDDotLoadingView.swift */,
 				4A1FB3A01EE7D86200FABB33 /* CDLShapeView.swift */,
+				4ADA7CBC1F4A16900073B088 /* MyHazeFilter.swift */,
 				4A824C831EEF8964002580AA /* CDDebugView.swift */,
 				4AEE54611F0D0C3D0046D9C0 /* AutoGrowUpTextView.swift */,
 				4A61D4921F0E183B00ED3B14 /* CDImagedProgress.swift */,
@@ -356,6 +359,7 @@
 				4A3CE8EA1F1F858F0024DCBA /* CLSliderPageController.swift in Sources */,
 				4A61D4931F0E183B00ED3B14 /* CDImagedProgress.swift in Sources */,
 				4A824C841EEF8964002580AA /* CDDebugView.swift in Sources */,
+				4ADA7CBD1F4A16900073B088 /* MyHazeFilter.swift in Sources */,
 				4A90A3BE1F4446970077445A /* PaintView.swift in Sources */,
 				4A5F6D651EFBDFB6007CBF7C /* View.swift in Sources */,
 				4AF4E7A91E889EC8002A5B15 /* ViewController.swift in Sources */,
