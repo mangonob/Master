@@ -44,6 +44,8 @@
 		4ADCB79D1F0A319400910A59 /* CDRadio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ADCB79C1F0A319400910A59 /* CDRadio.swift */; };
 		4ADCB7A71F0A421700910A59 /* CDArcLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ADCB7A61F0A421700910A59 /* CDArcLoadingView.swift */; };
 		4ADDA7621ECEF4EA0051A722 /* CDDotLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ADDA7611ECEF4EA0051A722 /* CDDotLoadingView.swift */; };
+		4AE8EEC41F4A8272008711B9 /* MyHazeRemoval.cikernel in Resources */ = {isa = PBXBuildFile; fileRef = 4AE8EEC31F4A8272008711B9 /* MyHazeRemoval.cikernel */; };
+		4AE8EEC61F4AC0D4008711B9 /* haze.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AE8EEC51F4AC0D4008711B9 /* haze.png */; };
 		4AEE54621F0D0C3D0046D9C0 /* AutoGrowUpTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AEE54611F0D0C3D0046D9C0 /* AutoGrowUpTextView.swift */; };
 		4AF4E7A71E889EC8002A5B15 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF4E7A61E889EC8002A5B15 /* AppDelegate.swift */; };
 		4AF4E7A91E889EC8002A5B15 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF4E7A81E889EC8002A5B15 /* ViewController.swift */; };
@@ -91,6 +93,8 @@
 		4ADCB79C1F0A319400910A59 /* CDRadio.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDRadio.swift; sourceTree = "<group>"; };
 		4ADCB7A61F0A421700910A59 /* CDArcLoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDArcLoadingView.swift; sourceTree = "<group>"; };
 		4ADDA7611ECEF4EA0051A722 /* CDDotLoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDDotLoadingView.swift; sourceTree = "<group>"; };
+		4AE8EEC31F4A8272008711B9 /* MyHazeRemoval.cikernel */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MyHazeRemoval.cikernel; sourceTree = "<group>"; };
+		4AE8EEC51F4AC0D4008711B9 /* haze.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = haze.png; sourceTree = "<group>"; };
 		4AEE54611F0D0C3D0046D9C0 /* AutoGrowUpTextView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AutoGrowUpTextView.swift; sourceTree = "<group>"; };
 		4AF4E7A31E889EC8002A5B15 /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4AF4E7A61E889EC8002A5B15 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -171,12 +175,14 @@
 				4A01AA061ED6B800008F0CBA /* image.jpg */,
 				4A2853E51F45738D00F294CD /* background.png */,
 				4A2853E61F45738D00F294CD /* green.png */,
+				4AE8EEC31F4A8272008711B9 /* MyHazeRemoval.cikernel */,
 				4A2853E91F45745D00F294CD /* face.png */,
 				4A2853EB1F4587D300F294CD /* square.png */,
 				4A2853ED1F459AD600F294CD /* family.png */,
 				4A2853EF1F45A74000F294CD /* from.png */,
 				4A2853F01F45A74000F294CD /* to.png */,
 				4A2853F31F45B61A00F294CD /* film.png */,
+				4AE8EEC51F4AC0D4008711B9 /* haze.png */,
 				4AF4E7AA1E889EC8002A5B15 /* Main.storyboard */,
 				4AB8F40F1EF7DED600B36821 /* TableViewCell.swift */,
 				4A06A38A1F063CDB0014238C /* TableViewCell.xib */,
@@ -270,6 +276,7 @@
 				4A355F5D1EFCD0490022B97B /* image1.png in Resources */,
 				4AF4E7AE1E889EC8002A5B15 /* Assets.xcassets in Resources */,
 				4A2853E81F45738D00F294CD /* green.png in Resources */,
+				4AE8EEC61F4AC0D4008711B9 /* haze.png in Resources */,
 				4A2853E71F45738D00F294CD /* background.png in Resources */,
 				4A73C5F21F126363005E0C94 /* video.mp4 in Resources */,
 				4A06A38B1F063CDB0014238C /* TableViewCell.xib in Resources */,
@@ -278,6 +285,7 @@
 				4A355F5F1EFCD0490022B97B /* image3.png in Resources */,
 				4A01AA071ED6B800008F0CBA /* image.jpg in Resources */,
 				4A2853F11F45A74000F294CD /* from.png in Resources */,
+				4AE8EEC41F4A8272008711B9 /* MyHazeRemoval.cikernel in Resources */,
 				4A2853EE1F459AD600F294CD /* family.png in Resources */,
 				4A2853F41F45B61A00F294CD /* film.png in Resources */,
 				4A2853EA1F45745D00F294CD /* face.png in Resources */,

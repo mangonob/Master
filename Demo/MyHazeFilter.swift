@@ -7,6 +7,14 @@
 //
 
 import UIKit
+import CoreImage
+
+
+private class MyHazeFilterFilterConstructor:NSObject, CIFilterConstructor {
+    func filter(withName name: String) -> CIFilter? {
+        return MyHazeFilter()
+    }
+}
 
 class MyHazeFilter: CIFilter {
     var inputImage: CIImage?
@@ -14,31 +22,76 @@ class MyHazeFilter: CIFilter {
     var inputDistance: NSNumber?
     var inputSlope: NSNumber?
     
+    private static var constructor = MyHazeFilterFilterConstructor()
     static var hazeRemovalKernel: CIKernel?
     
     override class func initialize() {
         super.initialize()
+        registerName("MyHazeFilter", constructor: MyHazeFilter.constructor, classAttributes: [
+            kCIAttributeDisplayName: "Haze Remover",
+            kCIAttributeFilterCategories: [
+                kCICategoryColorAdjustment, kCICategoryVideo,
+                kCICategoryStillImage, kCICategoryInterlaced,
+                kCICategoryNonSquarePixels
+            ]
+            ])
+    }
+    
+    override var outputImage: CIImage? {
+        if let inputImage = inputImage {
+            let src = CISampler(image: inputImage)
+            return MyHazeFilter.hazeRemovalKernel?.apply(withExtent: inputImage.extent,
+                                                         roiCallback: { $1 },
+                                                         arguments: [src, inputColor, inputDistance, inputSlope])
+        }
+        return nil
+    }
+    
+    override var attributes: [String : Any] {
+        var attributes = [String: [String: Any]]()
+
+        attributes["inputDistance"] = [
+            kCIAttributeMin: NSNumber(value: 0),
+            kCIAttributeMax: NSNumber(value: 1),
+            kCIAttributeSliderMin: NSNumber(value: 0),
+            kCIAttributeSliderMax: NSNumber(value: 1),
+            kCIAttributeDefault: NSNumber(value: 0.2),
+            kCIAttributeIdentity: NSNumber(value: 0),
+            kCIAttributeType: kCIAttributeTypeScalar,
+        ]
+
+        attributes["inputSlope"] = [
+            kCIAttributeSliderMin: NSNumber(value: -0.01),
+            kCIAttributeSliderMax: NSNumber(value: 0.01),
+            kCIAttributeDefault: NSNumber(value: 0),
+            kCIAttributeIdentity: NSNumber(value: 0),
+            kCIAttributeType: kCIAttributeTypeScalar,
+        ]
+        
+        attributes["inputColor"] = [
+            kCIAttributeDefault: CIColor()
+        ]
+        
+        return attributes
     }
     
     override init() {
-        if MyHazeFilter.hazeRemovalKernel == nil {
-            MyHazeFilter.hazeRemovalKernel = CIKernel(string:
-                "kernel vec4 myHazeRemovalKernel(sampler src,             // 1\n"
-                "__color color,\n"
-                "float distance,\n"
-                "float slope)\n"
-                "{\n"
-                "vec4   t;\n"
-                "float  d;\n"
-                "\n"
-                "d = destCoord().y * slope  +  distance;              // 2\n"
-                "t = unpremultiply(sample(src, samplerCoord(src)));   // 3\n"
-                "t = (t - d*color) / (1.0-d);                         // 4\n"
-                "\n"
-                "return premultiply(t);                               // 5\n"
-                }
-            )
-        }
         super.init()
+        configure()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        configure()
+    }
+    
+    func configure() {
+        if MyHazeFilter.hazeRemovalKernel == nil {
+            MyHazeFilter.hazeRemovalKernel = CIKernel(string: try! String(contentsOf:
+                Bundle.main.url(forResource: "MyHazeRemoval", withExtension: "cikernel")!
+                ))
+        }
     }
 }
+
+
