@@ -23,18 +23,38 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nGB-ek-bhU">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                             </imageView>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Aic-7N-Oag">
+                                <rect key="frame" x="30" y="605" width="315" height="31"/>
+                                <connections>
+                                    <action selector="sliderAction:" destination="PsF-PE-IfU" eventType="valueChanged" id="7KP-k1-WQ2"/>
+                                </connections>
+                            </slider>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.20000000000000001" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="JOu-Hw-liG">
+                                <rect key="frame" x="30" y="567" width="315" height="31"/>
+                                <connections>
+                                    <action selector="sliderAction:" destination="PsF-PE-IfU" eventType="valueChanged" id="w0g-ow-bzU"/>
+                                </connections>
+                            </slider>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="Aic-7N-Oag" firstAttribute="leading" secondItem="7Cw-Ey-rRb" secondAttribute="leading" constant="32" id="3Uh-Im-f9G"/>
+                            <constraint firstItem="Aic-7N-Oag" firstAttribute="top" secondItem="JOu-Hw-liG" secondAttribute="bottom" constant="8" id="BtZ-wm-lhH"/>
+                            <constraint firstAttribute="trailing" secondItem="Aic-7N-Oag" secondAttribute="trailing" constant="32" id="Fye-2y-JtU"/>
+                            <constraint firstItem="cPO-wg-8ip" firstAttribute="top" secondItem="Aic-7N-Oag" secondAttribute="bottom" constant="32" id="X3U-fQ-ANj"/>
                             <constraint firstAttribute="trailing" secondItem="nGB-ek-bhU" secondAttribute="trailing" id="a2s-Be-121"/>
                             <constraint firstItem="nGB-ek-bhU" firstAttribute="top" secondItem="7Cw-Ey-rRb" secondAttribute="top" id="aav-Lq-fU0"/>
                             <constraint firstItem="nGB-ek-bhU" firstAttribute="leading" secondItem="7Cw-Ey-rRb" secondAttribute="leading" id="cTK-QE-tRo"/>
+                            <constraint firstItem="JOu-Hw-liG" firstAttribute="leading" secondItem="7Cw-Ey-rRb" secondAttribute="leading" constant="32" id="e9C-wQ-sN1"/>
+                            <constraint firstAttribute="trailing" secondItem="JOu-Hw-liG" secondAttribute="trailing" constant="32" id="eHN-tR-Req"/>
                             <constraint firstItem="cPO-wg-8ip" firstAttribute="top" secondItem="nGB-ek-bhU" secondAttribute="bottom" id="tc3-wZ-UG3"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="p76-Oc-Chd"/>
                     <connections>
+                        <outlet property="distanceSlider" destination="JOu-Hw-liG" id="ejX-FB-fjJ"/>
                         <outlet property="imageView" destination="nGB-ek-bhU" id="bpq-dr-fuP"/>
+                        <outlet property="slopeSlider" destination="Aic-7N-Oag" id="t7V-0w-uX0"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sRc-Th-KsL" userLabel="First Responder" sceneMemberID="firstResponder"/>

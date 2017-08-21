@@ -17,25 +17,36 @@ import ChameleonFramework
 
 class ViewController: UIViewController {
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var distanceSlider: UISlider!
+    @IBOutlet weak var slopeSlider: UISlider!
+    
+    lazy var filter = CIFilter(name: "MyHazeFilter") as! MyHazeFilter
+    lazy var context = CIContext()
+    lazy var haze = CIImage(contentsOf: Bundle.main.url(forResource: "haze", withExtension: "png")!)!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let haze = CIImage(contentsOf: Bundle.main.url(forResource: "haze", withExtension: "png")!)!
-        let context = CIContext()
-        
         MyHazeFilter.classForCoder()
         
-        let filter = CIFilter(name: "MyHazeFilter") as! MyHazeFilter
-        filter.inputSlope = 0
-        filter.inputDistance = 0.2
-        filter.inputColor = CIColor(red: 0, green: 0, blue: 1)
-        filter.inputImage = haze
+        filter.setValue(haze, forKey: kCIInputImageKey)
+        filter.setValue(CIColor(red: 1, green: 1, blue: 1), forKey: kCIInputColorKey)
+        
+        updateImage()
+    }
+    
+    func updateImage() {
+        filter.setValue(slopeSlider.value, forKey: "inputSlope")
+        filter.setValue(distanceSlider.value, forKey: "inputDistance")
         
         if let ciImage = filter.outputImage {
             if let cgImage = context.createCGImage(ciImage, from: haze.extent) {
                 imageView.image = UIImage(cgImage: cgImage)
             }
         }
+    }
+    
+    @IBAction func sliderAction(_ sender: UISlider) {
+        updateImage()
     }
 }
