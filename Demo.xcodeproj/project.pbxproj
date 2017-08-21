@@ -31,6 +31,7 @@
 		4A5F6D651EFBDFB6007CBF7C /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5F6D641EFBDFB6007CBF7C /* View.swift */; };
 		4A61D4931F0E183B00ED3B14 /* CDImagedProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A61D4921F0E183B00ED3B14 /* CDImagedProgress.swift */; };
 		4A67F5F81F274DA100B22B6F /* clock.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A67F5F71F274DA100B22B6F /* clock.png */; };
+		4A69249E1F4B0AD3007AEC3C /* Test.qtz in Resources */ = {isa = PBXBuildFile; fileRef = 4A69249D1F4B0AD3007AEC3C /* Test.qtz */; };
 		4A73C5F21F126363005E0C94 /* video.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 4A73C5F11F126363005E0C94 /* video.mp4 */; };
 		4A824C841EEF8964002580AA /* CDDebugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A824C831EEF8964002580AA /* CDDebugView.swift */; };
 		4A90A3BE1F4446970077445A /* PaintView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A90A3BD1F4446970077445A /* PaintView.swift */; };
@@ -80,6 +81,7 @@
 		4A5F6D641EFBDFB6007CBF7C /* View.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
 		4A61D4921F0E183B00ED3B14 /* CDImagedProgress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDImagedProgress.swift; sourceTree = "<group>"; };
 		4A67F5F71F274DA100B22B6F /* clock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = clock.png; sourceTree = "<group>"; };
+		4A69249D1F4B0AD3007AEC3C /* Test.qtz */ = {isa = PBXFileReference; lastKnownFileType = "video.quartz-composer"; path = Test.qtz; sourceTree = "<group>"; };
 		4A73C5F11F126363005E0C94 /* video.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = video.mp4; sourceTree = "<group>"; };
 		4A824C831EEF8964002580AA /* CDDebugView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDDebugView.swift; sourceTree = "<group>"; };
 		4A90A3BD1F4446970077445A /* PaintView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaintView.swift; sourceTree = "<group>"; };
@@ -177,6 +179,7 @@
 				4A2853E61F45738D00F294CD /* green.png */,
 				4AE8EEC31F4A8272008711B9 /* MyHazeRemoval.cikernel */,
 				4A2853E91F45745D00F294CD /* face.png */,
+				4A69249D1F4B0AD3007AEC3C /* Test.qtz */,
 				4A2853EB1F4587D300F294CD /* square.png */,
 				4A2853ED1F459AD600F294CD /* family.png */,
 				4A2853EF1F45A74000F294CD /* from.png */,
@@ -273,6 +276,7 @@
 			files = (
 				4A355F5E1EFCD0490022B97B /* image2.png in Resources */,
 				4AF4E7B11E889EC8002A5B15 /* LaunchScreen.storyboard in Resources */,
+				4A69249E1F4B0AD3007AEC3C /* Test.qtz in Resources */,
 				4A355F5D1EFCD0490022B97B /* image1.png in Resources */,
 				4AF4E7AE1E889EC8002A5B15 /* Assets.xcassets in Resources */,
 				4A2853E81F45738D00F294CD /* green.png in Resources */,

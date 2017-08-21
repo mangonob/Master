@@ -41,7 +41,10 @@ class MyHazeFilter: CIFilter {
         if let inputImage = inputImage {
             let src = CISampler(image: inputImage)
             return MyHazeFilter.hazeRemovalKernel?.apply(withExtent: inputImage.extent,
-                                                         roiCallback: { $1 },
+                                                         roiCallback: { (index, rect) -> CGRect in
+                                                            print("\(index): \(rect)")
+                                                            return rect
+                                                            },
                                                          arguments: [src, inputColor, inputDistance, inputSlope])
         }
         return nil
