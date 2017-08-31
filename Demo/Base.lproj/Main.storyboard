@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="PsF-PE-IfU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="3AU-hD-iVN">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -19,45 +19,29 @@
                     <view key="view" clearsContextBeforeDrawing="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" id="7Cw-Ey-rRb">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nGB-ek-bhU">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                            </imageView>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Aic-7N-Oag">
-                                <rect key="frame" x="30" y="605" width="315" height="31"/>
-                                <connections>
-                                    <action selector="sliderAction:" destination="PsF-PE-IfU" eventType="valueChanged" id="7KP-k1-WQ2"/>
-                                </connections>
-                            </slider>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.20000000000000001" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="JOu-Hw-liG">
-                                <rect key="frame" x="30" y="567" width="315" height="31"/>
-                                <connections>
-                                    <action selector="sliderAction:" destination="PsF-PE-IfU" eventType="valueChanged" id="w0g-ow-bzU"/>
-                                </connections>
-                            </slider>
-                        </subviews>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="Aic-7N-Oag" firstAttribute="leading" secondItem="7Cw-Ey-rRb" secondAttribute="leading" constant="32" id="3Uh-Im-f9G"/>
-                            <constraint firstItem="Aic-7N-Oag" firstAttribute="top" secondItem="JOu-Hw-liG" secondAttribute="bottom" constant="8" id="BtZ-wm-lhH"/>
-                            <constraint firstAttribute="trailing" secondItem="Aic-7N-Oag" secondAttribute="trailing" constant="32" id="Fye-2y-JtU"/>
-                            <constraint firstItem="cPO-wg-8ip" firstAttribute="top" secondItem="Aic-7N-Oag" secondAttribute="bottom" constant="32" id="X3U-fQ-ANj"/>
-                            <constraint firstAttribute="trailing" secondItem="nGB-ek-bhU" secondAttribute="trailing" id="a2s-Be-121"/>
-                            <constraint firstItem="nGB-ek-bhU" firstAttribute="top" secondItem="7Cw-Ey-rRb" secondAttribute="top" id="aav-Lq-fU0"/>
-                            <constraint firstItem="nGB-ek-bhU" firstAttribute="leading" secondItem="7Cw-Ey-rRb" secondAttribute="leading" id="cTK-QE-tRo"/>
-                            <constraint firstItem="JOu-Hw-liG" firstAttribute="leading" secondItem="7Cw-Ey-rRb" secondAttribute="leading" constant="32" id="e9C-wQ-sN1"/>
-                            <constraint firstAttribute="trailing" secondItem="JOu-Hw-liG" secondAttribute="trailing" constant="32" id="eHN-tR-Req"/>
-                            <constraint firstItem="cPO-wg-8ip" firstAttribute="top" secondItem="nGB-ek-bhU" secondAttribute="bottom" id="tc3-wZ-UG3"/>
-                        </constraints>
+                        <color key="backgroundColor" red="0.99963909387588501" green="1" blue="0.99975615739822388" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <navigationItem key="navigationItem" id="p76-Oc-Chd"/>
-                    <connections>
-                        <outlet property="distanceSlider" destination="JOu-Hw-liG" id="ejX-FB-fjJ"/>
-                        <outlet property="imageView" destination="nGB-ek-bhU" id="bpq-dr-fuP"/>
-                        <outlet property="slopeSlider" destination="Aic-7N-Oag" id="t7V-0w-uX0"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sRc-Th-KsL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3882.4000000000001" y="-1053.8230884557722"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="nzB-St-ruW">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="3AU-hD-iVN" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="gqD-NB-E6U">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="PsF-PE-IfU" kind="relationship" relationship="rootViewController" id="eQM-nY-7NF"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="C5N-oL-cf3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2943.1999999999998" y="-1053.8230884557722"/>
         </scene>

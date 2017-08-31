@@ -7,46 +7,96 @@
 //
 
 import UIKit
-import CoreImage
-import AVFoundation
-import SpriteKit
-import Metal
-import MetalKit
-import ChameleonFramework
 
 
 class ViewController: UIViewController {
-    @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var distanceSlider: UISlider!
-    @IBOutlet weak var slopeSlider: UISlider!
+    lazy var tableView = UITableView(frame: .zero, style: .grouped)
     
-    lazy var filter = CIFilter(name: "MyHazeFilter") as! MyHazeFilter
-    lazy var context = CIContext()
-    lazy var haze = CIImage(contentsOf: Bundle.main.url(forResource: "haze", withExtension: "png")!)!
+    var items = [Int](repeating: 10, count: 26)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        MyHazeFilter.classForCoder()
+        tableView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        tableView.frame = view.bounds
+        view.addSubview(tableView)
         
-        filter.setValue(haze, forKey: kCIInputImageKey)
-        filter.setValue(CIColor(red: 1, green: 1, blue: 1), forKey: kCIInputColorKey)
+        tableView.delegate = self
+        tableView.dataSource = self
         
-        updateImage()
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        
+        navigationItem.rightBarButtonItem = editButtonItem
     }
     
-    func updateImage() {
-        filter.setValue(slopeSlider.value, forKey: "inputSlope")
-        filter.setValue(distanceSlider.value, forKey: "inputDistance")
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
         
-        if let ciImage = filter.outputImage {
-            if let cgImage = context.createCGImage(ciImage, from: haze.extent) {
-                imageView.image = UIImage(cgImage: cgImage)
-            }
+        tableView.setEditing(editing, animated: true)
+    }
+}
+
+
+extension ViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.scrollToNearestSelectedRow(at: .middle, animated: true)
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+}
+
+
+extension ViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        items[indexPath.section] -= 1
+        
+        tableView.deleteRows(at: [indexPath], with: .automatic)
+        
+        tableView.isUserInteractionEnabled = false
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100)) {
+            tableView.isUserInteractionEnabled = true
         }
     }
     
-    @IBAction func sliderAction(_ sender: UISlider) {
-        updateImage()
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "ABCDEFGHIJKLMNOPQRSTUVWXYZ#".characters.map({ String($0) })[section]
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return items.count
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return items[section]
+    }
+    
+    func sectionIndexTitles(for tableView: UITableView) -> [String]? {
+        return "ABCDEFGHIJKLMNOPQRSTUVWXYZ#".characters.map { String($0) }
+    }
+    
+    func tableView(_ tableView: UITableView, indentationLevelForRowAt indexPath: IndexPath) -> Int {
+        return indexPath.row
+    }
+    
+    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        let view = UIView()
+        view.backgroundColor = UIColor.randomFlat
+        view.frame = CGRect(origin: .zero, size: CGSize(width: 30, height: 30))
+        cell.accessoryView = view
+        cell.showsReorderControl = true
+        cell.shouldIndentWhileEditing = false
+        cell.textLabel?.text = "AAA"
+        return cell
     }
 }
