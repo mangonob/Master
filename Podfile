@@ -12,4 +12,5 @@ target 'Demo' do
 	pod 'RxSwift', '~> 3.0'
 	pod 'RxCocoa', '~> 3.0'
 	pod 'ChameleonFramework/Swift', :git => 'https://github.com/ViccAlexander/Chameleon.git'
+  pod 'lottie-ios'
 end
