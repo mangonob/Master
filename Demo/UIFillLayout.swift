@@ -63,7 +63,7 @@ class UIFillLayout: UICollectionViewLayout {
     
     override var collectionViewContentSize: CGSize {
         guard let collectionView = collectionView else { return .zero }
-//        guard cachedContentSize == nil else { return cachedContentSize }
+        guard cachedContentSize == nil else { return cachedContentSize }
         
         let sections = collectionView.dataSource?.numberOfSections?(in: collectionView) ?? 0
         
