@@ -38,6 +38,7 @@
 		4AB8F4061EF7CCD900B36821 /* CDGradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB8F4051EF7CCD900B36821 /* CDGradientView.swift */; };
 		4AB8F40E1EF7DEC700B36821 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB8F40D1EF7DEC700B36821 /* TableViewController.swift */; };
 		4AB8F4101EF7DED600B36821 /* TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB8F40F1EF7DED600B36821 /* TableViewCell.swift */; };
+		4AB90CD21F67D0570031C52F /* UIFillLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AB90CD11F67D0570031C52F /* UIFillLayout.swift */; };
 		4AC562B01F0CDEBB00C73F1D /* CDNumberSteper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC562AF1F0CDEBB00C73F1D /* CDNumberSteper.swift */; };
 		4AD544E61F4B47C10026D714 /* Test.qtz in Resources */ = {isa = PBXBuildFile; fileRef = 4AD544E51F4B47C10026D714 /* Test.qtz */; };
 		4ADA7CBD1F4A16900073B088 /* MyHazeFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ADA7CBC1F4A16900073B088 /* MyHazeFilter.swift */; };
@@ -93,6 +94,7 @@
 		4AB8F4051EF7CCD900B36821 /* CDGradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDGradientView.swift; sourceTree = "<group>"; };
 		4AB8F40D1EF7DEC700B36821 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		4AB8F40F1EF7DED600B36821 /* TableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewCell.swift; sourceTree = "<group>"; };
+		4AB90CD11F67D0570031C52F /* UIFillLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIFillLayout.swift; sourceTree = "<group>"; };
 		4AC562AF1F0CDEBB00C73F1D /* CDNumberSteper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDNumberSteper.swift; sourceTree = "<group>"; };
 		4AD544E51F4B47C10026D714 /* Test.qtz */ = {isa = PBXFileReference; lastKnownFileType = "video.quartz-composer"; path = Test.qtz; sourceTree = "<group>"; };
 		4ADA7CBC1F4A16900073B088 /* MyHazeFilter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyHazeFilter.swift; sourceTree = "<group>"; };
@@ -166,6 +168,7 @@
 				4AB8F4051EF7CCD900B36821 /* CDGradientView.swift */,
 				4AE5A6F11F5D67FF00A0A1F0 /* loading_semicircle.json */,
 				4AF4E7A81E889EC8002A5B15 /* ViewController.swift */,
+				4AB90CD11F67D0570031C52F /* UIFillLayout.swift */,
 				4AFEBAAB1F56988A00F075EB /* ContentController.swift */,
 				4AFEBAAD1F56994B00F075EB /* NSObject+.swift */,
 				4AFEBAAF1F56997700F075EB /* UIViewController+.swift */,
@@ -387,6 +390,7 @@
 				4AFEBAB01F56997700F075EB /* UIViewController+.swift in Sources */,
 				4AC562B01F0CDEBB00C73F1D /* CDNumberSteper.swift in Sources */,
 				4AFEBAAA1F56982D00F075EB /* CTTableController.swift in Sources */,
+				4AB90CD21F67D0570031C52F /* UIFillLayout.swift in Sources */,
 				4A3CE8EA1F1F858F0024DCBA /* CLSliderPageController.swift in Sources */,
 				4A61D4931F0E183B00ED3B14 /* CDImagedProgress.swift in Sources */,
 				4A824C841EEF8964002580AA /* CDDebugView.swift in Sources */,

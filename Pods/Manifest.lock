@@ -7,6 +7,7 @@ PODS:
   - Mantle (2.1.0):
     - Mantle/extobjc (= 2.1.0)
   - Mantle/extobjc (2.1.0)
+  - ODRefreshControl (1.2)
   - RxCocoa (3.5.0):
     - RxSwift (~> 3.4)
   - RxSwift (3.5.0)
@@ -17,6 +18,7 @@ DEPENDENCIES:
   - ChameleonFramework/Swift (from `https://github.com/ViccAlexander/Chameleon.git`)
   - lottie-ios
   - Mantle (~> 2.1.0)
+  - ODRefreshControl (~> 1.2)
   - RxCocoa (~> 3.0)
   - RxSwift (~> 3.0)
   - SwiftyJSON
@@ -35,10 +37,11 @@ SPEC CHECKSUMS:
   ChameleonFramework: d21a3cc247abfe5e37609a283a8238b03575cf64
   lottie-ios: f680a7c4cb7a567ecf258fde0f967913aff111b8
   Mantle: 2fa750afa478cd625a94230fbf1c13462f29395b
+  ODRefreshControl: 907e6149d72dde488d5917ccfabee5bd8d711a20
   RxCocoa: a0a09f45d0e5b48ecb6a4a7b4b4c89c88d3f633f
   RxSwift: 18ee9d78b45edb3b0b7e79916b47a116e6dbc842
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
 
-PODFILE CHECKSUM: 09330f83ddfb1cc0146f049fe015b59096b3beb9
+PODFILE CHECKSUM: 8ed9364d111bd6e58eba2335843a21c9fab90bfa
 
 COCOAPODS: 1.2.1
