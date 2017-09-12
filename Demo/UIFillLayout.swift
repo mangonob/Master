@@ -56,13 +56,14 @@ class UIFillLayout: UICollectionViewLayout {
     override func invalidateLayout() {
         super.invalidateLayout()
         attributes = nil
+        cachedContentSize = nil
     }
     
     var cachedContentSize: CGSize!
     
     override var collectionViewContentSize: CGSize {
         guard let collectionView = collectionView else { return .zero }
-        guard cachedContentSize == nil else { return cachedContentSize }
+//        guard cachedContentSize == nil else { return cachedContentSize }
         
         let sections = collectionView.dataSource?.numberOfSections?(in: collectionView) ?? 0
         
@@ -88,7 +89,7 @@ class UIFillLayout: UICollectionViewLayout {
             
             let interSpacing = (collectionView.delegate as? UICollectionViewDelegateFlowLayout)?.collectionView?(collectionView, layout: self, minimumInteritemSpacingForSectionAt: section) ?? 0
             
-            let lineSpacing = (collectionView.delegate as? UICollectionViewDelegateFlowLayout)?.collectionView?(collectionView, layout: self, minimumInteritemSpacingForSectionAt: section) ?? 0
+            let lineSpacing = (collectionView.delegate as? UICollectionViewDelegateFlowLayout)?.collectionView?(collectionView, layout: self, minimumLineSpacingForSectionAt: section) ?? 0
             
             var rects = container.fill(sizes, interSpacing: interSpacing, lineSpacing: lineSpacing)
             
