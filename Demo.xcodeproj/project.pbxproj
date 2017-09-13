@@ -32,6 +32,8 @@
 		4A61D4931F0E183B00ED3B14 /* CDImagedProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A61D4921F0E183B00ED3B14 /* CDImagedProgress.swift */; };
 		4A67F5F81F274DA100B22B6F /* clock.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A67F5F71F274DA100B22B6F /* clock.png */; };
 		4A73C5F21F126363005E0C94 /* video.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 4A73C5F11F126363005E0C94 /* video.mp4 */; };
+		4A78F2C61F6991F80078EABF /* CDCircleTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A78F2C51F6991F80078EABF /* CDCircleTransition.swift */; };
+		4A78F2C81F699E010078EABF /* ViewController2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A78F2C71F699E010078EABF /* ViewController2.swift */; };
 		4A824C841EEF8964002580AA /* CDDebugView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A824C831EEF8964002580AA /* CDDebugView.swift */; };
 		4A90A3BE1F4446970077445A /* PaintView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A90A3BD1F4446970077445A /* PaintView.swift */; };
 		4AA6AA151F38058100640653 /* UIAlertView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AA6AA141F38058100640653 /* UIAlertView+.swift */; };
@@ -88,6 +90,8 @@
 		4A61D4921F0E183B00ED3B14 /* CDImagedProgress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDImagedProgress.swift; sourceTree = "<group>"; };
 		4A67F5F71F274DA100B22B6F /* clock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = clock.png; sourceTree = "<group>"; };
 		4A73C5F11F126363005E0C94 /* video.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = video.mp4; sourceTree = "<group>"; };
+		4A78F2C51F6991F80078EABF /* CDCircleTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDCircleTransition.swift; sourceTree = "<group>"; };
+		4A78F2C71F699E010078EABF /* ViewController2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController2.swift; sourceTree = "<group>"; };
 		4A824C831EEF8964002580AA /* CDDebugView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDDebugView.swift; sourceTree = "<group>"; };
 		4A90A3BD1F4446970077445A /* PaintView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaintView.swift; sourceTree = "<group>"; };
 		4AA6AA141F38058100640653 /* UIAlertView+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIAlertView+.swift"; sourceTree = "<group>"; };
@@ -168,6 +172,8 @@
 				4AB8F4051EF7CCD900B36821 /* CDGradientView.swift */,
 				4AE5A6F11F5D67FF00A0A1F0 /* loading_semicircle.json */,
 				4AF4E7A81E889EC8002A5B15 /* ViewController.swift */,
+				4A78F2C71F699E010078EABF /* ViewController2.swift */,
+				4A78F2C51F6991F80078EABF /* CDCircleTransition.swift */,
 				4AB90CD11F67D0570031C52F /* UIFillLayout.swift */,
 				4AFEBAAB1F56988A00F075EB /* ContentController.swift */,
 				4AFEBAAD1F56994B00F075EB /* NSObject+.swift */,
@@ -375,6 +381,7 @@
 			files = (
 				4AFCB8FB1EEFDE470052AC3C /* CDWindow.swift in Sources */,
 				4AA6AA151F38058100640653 /* UIAlertView+.swift in Sources */,
+				4A78F2C81F699E010078EABF /* ViewController2.swift in Sources */,
 				4A1B3B091EF3906800317614 /* CDQRCodeController.swift in Sources */,
 				4AFEBAAC1F56988A00F075EB /* ContentController.swift in Sources */,
 				4A1FB3A11EE7D86200FABB33 /* CDLShapeView.swift in Sources */,
@@ -392,6 +399,7 @@
 				4AFEBAAA1F56982D00F075EB /* CTTableController.swift in Sources */,
 				4AB90CD21F67D0570031C52F /* UIFillLayout.swift in Sources */,
 				4A3CE8EA1F1F858F0024DCBA /* CLSliderPageController.swift in Sources */,
+				4A78F2C61F6991F80078EABF /* CDCircleTransition.swift in Sources */,
 				4A61D4931F0E183B00ED3B14 /* CDImagedProgress.swift in Sources */,
 				4A824C841EEF8964002580AA /* CDDebugView.swift in Sources */,
 				4ADA7CBD1F4A16900073B088 /* MyHazeFilter.swift in Sources */,
