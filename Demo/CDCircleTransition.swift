@@ -15,8 +15,10 @@ class CDCircleTransition: NSObject, UIViewControllerAnimatedTransitioning {
     
     var transitionContext: UIViewControllerContextTransitioning!
     
+    var radius: CGFloat = 0
+    
     init(duration: TimeInterval = 0.33,
-         operation: UINavigationControllerOperation,
+         operation: UINavigationControllerOperation = .none,
          startPoint: CGPoint = .zero) {
         self.duration = duration
         self.operation = operation
@@ -25,6 +27,11 @@ class CDCircleTransition: NSObject, UIViewControllerAnimatedTransitioning {
     
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
         return duration
+    }
+    
+    func progress(at point: CGPoint) -> CGFloat {
+        let delta = CGVector(dx: point.x - startPoint.x, dy: point.y - startPoint.y)
+        return min(max(sqrt(delta.dx * delta.dx + delta.dy * delta.dy) / radius, 0), 1)
     }
     
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
@@ -45,7 +52,7 @@ class CDCircleTransition: NSObject, UIViewControllerAnimatedTransitioning {
         let radiues = points.map { CGVector(dx: $0.x - startPoint.x, dy: $0.y - startPoint.y) }
             .map { sqrt($0.dx * $0.dx + $0.dy * $0.dy) }
         
-        let radius = radiues.max()!
+        radius = radiues.max()!
         
         let bigCircle = UIBezierPath(ovalIn: CGRect(center: startPoint, width: radius * 2, height: radius * 2))
             .cgPath

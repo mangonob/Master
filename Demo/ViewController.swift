@@ -15,21 +15,54 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         navigationController?.delegate = self
+        view.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(self.panAction(_:))))
     }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        super.touchesBegan(touches, with: event)
-        
-        let vc = ViewController2()
-        vc.view.backgroundColor = UIColor.flatGreen
-        navigationController?.pushViewController(vc, animated: true)
+    var isInteractiveTransitioning = false
+    var interactiveTransition: UIPercentDrivenInteractiveTransition?
+    var circleTransition: CDCircleTransition?
+    
+    func panAction(_ sender: UIPanGestureRecognizer) {
+        let location = sender.location(in: nil)
+        switch sender.state {
+        case .began:
+            isInteractiveTransitioning = true
+            
+            circleTransition = CDCircleTransition(startPoint: location)
+            
+            let vc = ViewController2()
+            vc.view.backgroundColor = UIColor.flatGreen
+            navigationController?.pushViewController(vc, animated: true)
+            
+        case .changed:
+            if let progress = circleTransition?.progress(at: location) {
+                interactiveTransition?.update(progress)
+            }
+        default:
+            interactiveTransition?.finish()
+            
+            isInteractiveTransitioning = false
+            interactiveTransition = nil
+            circleTransition = nil
+        }
     }
 }
 
 
 extension ViewController: UINavigationControllerDelegate {
     func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationControllerOperation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return CDCircleTransition(operation: operation, startPoint: CGPoint(x: view.bounds.midX, y: view.bounds.midY))
+        circleTransition?.operation = operation
+        return circleTransition ?? CDCircleTransition(operation: operation, startPoint: CGPoint(x: view.bounds.midX, y: view.bounds.midY))
+    }
+    
+    func navigationController(_ navigationController: UINavigationController, interactionControllerFor animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+        if isInteractiveTransitioning {
+            interactiveTransition = UIPercentDrivenInteractiveTransition()
+            interactiveTransition?.completionSpeed = 1
+            return interactiveTransition
+        } else {
+            return nil
+        }
     }
 }
 
