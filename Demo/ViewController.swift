@@ -39,7 +39,10 @@ class ViewController: UIViewController {
                 interactiveTransition?.update(progress)
             }
         default:
-            interactiveTransition?.finish()
+            circleTransition?.transitionContext.containerView.layer.beginTime = CACurrentMediaTime()
+            
+            interactiveTransition?.cancel()
+            circleTransition?.transitionContext.containerView.layer.speed = -1
             
             isInteractiveTransitioning = false
             interactiveTransition = nil
@@ -58,7 +61,6 @@ extension ViewController: UINavigationControllerDelegate {
     func navigationController(_ navigationController: UINavigationController, interactionControllerFor animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
         if isInteractiveTransitioning {
             interactiveTransition = UIPercentDrivenInteractiveTransition()
-            interactiveTransition?.completionSpeed = 1
             return interactiveTransition
         } else {
             return nil
