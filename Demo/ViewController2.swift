@@ -14,6 +14,8 @@ class ViewController2: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        view.backgroundColor = UIColor.randomFlat
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

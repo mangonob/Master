@@ -17,7 +17,7 @@ class CDCircleTransition: NSObject, UIViewControllerAnimatedTransitioning {
     
     var radius: CGFloat = 0
     
-    init(duration: TimeInterval = 3,
+    init(duration: TimeInterval = 0.25,
          operation: UINavigationControllerOperation = .none,
          startPoint: CGPoint = .zero) {
         self.duration = duration
