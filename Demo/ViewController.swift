@@ -11,60 +11,19 @@ import Lottie
 
 
 class ViewController: UIViewController {
+    @IBOutlet weak var progressView: UIProgressView!
+    @IBOutlet weak var label: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationController?.delegate = self
-        view.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(self.panAction(_:))))
+        progressView.layer.mask = label.layer
     }
     
-    var isInteractiveTransitioning = false
-    var interactiveTransition: UIPercentDrivenInteractiveTransition?
-    var circleTransition: CDCircleTransition?
-    
-    func panAction(_ sender: UIPanGestureRecognizer) {
+    @IBAction func panAction(_ sender: UIPanGestureRecognizer) {
         let location = sender.location(in: nil)
-        switch sender.state {
-        case .began:
-            isInteractiveTransitioning = true
-            
-            circleTransition = CDCircleTransition(startPoint: location)
-            
-            let vc = ViewController2()
-            vc.view.backgroundColor = UIColor.flatGreen
-            navigationController?.pushViewController(vc, animated: true)
-            
-        case .changed:
-            if let progress = circleTransition?.progress(at: location) {
-                interactiveTransition?.update(progress)
-            }
-        default:
-            circleTransition?.transitionContext.containerView.layer.beginTime = CACurrentMediaTime()
-            
-            interactiveTransition?.cancel()
-            circleTransition?.transitionContext.containerView.layer.speed = -1
-            
-            isInteractiveTransitioning = false
-            interactiveTransition = nil
-            circleTransition = nil
-        }
-    }
-}
-
-
-extension ViewController: UINavigationControllerDelegate {
-    func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationControllerOperation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        circleTransition?.operation = operation
-        return circleTransition ?? CDCircleTransition(operation: operation, startPoint: CGPoint(x: view.bounds.midX, y: view.bounds.midY))
-    }
-    
-    func navigationController(_ navigationController: UINavigationController, interactionControllerFor animationController: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-        if isInteractiveTransitioning {
-            interactiveTransition = UIPercentDrivenInteractiveTransition()
-            return interactiveTransition
-        } else {
-            return nil
-        }
+        let progress = min(max(location.x / view.bounds.width, 0), 1)
+        progressView.setProgress(Float(progress), animated: true)
     }
 }
 

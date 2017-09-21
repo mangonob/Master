@@ -1,49 +1,89 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="3AU-hD-iVN">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="PsF-PE-IfU">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
         <scene sceneID="iIV-1T-uFm">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sRc-Th-KsL" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="PsF-PE-IfU" customClass="ViewController" customModule="Demo" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="4Un-aE-Tfp"/>
                         <viewControllerLayoutGuide type="bottom" id="cPO-wg-8ip"/>
                     </layoutGuides>
                     <view key="view" clearsContextBeforeDrawing="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" id="7Cw-Ey-rRb">
-                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.85043728351593018" green="0.21816034615039825" blue="0.15920260548591614" alpha="1" colorSpace="calibratedRGB"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WGN-An-E6u">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hamberger" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qff-jT-iK3">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="59"/>
+                                        <color key="textColor" red="0.19376453757286072" green="0.50850099325180054" blue="0.85232251882553101" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="bWv-DN-ULp">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                        <color key="progressTintColor" red="0.85043728351593018" green="0.21816034615039825" blue="0.15920260548591614" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="trackTintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </progressView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hamberger" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8ub-VV-B4I">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="59"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="8ub-VV-B4I" secondAttribute="bottom" id="1Vt-5L-c5U"/>
+                                    <constraint firstAttribute="bottom" secondItem="Qff-jT-iK3" secondAttribute="bottom" id="5LT-N9-JDN"/>
+                                    <constraint firstAttribute="trailing" secondItem="8ub-VV-B4I" secondAttribute="trailing" id="Gt3-35-ogW"/>
+                                    <constraint firstItem="bWv-DN-ULp" firstAttribute="top" secondItem="WGN-An-E6u" secondAttribute="top" id="NRr-X0-Rl3"/>
+                                    <constraint firstItem="8ub-VV-B4I" firstAttribute="leading" secondItem="WGN-An-E6u" secondAttribute="leading" id="NeE-vj-yxT"/>
+                                    <constraint firstItem="8ub-VV-B4I" firstAttribute="top" secondItem="WGN-An-E6u" secondAttribute="top" id="QLe-Ce-WCF"/>
+                                    <constraint firstAttribute="bottom" secondItem="bWv-DN-ULp" secondAttribute="bottom" id="SxX-XK-geh"/>
+                                    <constraint firstItem="bWv-DN-ULp" firstAttribute="leading" secondItem="WGN-An-E6u" secondAttribute="leading" id="XPi-Cn-vNN"/>
+                                    <constraint firstAttribute="trailing" secondItem="Qff-jT-iK3" secondAttribute="trailing" id="ZJO-Ah-jy2"/>
+                                    <constraint firstAttribute="trailing" secondItem="bWv-DN-ULp" secondAttribute="trailing" id="eQw-NQ-Cxx"/>
+                                    <constraint firstItem="Qff-jT-iK3" firstAttribute="leading" secondItem="WGN-An-E6u" secondAttribute="leading" id="j03-Fy-OQD"/>
+                                    <constraint firstItem="Qff-jT-iK3" firstAttribute="top" secondItem="WGN-An-E6u" secondAttribute="top" id="vTm-Pv-3v2"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.99963909387588501" green="1" blue="0.99975615739822388" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="WGN-An-E6u" secondAttribute="trailing" id="2Ph-ga-v4i"/>
+                            <constraint firstItem="WGN-An-E6u" firstAttribute="leading" secondItem="7Cw-Ey-rRb" secondAttribute="leading" id="O8s-Pp-Gvp"/>
+                            <constraint firstAttribute="bottom" secondItem="WGN-An-E6u" secondAttribute="bottom" id="UlJ-mW-SpX"/>
+                            <constraint firstItem="WGN-An-E6u" firstAttribute="top" secondItem="7Cw-Ey-rRb" secondAttribute="top" id="lPc-ap-E3f"/>
+                        </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="8sK-9Y-E6Y" appends="YES" id="Yy7-M1-2iJ"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" id="p76-Oc-Chd"/>
+                    <connections>
+                        <outlet property="label" destination="8ub-VV-B4I" id="rpE-Ja-1XA"/>
+                        <outlet property="progressView" destination="bWv-DN-ULp" id="cfZ-ZK-OIS"/>
+                    </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="sRc-Th-KsL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <panGestureRecognizer minimumNumberOfTouches="1" id="8sK-9Y-E6Y">
+                    <connections>
+                        <action selector="panAction:" destination="PsF-PE-IfU" id="KGJ-GC-sST"/>
+                    </connections>
+                </panGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="3882.4000000000001" y="-1053.8230884557722"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="nzB-St-ruW">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="3AU-hD-iVN" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" hidden="YES" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="gqD-NB-E6U">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="PsF-PE-IfU" kind="relationship" relationship="rootViewController" id="eQM-nY-7NF"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="C5N-oL-cf3" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2943.1999999999998" y="-1053.8230884557722"/>
         </scene>
     </scenes>
 </document>
