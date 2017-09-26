@@ -9,25 +9,23 @@
 import UIKit
 import Lottie
 
-
 class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationController?.delegate = self
+        view.layer.backgroundColor = UIColor.red.cgColor
     }
+    
+    var flag = true
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         
-        navigationController?.pushViewController(ViewController2(), animated: true)
-    }
-}
-
-
-extension ViewController: UINavigationControllerDelegate {
-    func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationControllerOperation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return CDCircleTransition(operation: operation, startPoint: CGPoint(x: view.bounds.midX, y: view.bounds.midY))
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: [], animations: { [weak self] in
+            if let layer = self?.view.layer {
+                layer.transform = CATransform3DRotate(layer.transform, CGFloat.pi, 0, 0, 1)
+            }
+        }, completion: nil)
     }
 }
 
