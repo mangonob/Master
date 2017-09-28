@@ -13,22 +13,72 @@ extension UIView {
     class LayoutHint {
         internal weak var view: UIView!
         internal var attribute: NSLayoutAttribute
+        internal var multiplier: CGFloat = 1
+        internal var constant: CGFloat = 0
+        
+        static func *(left: LayoutHint, multiplier: CGFloat) -> LayoutHint {
+            let result = LayoutHint(view: left.view, attribute: left.attribute)
+            result.multiplier *= multiplier
+            return result
+        }
+        
+        static func /(left: LayoutHint, constant: CGFloat) -> LayoutHint {
+            let result = LayoutHint(view: left.view, attribute: left.attribute)
+            result.multiplier /= constant
+            return result
+        }
+        
+        static func +(left: LayoutHint, constant: CGFloat) -> LayoutHint {
+            let result = LayoutHint(view: left.view, attribute: left.attribute)
+            result.multiplier += constant
+            return result
+        }
+        
+        static func -(left: LayoutHint, constant: CGFloat) -> LayoutHint {
+            let result = LayoutHint(view: left.view, attribute: left.attribute)
+            result.multiplier -= constant
+            return result
+        }
         
         init(view: UIView, attribute: NSLayoutAttribute) {
             self.view = view
             self.attribute = attribute
         }
         
-        func equal(_ other: LayoutHint, multiplier: CGFloat = 1, constant: CGFloat = 0) -> NSLayoutConstraint {
+        func equal(_ other: LayoutHint, multiplier: CGFloat, constant: CGFloat) -> NSLayoutConstraint {
             return NSLayoutConstraint(item: view, attribute: attribute, relatedBy: .equal, toItem: other.view, attribute: other.attribute, multiplier: multiplier, constant: constant)
         }
         
-        func greaterThanOrEqual(_ other: LayoutHint, multiplier: CGFloat = 1, constant: CGFloat = 0) -> NSLayoutConstraint {
+        func greaterThanOrEqual(_ other: LayoutHint, multiplier: CGFloat, constant: CGFloat) -> NSLayoutConstraint {
             return NSLayoutConstraint(item: view, attribute: attribute, relatedBy: .greaterThanOrEqual, toItem: other.view, attribute: other.attribute, multiplier: multiplier, constant: constant)
         }
         
-        func lessThanOrEqual(_ other: LayoutHint, multiplier: CGFloat = 1, constant: CGFloat = 0) -> NSLayoutConstraint {
+        func lessThanOrEqual(_ other: LayoutHint, multiplier: CGFloat, constant: CGFloat) -> NSLayoutConstraint {
             return NSLayoutConstraint(item: view, attribute: attribute, relatedBy: .lessThanOrEqual, toItem: other.view, attribute: other.attribute, multiplier: multiplier, constant: constant)
+        }
+        
+        func equal(_ other: LayoutHint) -> NSLayoutConstraint {
+            return NSLayoutConstraint(item: view, attribute: attribute, relatedBy: .equal, toItem: other.view, attribute: other.attribute, multiplier: other.multiplier, constant: other.constant)
+        }
+        
+        func greaterThanOrEqual(_ other: LayoutHint) -> NSLayoutConstraint {
+            return NSLayoutConstraint(item: view, attribute: attribute, relatedBy: .greaterThanOrEqual, toItem: other.view, attribute: other.attribute, multiplier: other.multiplier, constant: other.constant)
+        }
+        
+        func lessThanOrEqual(_ other: LayoutHint) -> NSLayoutConstraint {
+            return NSLayoutConstraint(item: view, attribute: attribute, relatedBy: .lessThanOrEqual, toItem: other.view, attribute: other.attribute, multiplier: other.multiplier, constant: other.constant)
+        }
+        
+        func equal(_ constant: CGFloat) -> NSLayoutConstraint {
+            return NSLayoutConstraint(item: view, attribute: attribute, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 0, constant: constant)
+        }
+        
+        func greaterThanOrEqual(_ constant: CGFloat) -> NSLayoutConstraint {
+            return NSLayoutConstraint(item: view, attribute: attribute, relatedBy: .greaterThanOrEqual, toItem: nil, attribute: .notAnAttribute, multiplier: 0, constant: constant)
+        }
+        
+        func lessThanOrEqual(_ constant: CGFloat) -> NSLayoutConstraint {
+            return NSLayoutConstraint(item: view, attribute: attribute, relatedBy: .lessThanOrEqual, toItem: nil, attribute: .notAnAttribute, multiplier: 0, constant: constant)
         }
     }
     
@@ -62,6 +112,10 @@ extension UIView {
     
     var centerY: LayoutHint {
         return LayoutHint(view: self, attribute: .centerY)
+    }
+    
+    var none: LayoutHint {
+        return LayoutHint(view: self, attribute: .notAnAttribute)
     }
 }
 
