@@ -1,5 +1,5 @@
 //
-//  CDBandagedBarButtonItem.swift
+//  CTBadgeBarButtonItem.swift
 //  BaiShengUPlus
 //
 //  Created by 高炼 on 2017/9/27.
@@ -8,8 +8,8 @@
 
 import UIKit
 
-private class CDBandagedView: UIView {
-    fileprivate lazy var bandgeButton = UIButton(type: .custom)
+private class CTBadgeView: UIView {
+    fileprivate lazy var badgeButton = UIButton(type: .custom)
     
     fileprivate lazy var imageView = UIImageView()
     
@@ -22,9 +22,9 @@ private class CDBandagedView: UIView {
     var number: Int? {
         didSet {
             if let number = number {
-                bandgeButton.setTitle("\(number > 99 ? "99+" : "\(number)")", for: .normal)
+                badgeButton.setTitle("\(number > 99 ? "99+" : "\(number)")", for: .normal)
             } else {
-                bandgeButton.setTitle(nil, for: .normal)
+                badgeButton.setTitle(nil, for: .normal)
             }
             
             layoutSubviews()
@@ -61,14 +61,14 @@ private class CDBandagedView: UIView {
         
         imageView.contentMode = .scaleAspectFit
         
-        bandgeButton.titleLabel?.font = UIFont.systemFont(ofSize: 8)
-        bandgeButton.backgroundColor = UIColor.red
-        bandgeButton.setTitleColor(.white, for: .normal)
+        badgeButton.titleLabel?.font = UIFont.systemFont(ofSize: 12)
+        badgeButton.backgroundColor = UIColor.red
+        badgeButton.setTitleColor(.white, for: .normal)
         
         addSubview(imageView)
-        addSubview(bandgeButton)
+        addSubview(badgeButton)
         
-        bandgeButton.contentEdgeInsets = .init(top: 0, left: 2, bottom: 0, right: 2)
+        badgeButton.contentEdgeInsets = .init(top: 0, left: 4, bottom: 0, right: 4)
         
         clipsToBounds = false
     }
@@ -78,55 +78,65 @@ private class CDBandagedView: UIView {
         
         imageView.frame = bounds
         
-        bandgeButton.center = .init(x: bounds.maxX - cornerInset.right, y: cornerInset.top)
-        let systemSize = bandgeButton.systemLayoutSizeFitting(.zero)
-        bandgeButton.bounds = .init(origin: .zero, size: .init(width: max(systemSize.width, systemSize.height), height: systemSize.height))
-        bandgeButton.layer.cornerRadius = min(bandgeButton.bounds.height, bandgeButton.bounds.width) / 2
+        badgeButton.center = .init(x: bounds.maxX - cornerInset.right, y: cornerInset.top)
+        let systemSize = badgeButton.systemLayoutSizeFitting(.zero)
+        badgeButton.bounds = .init(origin: .zero, size: .init(width: max(systemSize.width, systemSize.height), height: systemSize.height))
+        badgeButton.layer.cornerRadius = min(badgeButton.bounds.height, badgeButton.bounds.width) / 2
     }
 }
 
-class CDBandagedBarButtonItem: UIBarButtonItem {
-    private var bandgedView: CDBandagedView! {
-        return customView as! CDBandagedView
+class CTBadgeBarButtonItem: UIBarButtonItem {
+    private var badgeView: CTBadgeView! {
+        return customView as! CTBadgeView
     }
     
     var number: Int? {
         didSet {
-            bandgedView.number = number
+            badgeView.number = number
+        }
+    }
+    
+    func setNumber(_ number: Int?, animated: Bool) {
+        if animated {
+            UIView.animate(withDuration: 0.25) { [weak self] in
+                self?.number = number
+            }
+        } else {
+            self.number = number
         }
     }
     
     var font: UIFont? {
         get {
-            return bandgeButton.titleLabel?.font
+            return badgeButton.titleLabel?.font
         }
         set {
-            bandgeButton.titleLabel?.font = font
+            badgeButton.titleLabel?.font = newValue
         }
     }
     
-    var bandgeButton: UIButton {
-        return bandgedView.bandgeButton
+    var badgeButton: UIButton {
+        return badgeView.badgeButton
     }
     
     var cornerInset: UIEdgeInsets = .zero {
         didSet {
-            bandgedView.cornerInset = cornerInset
+            badgeView.cornerInset = cornerInset
         }
     }
     
 
     override var image: UIImage? {
         get {
-            return bandgedView.imageView.image
+            return badgeView.imageView.image
         }
         set {
-            bandgedView.imageView.image = newValue
+            badgeView.imageView.image = newValue
         }
     }
     
     convenience init(image: UIImage?, frame: CGRect = CGRect(origin: .zero, size: CGSize(width: 30, height: 30)), cornerInset: UIEdgeInsets = .zero) {
-        let customView = CDBandagedView(frame: frame)
+        let customView = CTBadgeView(frame: frame)
         customView.cornerInset = cornerInset
         customView.imageView.image = image
         
