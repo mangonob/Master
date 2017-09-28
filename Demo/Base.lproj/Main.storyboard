@@ -22,24 +22,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
-                        <connections>
-                            <outletCollection property="gestureRecognizers" destination="D7X-vB-pDD" appends="YES" id="1Yn-vp-N6Z"/>
-                            <outletCollection property="gestureRecognizers" destination="2i3-vv-xI4" appends="YES" id="grm-SD-dKd"/>
-                        </connections>
                     </view>
                     <navigationItem key="navigationItem" id="fh8-93-665"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sRc-Th-KsL" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <panGestureRecognizer minimumNumberOfTouches="1" id="D7X-vB-pDD">
-                    <connections>
-                        <action selector="panAction:" destination="PsF-PE-IfU" id="x5F-o8-plc"/>
-                    </connections>
-                </panGestureRecognizer>
-                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="2i3-vv-xI4">
-                    <connections>
-                        <action selector="longPressAction:" destination="PsF-PE-IfU" id="NWi-iT-Fhx"/>
-                    </connections>
-                </pongPressGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="4364" y="-1075"/>
         </scene>

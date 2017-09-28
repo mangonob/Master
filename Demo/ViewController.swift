@@ -10,23 +10,32 @@ import UIKit
 import Lottie
 
 class ViewController: UIViewController {
-    let item = CTBadgeBarButtonItem.init(image: #imageLiteral(resourceName: "message").withRenderingMode(.alwaysTemplate), cornerInset: .init(top: 0, left: 0, bottom: 0, right: 2))
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.leftBarButtonItem = item
-        item.tintColor = UIColor.flatOrange
-
-        view.backgroundColor = .white
-    }
-    
-    @IBAction func panAction(_ sender: UIPanGestureRecognizer) {
-        item.setNumber((item.number ?? 0) + 1, animated: true)
-    }
-    
-    @IBAction func longPressAction(_ sender: UILongPressGestureRecognizer) {
-        item.setNumber(nil, animated: true)
+        let view1 = UIView(frame: view.bounds)
+        let view2 = UIView(frame: view.bounds)
+        view1.backgroundColor = UIColor.flatGreen
+        view2.backgroundColor = UIColor.flatRed
+        view1.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        view2.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        
+        view.addSubview(view1)
+        view.addSubview(view2)
+        
+        let transition = CATransition()
+        transition.startProgress = 0
+        transition.endProgress = 1
+        transition.type = kCATransitionPush
+        transition.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
+        transition.subtype = kCATransitionFromRight
+        transition.duration = 2.5
+        
+        view1.layer.add(transition, forKey: nil)
+        view2.layer.add(transition, forKey: nil)
+        
+        view1.isHidden = false
+        view2.isHidden = true
     }
 }
 
