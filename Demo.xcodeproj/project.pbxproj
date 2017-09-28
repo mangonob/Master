@@ -28,7 +28,7 @@
 		4A355F5E1EFCD0490022B97B /* image2.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A355F5B1EFCD0490022B97B /* image2.png */; };
 		4A355F5F1EFCD0490022B97B /* image3.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A355F5C1EFCD0490022B97B /* image3.png */; };
 		4A3CE8EA1F1F858F0024DCBA /* CLSliderPageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3CE8E91F1F858F0024DCBA /* CLSliderPageController.swift */; };
-		4A4C56E21F7C8E0E003DA62D /* CDBandagedBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4C56E11F7C8E0D003DA62D /* CDBandagedBarButtonItem.swift */; };
+		4A4C56E21F7C8E0E003DA62D /* CTBadgeBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4C56E11F7C8E0D003DA62D /* CTBadgeBarButtonItem.swift */; };
 		4A5F6D651EFBDFB6007CBF7C /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A5F6D641EFBDFB6007CBF7C /* View.swift */; };
 		4A61D4931F0E183B00ED3B14 /* CDImagedProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A61D4921F0E183B00ED3B14 /* CDImagedProgress.swift */; };
 		4A67F5F81F274DA100B22B6F /* clock.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A67F5F71F274DA100B22B6F /* clock.png */; };
@@ -87,7 +87,7 @@
 		4A355F5B1EFCD0490022B97B /* image2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image2.png; sourceTree = "<group>"; };
 		4A355F5C1EFCD0490022B97B /* image3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image3.png; sourceTree = "<group>"; };
 		4A3CE8E91F1F858F0024DCBA /* CLSliderPageController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CLSliderPageController.swift; sourceTree = "<group>"; };
-		4A4C56E11F7C8E0D003DA62D /* CDBandagedBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CDBandagedBarButtonItem.swift; sourceTree = "<group>"; };
+		4A4C56E11F7C8E0D003DA62D /* CTBadgeBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CTBadgeBarButtonItem.swift; sourceTree = "<group>"; };
 		4A5F6D641EFBDFB6007CBF7C /* View.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
 		4A61D4921F0E183B00ED3B14 /* CDImagedProgress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDImagedProgress.swift; sourceTree = "<group>"; };
 		4A67F5F71F274DA100B22B6F /* clock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = clock.png; sourceTree = "<group>"; };
@@ -175,7 +175,7 @@
 				4AE5A6F11F5D67FF00A0A1F0 /* loading_semicircle.json */,
 				4AF4E7A81E889EC8002A5B15 /* ViewController.swift */,
 				4A78F2C71F699E010078EABF /* ViewController2.swift */,
-				4A4C56E11F7C8E0D003DA62D /* CDBandagedBarButtonItem.swift */,
+				4A4C56E11F7C8E0D003DA62D /* CTBadgeBarButtonItem.swift */,
 				4A78F2C51F6991F80078EABF /* CDCircleTransition.swift */,
 				4AB90CD11F67D0570031C52F /* UIFillLayout.swift */,
 				4AFEBAAB1F56988A00F075EB /* ContentController.swift */,
@@ -387,7 +387,7 @@
 				4A78F2C81F699E010078EABF /* ViewController2.swift in Sources */,
 				4A1B3B091EF3906800317614 /* CDQRCodeController.swift in Sources */,
 				4AFEBAAC1F56988A00F075EB /* ContentController.swift in Sources */,
-				4A4C56E21F7C8E0E003DA62D /* CDBandagedBarButtonItem.swift in Sources */,
+				4A4C56E21F7C8E0E003DA62D /* CTBadgeBarButtonItem.swift in Sources */,
 				4A1FB3A11EE7D86200FABB33 /* CDLShapeView.swift in Sources */,
 				4A355F591EFCAB120022B97B /* CDImagesBannerView.swift in Sources */,
 				4ADCB79D1F0A319400910A59 /* CDRadio.swift in Sources */,

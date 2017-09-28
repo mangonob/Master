@@ -21,10 +21,12 @@ class ViewController: UIViewController {
         view.backgroundColor = .white
     }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let bandgeItem = navigationItem.leftBarButtonItem as? CTBadgeBarButtonItem  {
-            bandgeItem.setNumber((bandgeItem.number ?? 0) + 1, animated: true)
-        }
+    @IBAction func panAction(_ sender: UIPanGestureRecognizer) {
+        item.setNumber((item.number ?? 0) + 1, animated: true)
+    }
+    
+    @IBAction func longPressAction(_ sender: UILongPressGestureRecognizer) {
+        item.setNumber(nil, animated: true)
     }
 }
 

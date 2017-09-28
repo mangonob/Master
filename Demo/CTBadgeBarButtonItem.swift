@@ -23,8 +23,10 @@ private class CTBadgeView: UIView {
         didSet {
             if let number = number {
                 badgeButton.setTitle("\(number > 99 ? "99+" : "\(number)")", for: .normal)
+                badgeButton.alpha = 1
             } else {
                 badgeButton.setTitle(nil, for: .normal)
+                badgeButton.alpha = 0
             }
             
             layoutSubviews()
@@ -45,12 +47,6 @@ private class CTBadgeView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         configure()
-    }
-    
-    override func didMoveToSuperview() {
-        super.didMoveToSuperview()
-        
-        number = 10
     }
     
     //MARK: - Configure
