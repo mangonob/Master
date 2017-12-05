@@ -7,11 +7,14 @@
 //
 
 import UIKit
-import Lottie
 
 class ViewController: UIViewController {
+    @IBOutlet weak var textView: UITextView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        UIFont.familyNames.forEach { UIFont.fontNames(forFamilyName: $0).forEach{ print($0) } }
     }
 }
 
