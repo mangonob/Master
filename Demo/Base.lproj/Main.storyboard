@@ -20,10 +20,27 @@
                     <view key="view" clearsContextBeforeDrawing="NO" multipleTouchEnabled="YES" contentMode="scaleToFill" id="7Cw-Ey-rRb">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" keyboardDismissMode="onDrag" text="永" translatesAutoresizingMaskIntoConstraints="NO" id="GVw-yU-wht">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstItem="GVw-yU-wht" firstAttribute="leading" secondItem="7Cw-Ey-rRb" secondAttribute="leading" id="J9P-Lp-rez"/>
+                            <constraint firstItem="cPO-wg-8ip" firstAttribute="top" secondItem="GVw-yU-wht" secondAttribute="bottom" id="gQt-Ya-F86"/>
+                            <constraint firstItem="GVw-yU-wht" firstAttribute="top" secondItem="4Un-aE-Tfp" secondAttribute="bottom" id="hXa-T0-WlR"/>
+                            <constraint firstAttribute="trailing" secondItem="GVw-yU-wht" secondAttribute="trailing" id="idN-5Y-BcU"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="fh8-93-665"/>
+                    <connections>
+                        <outlet property="textView" destination="GVw-yU-wht" id="Ozq-xV-RS0"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sRc-Th-KsL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

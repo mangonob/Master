@@ -14,7 +14,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        UIFont.familyNames.forEach { UIFont.fontNames(forFamilyName: $0).forEach{ print($0) } }
+        textView.font = UIFont(name: "FZQKBYSJW--GB1-0", size: 24)
     }
 }
 
