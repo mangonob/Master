@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import CoreText
+
 
 class ViewController: UIViewController {
     @IBOutlet weak var textView: UITextView!
@@ -15,6 +17,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
 
         textView.font = UIFont(name: "FZQKBYSJW--GB1-0", size: 24)
+        textView.textContainerInset = .zero
+        textView.textContainer.lineFragmentPadding = 100
     }
 }
-
