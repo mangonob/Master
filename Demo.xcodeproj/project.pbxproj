@@ -13,7 +13,7 @@
 		4AF4E7AC1E889EC8002A5B15 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4AF4E7AA1E889EC8002A5B15 /* Main.storyboard */; };
 		4AF4E7AE1E889EC8002A5B15 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4AF4E7AD1E889EC8002A5B15 /* Assets.xcassets */; };
 		4AF4E7B11E889EC8002A5B15 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4AF4E7AF1E889EC8002A5B15 /* LaunchScreen.storyboard */; };
-		4AFF7DF01FE75B2A00C13F14 /* View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AFF7DEF1FE75B2A00C13F14 /* View.swift */; };
+		4AFF7DF21FE79FD700C13F14 /* CCBanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AFF7DF11FE79FD700C13F14 /* CCBanner.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,7 +25,7 @@
 		4AF4E7AD1E889EC8002A5B15 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4AF4E7B01E889EC8002A5B15 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4AF4E7B21E889EC8002A5B15 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4AFF7DEF1FE75B2A00C13F14 /* View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = View.swift; sourceTree = "<group>"; };
+		4AFF7DF11FE79FD700C13F14 /* CCBanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CCBanner.swift; sourceTree = "<group>"; };
 		DCDE17DC674AD1B951A2BC29 /* Pods-Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Demo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Demo/Pods-Demo.debug.xcconfig"; sourceTree = "<group>"; };
 		DF6C25355C0D3979C1574CCB /* Pods-Demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Demo.release.xcconfig"; path = "Pods/Target Support Files/Pods-Demo/Pods-Demo.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -73,7 +73,7 @@
 			children = (
 				4A7F07271FD6EEFC002C8EA3 /* AppDelegate.swift */,
 				4AF4E7A81E889EC8002A5B15 /* ViewController.swift */,
-				4AFF7DEF1FE75B2A00C13F14 /* View.swift */,
+				4AFF7DF11FE79FD700C13F14 /* CCBanner.swift */,
 				4AF4E7AA1E889EC8002A5B15 /* Main.storyboard */,
 				4AF4E7AD1E889EC8002A5B15 /* Assets.xcassets */,
 				4AF4E7AF1E889EC8002A5B15 /* LaunchScreen.storyboard */,
@@ -217,7 +217,7 @@
 			files = (
 				4A7F07281FD6EEFC002C8EA3 /* AppDelegate.swift in Sources */,
 				4AF4E7A91E889EC8002A5B15 /* ViewController.swift in Sources */,
-				4AFF7DF01FE75B2A00C13F14 /* View.swift in Sources */,
+				4AFF7DF21FE79FD700C13F14 /* CCBanner.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
