@@ -14,14 +14,9 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if let banner = view as? CCBanner {
-        }
+//        Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.timerCallback(timer:)), userInfo: nil, repeats: true)
     }
     
-    override func motionBegan(_ motion: UIEventSubtype, with event: UIEvent?) {
-        super.motionBegan(motion, with: event)
-        
-        if let banner = view as? CCBanner {
-        }
+    func timerCallback(timer: Timer) {
     }
 }
