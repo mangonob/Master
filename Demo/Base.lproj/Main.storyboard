@@ -17,10 +17,10 @@
                         <viewControllerLayoutGuide type="top" id="4Un-aE-Tfp"/>
                         <viewControllerLayoutGuide type="bottom" id="cPO-wg-8ip"/>
                     </layoutGuides>
-                    <view key="view" clearsContextBeforeDrawing="NO" multipleTouchEnabled="YES" contentMode="scaleAspectFill" id="7Cw-Ey-rRb" customClass="CCBanner" customModule="Demo" customModuleProvider="target">
+                    <view key="view" clearsContextBeforeDrawing="NO" multipleTouchEnabled="YES" contentMode="scaleAspectFill" id="7Cw-Ey-rRb">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.1819814891" green="0.69426733259999995" blue="0.53024792669999998" alpha="1" colorSpace="calibratedRGB"/>
                         <gestureRecognizers/>
                     </view>
                     <navigationItem key="navigationItem" id="fh8-93-665"/>
