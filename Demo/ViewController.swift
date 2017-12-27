@@ -32,7 +32,7 @@ class ViewController: UIViewController {
         
         collectionView.collectionViewLayout = Layout()
         var transform = CATransform3DIdentity
-        transform.m34 = -1/1000.0
+        transform.m34 = -1/300.0
         collectionView.layer.sublayerTransform = transform
     }
     
@@ -50,7 +50,7 @@ class ViewController: UIViewController {
         case .changed:
             layout.progress = Static.progress - min(max(translation.x / collectionView.bounds.width, -1), 1)
         default:
-            break
+            layout.fitPosition()
         }
     }
     
@@ -63,7 +63,7 @@ class ViewController: UIViewController {
 extension ViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let layout = collectionView.collectionViewLayout as? Layout {
-            layout.setCurrentIndex(indexPath.row, atSection: indexPath.section)
+            layout.setCurrentIndex(indexPath.row)
         }
     }
 }
@@ -97,6 +97,8 @@ extension ViewController: UICollectionViewDataSource {
     @objc optional func collectionView(_ collectionView: UICollectionView, layout: Layout, itemSizeAt indexPath: IndexPath) -> CGSize
     
     @objc optional func collectionView(_ collectionView: UICollectionView, radiusOfLayout: Layout) -> CGFloat
+    
+    @objc optional func collectionView(_ collectionView: UICollectionView, initialPhaseOfLayout: Layout) -> CGFloat
 }
 
 extension ViewController: LayoutDelegate {
@@ -105,7 +107,11 @@ extension ViewController: LayoutDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, radiusOfLayout: Layout) -> CGFloat {
-        return 100
+        return 44
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, initialPhaseOfLayout: Layout) -> CGFloat {
+        return -CGFloat.pi / 4
     }
 }
 
@@ -126,8 +132,8 @@ class Layout: UICollectionViewLayout {
         }
     }
     
-    func setCurrentIndex(_ index: Int, atSection section: Int) {
-        guard let numberOfItems = collectionView?.numberOfItems(inSection: section), numberOfItems > 0 else { return }
+    func setCurrentIndex(_ index: Int) {
+        guard let numberOfItems = collectionView?.numberOfItems(inSection: 0), numberOfItems > 0 else { return }
         setProgress(progress: CGFloat(index) / CGFloat(numberOfItems), animated: true)
     }
     
@@ -135,6 +141,11 @@ class Layout: UICollectionViewLayout {
         didSet {
             invalidateLayout()
         }
+    }
+    
+    func fitPosition() {
+        guard let numberOfItems = collectionView?.numberOfItems(inSection: 0), numberOfItems > 0 else { return }
+        setCurrentIndex(Int(floor(CGFloat(numberOfItems) * progress + 0.5)))
     }
     
     func setProgress(progress: CGFloat, animated: Bool, duration: CFTimeInterval = 0.25, shortcut: Bool = true) {
@@ -214,7 +225,7 @@ class Layout: UICollectionViewLayout {
             
             guard numberOfItems > 0 else { continue }
             
-            var currentProgress = -progress
+            var currentProgress = -progress + ((collectionView.delegate as? LayoutDelegate)?.collectionView?(collectionView, initialPhaseOfLayout: self) ?? 0) / (CGFloat.pi * 2)
             let progressStep = numberOfItems > 0 ? 1 / CGFloat(numberOfItems) : 0
             
             var progresses = [CGFloat](repeating: 0, count: numberOfItems)
