@@ -32,8 +32,7 @@ class ViewController: UIViewController {
         
         collectionView.collectionViewLayout = Layout()
         var transform = CATransform3DIdentity
-        transform.m34 = -1/300.0
-        transform = CATransform3DRotate(transform, CGFloat.pi / 180 * 6, -1, 0, 0)
+        transform.m34 = -1/1000.0
         collectionView.layer.sublayerTransform = transform
     }
     
@@ -50,16 +49,8 @@ class ViewController: UIViewController {
             Static.progress = layout.progress
         case .changed:
             layout.progress = Static.progress - min(max(translation.x / collectionView.bounds.width, -1), 1)
-        case .ended:
-            print(sender.velocity(in: nil))
         default:
             break
-        }
-    }
-    
-    @IBAction func tapAction(_ sender: UITapGestureRecognizer) {
-        if let layout = collectionView.collectionViewLayout as? Layout {
-            layout.setProgress(progress: 1, animated: true)
         }
     }
     
@@ -72,7 +63,7 @@ class ViewController: UIViewController {
 extension ViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let layout = collectionView.collectionViewLayout as? Layout {
-            layout.setProgress(progress: CGFloat(indexPath.row) / 42, animated: true)
+            layout.setCurrentIndex(indexPath.row, atSection: indexPath.section)
         }
     }
 }
@@ -84,7 +75,7 @@ extension ViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 42
+        return 3
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -110,11 +101,11 @@ extension ViewController: UICollectionViewDataSource {
 
 extension ViewController: LayoutDelegate {
     func collectionView(_ collectionView: UICollectionView, layout: Layout, itemSizeAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 30, height: 30)
+        return CGSize(width: 250, height: 300)
     }
     
     func collectionView(_ collectionView: UICollectionView, radiusOfLayout: Layout) -> CGFloat {
-        return 150
+        return 100
     }
 }
 
@@ -135,17 +126,18 @@ class Layout: UICollectionViewLayout {
         }
     }
     
+    func setCurrentIndex(_ index: Int, atSection section: Int) {
+        guard let numberOfItems = collectionView?.numberOfItems(inSection: section), numberOfItems > 0 else { return }
+        setProgress(progress: CGFloat(index) / CGFloat(numberOfItems), animated: true)
+    }
+    
     var radius: CGFloat = 100 {
         didSet {
             invalidateLayout()
         }
     }
     
-    func setProgress(progress: CGFloat, animated: Bool) {
-        setProgress(progress: progress, animated: animated, duration: 0.25)
-    }
-    
-    fileprivate func setProgress(progress: CGFloat, animated: Bool, duration: CFTimeInterval) {
+    func setProgress(progress: CGFloat, animated: Bool, duration: CFTimeInterval = 0.25, shortcut: Bool = true) {
         if !animated {
             self.progress = progress
             return
@@ -194,9 +186,13 @@ class Layout: UICollectionViewLayout {
         
         collectionView?.layer.addSublayer(progressLayer)
         
+        func near(_ value: CGFloat, by: CGFloat = 0.5) -> CGFloat {
+            return modf(modf(value - by - 0.5).1 + 1).1 + by - 0.5
+        }
+        
         let ani = CABasicAnimation(keyPath: "progress")
-        ani.fromValue = self.progress
-        ani.toValue = progress
+        ani.fromValue = shortcut ? near(self.progress) : self.progress
+        ani.toValue = shortcut ? near(progress, by: near(self.progress)) : progress
         ani.duration = duration
         ani.isRemovedOnCompletion = false
         ani.delegate = progressLayer
@@ -244,8 +240,8 @@ class Layout: UICollectionViewLayout {
             }
             
             zip(progresses, attributes).sorted(by: { (left, right) -> Bool in
-                return cos(left.0 * CGFloat.pi) < cos(right.0 * CGFloat.pi)
-            }).map { $0.1 }.enumerated().forEach { $0.element.zIndex = -$0.offset }
+                return cos(left.0 * CGFloat.pi * 2) < cos(right.0 * CGFloat.pi * 2)
+            }).map { $0.1 }.enumerated().forEach { $0.element.zIndex = $0.offset }
             
             result.append(contentsOf: attributes)
         }

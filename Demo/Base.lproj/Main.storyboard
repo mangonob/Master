@@ -73,7 +73,6 @@
                         </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="g3U-N6-8mx" appends="YES" id="tjy-Jm-Y0X"/>
-                            <outletCollection property="gestureRecognizers" destination="PZV-iX-sBZ" appends="YES" id="lmU-it-c9n"/>
                         </connections>
                     </view>
                     <navigationItem key="navigationItem" id="fh8-93-665"/>
@@ -87,11 +86,6 @@
                         <action selector="panAction:" destination="PsF-PE-IfU" id="1Vm-HE-PpJ"/>
                     </connections>
                 </panGestureRecognizer>
-                <tapGestureRecognizer numberOfTapsRequired="2" id="PZV-iX-sBZ">
-                    <connections>
-                        <action selector="tapAction:" destination="PsF-PE-IfU" id="lTJ-Ug-DlI"/>
-                    </connections>
-                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="4364" y="-1075.4122938530736"/>
         </scene>
