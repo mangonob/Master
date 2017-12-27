@@ -87,7 +87,7 @@
                         <action selector="panAction:" destination="PsF-PE-IfU" id="1Vm-HE-PpJ"/>
                     </connections>
                 </panGestureRecognizer>
-                <tapGestureRecognizer id="PZV-iX-sBZ">
+                <tapGestureRecognizer numberOfTapsRequired="2" id="PZV-iX-sBZ">
                     <connections>
                         <action selector="tapAction:" destination="PsF-PE-IfU" id="lTJ-Ug-DlI"/>
                     </connections>
