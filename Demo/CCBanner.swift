@@ -15,7 +15,7 @@ class CCBanner: UIControl {
         self.collectionView.removeObserver(self, forKeyPath: "contentOffset")
     }
     
-    var images: [UIImage?] = [#imageLiteral(resourceName: "image_0"), #imageLiteral(resourceName: "image_1"), #imageLiteral(resourceName: "image_2")]
+    var images: [UIImage?] = [#imageLiteral(resourceName: "image_1"), #imageLiteral(resourceName: "image_2"), #imageLiteral(resourceName: "image_3")]
     {
         didSet {
             collectionView.reloadData()
@@ -114,6 +114,10 @@ extension CCBanner: UICollectionViewDelegate {
                 collectionView.contentOffset = CGPoint(x: bounds.width, y: 0)
             }
         }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        print(collectionView.indexPathsForVisibleItems.first)
     }
 }
 

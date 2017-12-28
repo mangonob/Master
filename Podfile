@@ -14,4 +14,5 @@ target 'Demo' do
 	pod 'ChameleonFramework/Swift', :git => 'https://github.com/ViccAlexander/Chameleon.git'
   pod 'lottie-ios'
   pod 'ODRefreshControl', '~> 1.2'
+  pod 'SDWebImage'
 end
