@@ -16,6 +16,9 @@ private let kCCBannerCellReuseIdentifier = "CCBannerCell"
     @objc optional func bannerDrawPageControl(withContext context: CGContext, rect: CGRect, currentPage page: Int, numberOfPage: Int)
 }
 
+@objc protocol CCBannerDelegate {
+    @objc optional func banner(_ banner: CCBanner, insetsAt index: Int) -> UIEdgeInsets
+}
 
 fileprivate class CCBannerCoverView: UIView, CCBannerPageDrawDelegate {
     weak var drawDelegate: CCBannerPageDrawDelegate? {
@@ -61,7 +64,7 @@ fileprivate class CCBannerCoverView: UIView, CCBannerPageDrawDelegate {
         indicatorsRect.origin.y -= indicatorsRect.height / 2
         
         for page in 0..<numberOfPage {
-            UIColor(hexString: page == currentPage ? "#FF0000" : "#00FF00")?.setFill()
+            UIColor(hexString: page == currentPage ? "#b1a085" : "#ffffff")?.setFill()
             UIBezierPath(rect: indicatorsRect.divided(atDistance: indicatorSize.width, from: .minXEdge).slice).fill()
             
             indicatorsRect = indicatorsRect.divided(atDistance: indicatorSize.width + indicatorSpacing, from: .minXEdge).remainder
@@ -71,6 +74,8 @@ fileprivate class CCBannerCoverView: UIView, CCBannerPageDrawDelegate {
 
 
 class CCBanner: UIControl {
+    var imageInsets: UIEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
+    
     weak var drawDelegate: CCBannerPageDrawDelegate?
     {
         didSet {
@@ -79,12 +84,18 @@ class CCBanner: UIControl {
         }
     }
     
+    var delegate: CCBannerDelegate? {
+        didSet {
+            collectionView.reloadData()
+        }
+    }
+    
     deinit {
         self.collectionView.removeObserver(self, forKeyPath: #keyPath(UICollectionView.contentOffset))
         self.collectionView.removeObserver(self, forKeyPath: #keyPath(UICollectionView.contentSize))
     }
     
-    var images: [UIImage?] = [#imageLiteral(resourceName: "image_1"), #imageLiteral(resourceName: "image_2"), #imageLiteral(resourceName: "image_3")]
+    var images = [UIImage?]()
     {
         didSet {
             collectionView.reloadData()
@@ -177,7 +188,6 @@ class CCBanner: UIControl {
         
         if pageCover.currentPage != currentIndex {
             pageCover.currentPage = currentIndex
-            print(currentIndex)
         }
     }
     
@@ -231,6 +241,8 @@ extension CCBanner: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: kCCBannerCellReuseIdentifier, for: indexPath) as! CCBannerCell
         cell.contentMode = contentMode
         
+        cell.insets = delegate?.banner?(self, insetsAt: indexPath.row) ?? imageInsets
+        
         if isCircular {
             switch indexPath.row {
             case 0..<images.count:
@@ -268,6 +280,14 @@ fileprivate class CCBannerCell: UICollectionViewCell {
         }
         
         return _imageView
+    }
+    
+    var insets: UIEdgeInsets = .zero {
+        didSet {
+            imageView.frame = CGRect(x: insets.left, y: insets.top,
+                                     width: bounds.width - insets.left - insets.right,
+                                     height: bounds.height - insets.top - insets.bottom)
+        }
     }
     
     override var contentMode: UIViewContentMode {
