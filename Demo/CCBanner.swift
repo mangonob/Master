@@ -76,6 +76,31 @@ fileprivate class CCBannerCoverView: UIView, CCBannerPageDrawDelegate {
 class CCBanner: UIControl {
     var imageInsets: UIEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
     
+    private var runningTimer: Timer!
+    
+    var runingTimeInterval: TimeInterval = 1
+    
+    @IBInspectable
+    var autoRunning: Bool = false {
+        didSet {
+            guard isCircular else { return }
+            
+            if autoRunning && runningTimer == nil {
+                runningTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.runningTimerAction(_:)), userInfo: nil, repeats: true)
+            } else if !autoRunning {
+                runningTimer.invalidate()
+                runningTimer = nil
+            }
+        }
+    }
+    
+    @objc private func runningTimerAction(_ sender: Timer) {
+        guard isCircular else { return }
+        guard images.count > 0 else { return }
+        
+        currentIndex = (currentIndex + 1) % images.count
+    }
+    
     weak var drawDelegate: CCBannerPageDrawDelegate?
     {
         didSet {
@@ -115,7 +140,7 @@ class CCBanner: UIControl {
             return Int(offset / bounds.width + 0.5) % images.count
         }
         set {
-            guard currentIndex > 0 && currentIndex < images.count else {
+            guard newValue >= 0 && newValue < images.count else {
                 fatalError("Index out of range")
             }
             
