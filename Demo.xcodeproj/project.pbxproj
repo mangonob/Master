@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4A2718B6204CF37F002BC55C /* metalSingle.metal in Sources */ = {isa = PBXBuildFile; fileRef = 4A2718B5204CF37F002BC55C /* metalSingle.metal */; };
 		4A3BCEC31FF61B14001E55D4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3BCEC21FF61B14001E55D4 /* AppDelegate.swift */; };
 		4A3BCEC51FF61B14001E55D4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3BCEC41FF61B14001E55D4 /* ViewController.swift */; };
 		4A3BCEC81FF61B14001E55D4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4A3BCEC61FF61B14001E55D4 /* Main.storyboard */; };
@@ -17,6 +18,7 @@
 
 /* Begin PBXFileReference section */
 		2BA53171D5E6103E62D644CE /* Pods-Demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Demo.release.xcconfig"; path = "Pods/Target Support Files/Pods-Demo/Pods-Demo.release.xcconfig"; sourceTree = "<group>"; };
+		4A2718B5204CF37F002BC55C /* metalSingle.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = metalSingle.metal; sourceTree = "<group>"; };
 		4A3BCEBF1FF61B14001E55D4 /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A3BCEC21FF61B14001E55D4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4A3BCEC41FF61B14001E55D4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -63,6 +65,7 @@
 			children = (
 				4A3BCEC21FF61B14001E55D4 /* AppDelegate.swift */,
 				4A3BCEC41FF61B14001E55D4 /* ViewController.swift */,
+				4A2718B5204CF37F002BC55C /* metalSingle.metal */,
 				4A3BCEC61FF61B14001E55D4 /* Main.storyboard */,
 				4A3BCEC91FF61B14001E55D4 /* Assets.xcassets */,
 				4A3BCECB1FF61B14001E55D4 /* LaunchScreen.storyboard */,
@@ -225,6 +228,7 @@
 			files = (
 				4A3BCEC51FF61B14001E55D4 /* ViewController.swift in Sources */,
 				4A3BCEC31FF61B14001E55D4 /* AppDelegate.swift in Sources */,
+				4A2718B6204CF37F002BC55C /* metalSingle.metal in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

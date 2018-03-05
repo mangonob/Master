@@ -7,12 +7,21 @@
 //
 
 import UIKit
+import Metal
 
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+
+        if let device = MTLCreateSystemDefaultDevice(),
+            let queue = device.makeCommandQueue(),
+            let commandBuffer = queue.makeCommandBuffer() {
+            let library = device.makeDefaultLibrary()
+            let fun = library?.makeFunction(name: "func")
+            
+        }
     }
 
     override func didReceiveMemoryWarning() {
