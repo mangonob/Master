@@ -31,9 +31,12 @@ class ViewController: UIViewController {
 
             var vertexBuffer: MTLBuffer! = nil
             let vertexData: [Float] = [
-                0.0, 1.0, 0.0,
-                -1.0, -1.0, 0.0,
-                1.0, -1.0, 0.0
+                -0.5, 1.0, 0.0,
+                -1.0, 0.0, 0.0,
+                0.0, 0.5, 0.0,
+                0.5, 0, 0.0,
+                0.0, -1.0, 0.0,
+                1.0, -0.5, 0.0,
             ]
             
             vertexBuffer = device.makeBuffer(bytes: vertexData, length: vertexData.count * MemoryLayout<Float>.size, options: [])
@@ -54,11 +57,11 @@ class ViewController: UIViewController {
                 renderPassDescriptor.colorAttachments[0].texture = drawable.texture
                 renderPassDescriptor.colorAttachments[0].loadAction = .clear
                 renderPassDescriptor.colorAttachments[0].clearColor = .init(red: 0, green: 1, blue: 0, alpha: 1)
-                
+
                 let encoder = commandBuffer.makeRenderCommandEncoder(descriptor: renderPassDescriptor)
                 encoder?.setRenderPipelineState(pipelineState)
                 encoder?.setVertexBuffer(vertexBuffer, offset: 0, index: 0)
-                encoder?.drawPrimitives(type: .triangle, vertexStart: 0, vertexCount: 3, instanceCount: 1)
+                encoder?.drawPrimitives(type: .triangleStrip, vertexStart: 0, vertexCount: vertexData.count / 3, instanceCount: 1)
                 encoder?.endEncoding()
                 
                 commandBuffer.present(drawable)
