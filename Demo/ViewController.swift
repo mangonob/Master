@@ -34,7 +34,7 @@ class ViewController: UIViewController {
                 -0.5, 1.0, 0.0,
                 -1.0, 0.0, 0.0,
                 0.0, 0.5, 0.0,
-                0.5, 0, 0.0,
+                0.5, 0.0, 0.0,
                 0.0, -1.0, 0.0,
                 1.0, -0.5, 0.0,
             ]
@@ -61,7 +61,7 @@ class ViewController: UIViewController {
                 let encoder = commandBuffer.makeRenderCommandEncoder(descriptor: renderPassDescriptor)
                 encoder?.setRenderPipelineState(pipelineState)
                 encoder?.setVertexBuffer(vertexBuffer, offset: 0, index: 0)
-                encoder?.drawPrimitives(type: .triangleStrip, vertexStart: 0, vertexCount: vertexData.count / 3, instanceCount: 1)
+                encoder?.drawPrimitives(type: .lineStrip, vertexStart: 0, vertexCount: vertexData.count / 3, instanceCount: 1)
                 encoder?.endEncoding()
                 
                 commandBuffer.present(drawable)
