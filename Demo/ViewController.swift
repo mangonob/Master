@@ -82,7 +82,8 @@ class ViewController: UIViewController {
                 encoder?.setRenderPipelineState(pipelineState)
                 encoder?.setVertexBuffer(positionBuffer, offset: 0, index: 0)
                 encoder?.setVertexBuffer(colorsBuffer, offset: 0, index: 1)
-                encoder?.drawPrimitives(type: .lineStrip , vertexStart: 0, vertexCount: colors.count / 4, instanceCount: 1)
+                encoder?.setTriangleFillMode(.lines)
+                encoder?.drawPrimitives(type: .triangleStrip , vertexStart: 0, vertexCount: colors.count / 4, instanceCount: 1)
                 encoder?.endEncoding()
 
                 commandBuffer.present(drawable)
