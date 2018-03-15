@@ -10,11 +10,25 @@
 using namespace metal;
 
 
-vertex float4 basic_vertex(constant packed_float3* vertex_array[[buffer(0)]],
-                           unsigned int vid[[vertex_id]]) {
-    return float4(vertex_array[vid], 1.0);
+struct VertexInput {
+    float4 position [[ attribute(0) ]];
+    float4 color [[ attribute(1) ]];
+};
+
+struct VertexOutput {
+    float4 position [[ position ]];
+    float4 color;
+};
+
+typedef VertexOutput FragmentInput;
+
+vertex VertexOutput basic_vertex(VertexInput in [[ stage_in ]]) {
+    VertexOutput out;
+    out.position = in.position;
+    out.color = in.color;
+    return out;
 }
 
-fragment half4 basic_fragment() {
-    return half4(0.5);
+fragment half4 basic_fragment(FragmentInput in [[ stage_in ]]) {
+    return half4(in.color);
 }
