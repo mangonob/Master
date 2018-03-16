@@ -10,10 +10,14 @@ import UIKit
 import Metal
 import simd
 import MetalKit
+import ModelIO
 
 class ViewController: UIViewController {
+    @IBOutlet weak var metalView: MTKView!
+    
+    
     var metalLayer: CAMetalLayer? {
-        return view.layer as? CAMetalLayer
+        return metalView.layer as? CAMetalLayer
     }
     
     var pipelineState: MTLRenderPipelineState!
@@ -35,17 +39,17 @@ class ViewController: UIViewController {
                 -0.5, -0.5, 0.0, 1.0,
                 0.5, -0.5, 0.0, 1.0,
                 ]
-
+            
             let colors: [Float] = [
                 1.0, 0.0, 0.0, 1.0,
                 0.0, 1.0, 0.0, 1.0,
                 0.0, 0.0, 1.0, 1.0,
                 1.0, 1.0, 0.0, 1.0,
-            ]
-
+                ]
+            
             let positionBuffer = device.makeBuffer(bytes: positions, length: positions.count * MemoryLayout<Float>.size, options: [])
             let colorsBuffer = device.makeBuffer(bytes: colors, length: colors.count * MemoryLayout<Float>.size, options: [])
-
+            
             let defaultLibrary = device.makeDefaultLibrary()
             let fragmentProgram = defaultLibrary?.makeFunction(name: "basic_fragment")
             let vertexProgram = defaultLibrary?.makeFunction(name: "basic_vertex")
@@ -69,15 +73,15 @@ class ViewController: UIViewController {
             pipelineStateDescriptor.vertexDescriptor = vertexDescriptor
             
             pipelineState = try? device.makeRenderPipelineState(descriptor: pipelineStateDescriptor)
-
+            
             metalLayer?.device = device
-
+            
             if let drawable = metalLayer?.nextDrawable() {
                 let renderPassDescriptor = MTLRenderPassDescriptor()
                 renderPassDescriptor.colorAttachments[0].texture = drawable.texture
                 renderPassDescriptor.colorAttachments[0].loadAction = .clear
                 renderPassDescriptor.colorAttachments[0].clearColor = .init(red: 0, green: 0, blue: 0, alpha: 1)
-
+                
                 let parallelEncoder = commandBuffer.makeParallelRenderCommandEncoder(descriptor: renderPassDescriptor)
                 
                 let encoder1 = parallelEncoder?.makeRenderCommandEncoder()
@@ -86,12 +90,11 @@ class ViewController: UIViewController {
                 encoder1?.setVertexBuffer(colorsBuffer, offset: 0, index: 1)
                 encoder1?.setTriangleFillMode(.lines)
                 encoder1?.drawPrimitives(type: .triangleStrip , vertexStart: 0, vertexCount: colors.count / 4, instanceCount: 1)
-
+                
                 let encoder2 = parallelEncoder?.makeRenderCommandEncoder()
                 encoder2?.setRenderPipelineState(pipelineState)
                 encoder2?.setVertexBuffer(positionBuffer, offset: 0, index: 0)
                 encoder2?.setVertexBuffer(colorsBuffer, offset: 0, index: 1)
-                encoder2?.setTriangleFillMode(.lines)
                 encoder2?.drawPrimitives(type: .point , vertexStart: 0, vertexCount: colors.count / 4, instanceCount: 1)
                 
                 encoder1?.endEncoding()
@@ -101,7 +104,7 @@ class ViewController: UIViewController {
                 commandBuffer.present(drawable)
                 commandBuffer.commit()
             }
-    }
+        }
     }
     
     override func didReceiveMemoryWarning() {

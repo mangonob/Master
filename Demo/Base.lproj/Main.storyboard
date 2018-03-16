@@ -6,6 +6,8 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -13,13 +15,35 @@
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Demo" customModuleProvider="target" sceneMemberID="viewController">
-                    <mtkView key="view" contentMode="scaleToFill" colorPixelFormat="BGRA8Unorm" depthStencilPixelFormat="Depth32Float" id="yI0-a9-MlC">
+                    <view key="view" contentMode="scaleToFill" id="hwG-mI-VMQ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    </mtkView>
+                        <subviews>
+                            <mtkView contentMode="scaleToFill" colorPixelFormat="BGRA8Unorm" depthStencilPixelFormat="Depth32Float" translatesAutoresizingMaskIntoConstraints="NO" id="vBJ-Ux-V6y">
+                                <rect key="frame" x="0.0" y="146.5" width="375" height="374"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="vBJ-Ux-V6y" secondAttribute="height" constant="1" id="4cB-1I-Rf2"/>
+                                </constraints>
+                            </mtkView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="vBJ-Ux-V6y" firstAttribute="top" secondItem="gVx-lS-z3w" secondAttribute="top" priority="750" id="0JH-vS-nYa"/>
+                            <constraint firstItem="vBJ-Ux-V6y" firstAttribute="centerX" secondItem="hwG-mI-VMQ" secondAttribute="centerX" id="4aK-CQ-oVq"/>
+                            <constraint firstItem="vBJ-Ux-V6y" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="gVx-lS-z3w" secondAttribute="leading" priority="750" id="O6b-Ws-Yyw"/>
+                            <constraint firstItem="vBJ-Ux-V6y" firstAttribute="centerY" secondItem="hwG-mI-VMQ" secondAttribute="centerY" id="YjK-Kp-4QG"/>
+                            <constraint firstItem="gVx-lS-z3w" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="vBJ-Ux-V6y" secondAttribute="bottom" priority="750" id="cgg-um-kdy"/>
+                            <constraint firstItem="gVx-lS-z3w" firstAttribute="trailing" secondItem="vBJ-Ux-V6y" secondAttribute="trailing" priority="750" id="s9b-0G-L9g"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="gVx-lS-z3w"/>
+                    </view>
+                    <connections>
+                        <outlet property="metalView" destination="vBJ-Ux-V6y" id="0Nm-kH-n9I"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="116" y="117.39130434782609"/>
         </scene>
     </scenes>
 </document>
