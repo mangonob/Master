@@ -18,6 +18,7 @@ struct VertexInput {
 struct VertexOutput {
     float4 position [[ position ]];
     float4 color;
+    float pointSize [[ point_size ]];
 };
 
 typedef VertexOutput FragmentInput;
@@ -26,6 +27,7 @@ vertex VertexOutput basic_vertex(VertexInput in [[ stage_in ]]) {
     VertexOutput out;
     out.position = in.position;
     out.color = in.color;
+    out.pointSize = 42;
     return out;
 }
 

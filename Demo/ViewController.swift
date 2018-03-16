@@ -78,14 +78,26 @@ class ViewController: UIViewController {
                 renderPassDescriptor.colorAttachments[0].loadAction = .clear
                 renderPassDescriptor.colorAttachments[0].clearColor = .init(red: 0, green: 0, blue: 0, alpha: 1)
 
-                let encoder = commandBuffer.makeRenderCommandEncoder(descriptor: renderPassDescriptor)
-                encoder?.setRenderPipelineState(pipelineState)
-                encoder?.setVertexBuffer(positionBuffer, offset: 0, index: 0)
-                encoder?.setVertexBuffer(colorsBuffer, offset: 0, index: 1)
-                encoder?.setTriangleFillMode(.lines)
-                encoder?.drawPrimitives(type: .triangleStrip , vertexStart: 0, vertexCount: colors.count / 4, instanceCount: 1)
-                encoder?.endEncoding()
+                let parallelEncoder = commandBuffer.makeParallelRenderCommandEncoder(descriptor: renderPassDescriptor)
+                
+                let encoder1 = parallelEncoder?.makeRenderCommandEncoder()
+                encoder1?.setRenderPipelineState(pipelineState)
+                encoder1?.setVertexBuffer(positionBuffer, offset: 0, index: 0)
+                encoder1?.setVertexBuffer(colorsBuffer, offset: 0, index: 1)
+                encoder1?.setTriangleFillMode(.lines)
+                encoder1?.drawPrimitives(type: .triangleStrip , vertexStart: 0, vertexCount: colors.count / 4, instanceCount: 1)
 
+                let encoder2 = parallelEncoder?.makeRenderCommandEncoder()
+                encoder2?.setRenderPipelineState(pipelineState)
+                encoder2?.setVertexBuffer(positionBuffer, offset: 0, index: 0)
+                encoder2?.setVertexBuffer(colorsBuffer, offset: 0, index: 1)
+                encoder2?.setTriangleFillMode(.lines)
+                encoder2?.drawPrimitives(type: .point , vertexStart: 0, vertexCount: colors.count / 4, instanceCount: 1)
+                
+                encoder1?.endEncoding()
+                encoder2?.endEncoding()
+                parallelEncoder?.endEncoding()
+                
                 commandBuffer.present(drawable)
                 commandBuffer.commit()
             }
