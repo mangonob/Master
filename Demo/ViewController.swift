@@ -34,17 +34,17 @@ class ViewController: UIViewController {
             let library = device.makeDefaultLibrary() {
             
             let positions: [Float] = [
-                -0.5, 0.5, 0.0, 1.0,
-                0.5, 0.5, 0.0, 1.0,
-                -0.5, -0.5, 0.0, 1.0,
-                0.5, -0.5, 0.0, 1.0,
+                -0.5, 0.5, 0.0,
+                0.5, 0.5, 0.0,
+                -0.5, -0.5, 0.0,
+                0.5, -0.5, 0.0,
                 ]
             
             let colors: [Float] = [
-                1.0, 0.0, 0.0, 1.0,
-                0.0, 1.0, 0.0, 1.0,
-                0.0, 0.0, 1.0, 1.0,
-                1.0, 1.0, 0.0, 1.0,
+                1.0, 0.0, 0.0,
+                0.0, 1.0, 0.0,
+                0.0, 0.0, 1.0,
+                1.0, 1.0, 0.0,
                 ]
             
             let positionBuffer = device.makeBuffer(bytes: positions, length: positions.count * MemoryLayout<Float>.size, options: [])
@@ -57,23 +57,24 @@ class ViewController: UIViewController {
             pipelineStateDescriptor.vertexFunction = vertexProgram
             pipelineStateDescriptor.fragmentFunction = fragmentProgram
             pipelineStateDescriptor.colorAttachments[0].pixelFormat = .bgra8Unorm
-            
+            pipelineStateDescriptor.colorAttachments[0].isBlendingEnabled = true
+
             let vertexDescriptor = MTLVertexDescriptor()
             vertexDescriptor.attributes[0].bufferIndex = 0
-            vertexDescriptor.attributes[0].format = .float4
+            vertexDescriptor.attributes[0].format = .float3
             vertexDescriptor.attributes[0].offset = 0
             vertexDescriptor.attributes[1].bufferIndex = 1
-            vertexDescriptor.attributes[1].format = .float4
+            vertexDescriptor.attributes[1].format = .float3
             vertexDescriptor.attributes[1].offset = 0
-            vertexDescriptor.layouts[0].stride = MemoryLayout<float4>.stride
+            vertexDescriptor.layouts[0].stride = MemoryLayout<Float>.size * 3
             vertexDescriptor.layouts[0].stepFunction = .perVertex
-            vertexDescriptor.layouts[1].stride = MemoryLayout<float4>.stride
+            vertexDescriptor.layouts[1].stride = MemoryLayout<Float>.size * 3
             vertexDescriptor.layouts[1].stepFunction = .perVertex
-            
+
             pipelineStateDescriptor.vertexDescriptor = vertexDescriptor
-            
+
             pipelineState = try? device.makeRenderPipelineState(descriptor: pipelineStateDescriptor)
-            
+
             metalLayer?.device = device
             
             if let drawable = metalLayer?.nextDrawable() {
@@ -81,26 +82,20 @@ class ViewController: UIViewController {
                 renderPassDescriptor.colorAttachments[0].texture = drawable.texture
                 renderPassDescriptor.colorAttachments[0].loadAction = .clear
                 renderPassDescriptor.colorAttachments[0].clearColor = .init(red: 0, green: 0, blue: 0, alpha: 1)
-                
-                let parallelEncoder = commandBuffer.makeParallelRenderCommandEncoder(descriptor: renderPassDescriptor)
-                
-                let encoder1 = parallelEncoder?.makeRenderCommandEncoder()
-                encoder1?.setRenderPipelineState(pipelineState)
-                encoder1?.setVertexBuffer(positionBuffer, offset: 0, index: 0)
-                encoder1?.setVertexBuffer(colorsBuffer, offset: 0, index: 1)
-                encoder1?.setTriangleFillMode(.lines)
-                encoder1?.drawPrimitives(type: .triangleStrip , vertexStart: 0, vertexCount: colors.count / 4, instanceCount: 1)
-                
-                let encoder2 = parallelEncoder?.makeRenderCommandEncoder()
-                encoder2?.setRenderPipelineState(pipelineState)
-                encoder2?.setVertexBuffer(positionBuffer, offset: 0, index: 0)
-                encoder2?.setVertexBuffer(colorsBuffer, offset: 0, index: 1)
-                encoder2?.drawPrimitives(type: .point , vertexStart: 0, vertexCount: colors.count / 4, instanceCount: 1)
-                
-                encoder1?.endEncoding()
-                encoder2?.endEncoding()
-                parallelEncoder?.endEncoding()
-                
+
+                let encoder = commandBuffer.makeRenderCommandEncoder(descriptor: renderPassDescriptor)
+
+                encoder?.setRenderPipelineState(pipelineState)
+
+                encoder?.setVertexBuffer(positionBuffer, offset: 0, index: 0)
+                encoder?.setVertexBuffer(colorsBuffer, offset: 0, index: 1)
+                encoder?.setTriangleFillMode(.lines)
+                encoder?.drawPrimitives(type: .triangleStrip, vertexStart: 0, vertexCount: colors.count / 3)
+                encoder?.drawPrimitives(type: .point, vertexStart: 0, vertexCount: colors.count / 3)
+                encoder?.setTriangleFillMode(.fill)
+                encoder?.drawPrimitives(type: .triangle, vertexStart: 0, vertexCount: colors.count / 3)
+                encoder?.endEncoding()
+
                 commandBuffer.present(drawable)
                 commandBuffer.commit()
             }
