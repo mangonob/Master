@@ -7,33 +7,41 @@
 //
 
 #include <metal_stdlib>
+#include <simd/simd.h>
+
+#import "ShaderTypes.h"
+
 using namespace metal;
 
 
-struct VertexInput {
-    float3 position [[ attribute(0) ]];
-    float3 color [[ attribute(1) ]];
-};
+typedef struct {
+    float3 position [[ attribute(VertexAttributePosition) ]];
+    float2 texCoord [[ attribute(VertexAttributeTexcoord) ]];
+} VertexInput;
 
-struct VertexOutput {
+typedef struct {
     float4 position [[ position ]];
-    float4 color;
-    float pointSize [[ point_size ]];
-};
+    float2 texCoord;
+} VertexOutput;
 
 typedef VertexOutput FragmentInput;
 
-vertex VertexOutput basic_vertex(VertexInput in [[ stage_in ]],
-                                 constant packed_float3 *positions [[ buffer(0) ]],
-                                 constant packed_float3 *colors [[ buffer(1) ]],
-                                 uint index [[ vertex_id ]]) {
+vertex VertexOutput vertexShader(VertexInput in [[ stage_in ]],
+                                 constant Uniforms &uniforms [[ buffer(BufferIndexUniforms) ]])
+{
     VertexOutput out;
-    out.position = float4(in.position, 1.0);
-    out.color = float4(in.color, 1.0);
-    out.pointSize = 42;
     return out;
 }
 
-fragment float4 basic_fragment(FragmentInput in [[ stage_in ]]) {
-    return float4(in.color);
+
+fragment float4 fragmentShader(FragmentInput in [[ stage_in ]],
+                               constant Uniforms & uniforms [[ buffer(BufferIndexUniforms) ]],
+                               texture2d<half> texture  [[ texture(TextureIndexColor) ]])
+{
+    constexpr sampler colorSampler(mip_filter::linear,
+                                   mag_filter::linear,
+                                   min_filter::linear);
+    
+    half4 colorSample = texture.sample(colorSampler, in.texCoord.xy);
+    return float4(colorSample);
 }
