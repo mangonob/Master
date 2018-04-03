@@ -73,7 +73,27 @@ class Render: NSObject {
     }
     
     class func buildMesh(device: MTLDevice,
-                         vertexDescriptor: MTLVertexDescriptor) -> MTKMesh {
+                         vertexDescriptor: MTLVertexDescriptor) throws -> MTKMesh {
+        let allocator = MTKMeshBufferAllocator(device: device)
+        
+        let mdlMesh = MDLMesh.newBox(withDimensions: float3(4, 4, 4),
+                                     segments: uint3(2, 2, 2),
+                                     geometryType: .triangles,
+                                     inwardNormals: false,
+                                     allocator: allocator)
+        
+        let mdlVertexDescriptor = MTKModelIOVertexDescriptorFromMetal(vertexDescriptor)
+        
+        guard let attributes = mdlVertexDescriptor.attributes as? [MDLVertexAttribute] else {
+            throw RenderError.badVertexDescriptor
+        }
+        
+        attributes[VertexAttribute.position.rawValue].name = MDLVertexAttributePosition
+        attributes[VertexAttribute.texcoord.rawValue].name = MDLVertexAttributeTextureCoordinate
+        
+        mdlMesh.vertexDescriptor = mdlVertexDescriptor
+        
+        return try MTKMesh(mesh: mdlMesh, device: device)
     }
     
     class func buildVertexDescriptor() -> MTLVertexDescriptor {
