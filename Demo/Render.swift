@@ -31,16 +31,19 @@ class Render: NSObject {
     var projectionMatrix: matrix_float4x4 = matrix_float4x4()
     var ratation: Float = 0
     var mesh: MTKMesh
+    
+    let inFlightSemaphore = DispatchSemaphore(value: maxBuffersInFlight)
+    
 
     init?(_ mtkView: MTKView) {
         self.mtkView = mtkView
-        guard let viewDevice = mtkView.device else { return nil }
-        device = viewDevice
-        
-        guard let queue = viewDevice.makeCommandQueue() else { return nil }
+        guard let device = mtkView.device else { return nil }
+        self.device = device
+
+        guard let queue = device.makeCommandQueue() else { return nil }
         commandQueue = queue
         
-        guard let buffer = viewDevice .makeBuffer(length: aligned256UniformsSize * maxBuffersInFlight,
+        guard let buffer = device.makeBuffer(length: aligned256UniformsSize * maxBuffersInFlight,
                                                   options: .storageModeShared) else { return nil }
         self.dynamicUniformBuffer = buffer
 
@@ -49,6 +52,8 @@ class Render: NSObject {
         depthStateDescriptor.depthCompareFunction = .less
         guard let depthState = device.makeDepthStencilState(descriptor: depthStateDescriptor) else { return nil }
         self.depthState = depthState
+        
+        Render.buildMesh(device: device, vertexDescriptor: )
     }
     
     /// Build a render pipeline state
@@ -96,6 +101,25 @@ class Render: NSObject {
         return try MTKMesh(mesh: mdlMesh, device: device)
     }
     
+    /// Load texture data
+    class func loadTexture(device: MTLDevice,
+                           textureName: String) throws -> MTLTexture {
+        let textureLoader = MTKTextureLoader(device: device)
+        
+        let options: [MTKTextureLoader.Option: Any] = [
+            .textureUsage: MTLTextureUsage.shaderRead,
+            .textureStorageMode: MTLStorageMode.`private`.rawValue
+        ]
+        
+        return try textureLoader.newTexture(name: textureName,
+                                            scaleFactor: 1.0,
+                                            bundle: nil,
+                                            options: options)
+    }
+    
+    private func updateDynamicBufferState() {
+    }
+
     class func buildVertexDescriptor() -> MTLVertexDescriptor {
         let des = MTLVertexDescriptor()
         
