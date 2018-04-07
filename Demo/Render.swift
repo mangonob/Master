@@ -8,6 +8,7 @@
 
 import UIKit
 import MetalKit
+import simd
 
 let aligned256UniformsSize = (MemoryLayout<Uniforms>.size & ~0xFF) + 0x100
 
@@ -27,12 +28,17 @@ class Render: NSObject {
     let pipelineState: MTLRenderPipelineState
     let depthState: MTLDepthStencilState
     let texture: MTLTexture
-    let uniforms: UnsafeMutablePointer<Uniforms>
-    var projectionMatrix: matrix_float4x4 = matrix_float4x4()
-    var ratation: Float = 0
-    var mesh: MTKMesh
     
     let inFlightSemaphore = DispatchSemaphore(value: maxBuffersInFlight)
+    
+    var uniformBufferOffset = 0
+    
+    var uniformBufferIndex = 0
+    
+    var uniforms: UnsafeMutablePointer<Uniforms>
+    var projectionMatrix = matrix_float4x4()
+    var rotation: Float = 0
+    var mesh: MTKMesh
     
 
     init?(_ mtkView: MTKView) {
@@ -43,17 +49,49 @@ class Render: NSObject {
         guard let queue = device.makeCommandQueue() else { return nil }
         commandQueue = queue
         
-        guard let buffer = device.makeBuffer(length: aligned256UniformsSize * maxBuffersInFlight,
-                                                  options: .storageModeShared) else { return nil }
-        self.dynamicUniformBuffer = buffer
-
+        guard let uniformBuffer =
+            device.makeBuffer(length: aligned256UniformsSize * maxBuffersInFlight,
+                              options: .storageModeShared) else { return nil }
+        
+        self.dynamicUniformBuffer = uniformBuffer
+        
+        uniforms = UnsafeMutableRawPointer(uniformBuffer.contents()).bindMemory(to: Uniforms.self, capacity: 1)
+        
+        mtkView.depthStencilPixelFormat = .depth32Float_stencil8
+        mtkView.colorPixelFormat = .bgra8Unorm_srgb
+        mtkView.sampleCount = 1
+        
+        do {
+            pipelineState = try Render.buildRenderPipelineWithDevice(device: device, mtkView: mtkView)
+        } catch {
+            print("Unable to compile render pipeline state. Error info: \(error)")
+            return nil
+        }
+        
         let depthStateDescriptor = MTLDepthStencilDescriptor()
         depthStateDescriptor.isDepthWriteEnabled = true
         depthStateDescriptor.depthCompareFunction = .less
+        
         guard let depthState = device.makeDepthStencilState(descriptor: depthStateDescriptor) else { return nil }
         self.depthState = depthState
         
-        Render.buildMesh(device: device, vertexDescriptor: )
+        let mtlVertexDescriptor = Render.buildVertexDescriptor()
+        
+        do {
+            mesh = try Render.buildMesh(device: device, vertexDescriptor: mtlVertexDescriptor)
+        } catch {
+            print("Unable to build MetalKit Mesh. Error info: \(error)")
+            return nil
+        }
+        
+        do {
+            texture = try Render.loadTexture(device: device, textureName: "Earth")
+        } catch {
+            print("Unable to load texture. Error info: \(error)")
+            return nil
+        }
+        
+        super.init()
     }
     
     /// Build a render pipeline state
@@ -117,9 +155,6 @@ class Render: NSObject {
                                             options: options)
     }
     
-    private func updateDynamicBufferState() {
-    }
-
     class func buildVertexDescriptor() -> MTLVertexDescriptor {
         let des = MTLVertexDescriptor()
         
@@ -146,6 +181,19 @@ class Render: NSObject {
         texcoordsBufferLayout?.stride = 2 * MemoryLayout<Float>.size
 
         return des
+    }
+
+    private func updateDynamicBuffeState() {
+        uniformBufferIndex = (uniformBufferIndex + 1) % maxBuffersInFlight
+        uniformBufferOffset = aligned256UniformsSize * uniformBufferIndex
+        uniforms = UnsafeMutableRawPointer(dynamicUniformBuffer.contents() + uniformBufferOffset)
+            .bindMemory(to: Uniforms.self, capacity: 1)
+    }
+    
+    private func updateProjectionMatrix() {
+        uniforms[0].projectionMatrix = projectionMatrix
+        
+        let rotationAxis = float3(0, 1, 0)
     }
 }
 
