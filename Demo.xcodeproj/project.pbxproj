@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4A2718B6204CF37F002BC55C /* metalSingle.metal in Sources */ = {isa = PBXBuildFile; fileRef = 4A2718B5204CF37F002BC55C /* metalSingle.metal */; };
+		4A2718B6204CF37F002BC55C /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = 4A2718B5204CF37F002BC55C /* Shaders.metal */; };
 		4A3ABB0A207CBAE5000DB0B4 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3ABB09207CBAE5000DB0B4 /* Utilities.swift */; };
 		4A3BCEC31FF61B14001E55D4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3BCEC21FF61B14001E55D4 /* AppDelegate.swift */; };
 		4A3BCEC51FF61B14001E55D4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A3BCEC41FF61B14001E55D4 /* ViewController.swift */; };
@@ -22,7 +22,7 @@
 
 /* Begin PBXFileReference section */
 		2BA53171D5E6103E62D644CE /* Pods-Demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Demo.release.xcconfig"; path = "Pods/Target Support Files/Pods-Demo/Pods-Demo.release.xcconfig"; sourceTree = "<group>"; };
-		4A2718B5204CF37F002BC55C /* metalSingle.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = metalSingle.metal; sourceTree = "<group>"; };
+		4A2718B5204CF37F002BC55C /* Shaders.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = Shaders.metal; sourceTree = "<group>"; };
 		4A3ABB09207CBAE5000DB0B4 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		4A3BCEBF1FF61B14001E55D4 /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A3BCEC21FF61B14001E55D4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -77,7 +77,7 @@
 				4A4907AF206DEB990073D529 /* ShaderTypes.h */,
 				4A3ABB09207CBAE5000DB0B4 /* Utilities.swift */,
 				4A4907AB206DDCCC0073D529 /* Render.swift */,
-				4A2718B5204CF37F002BC55C /* metalSingle.metal */,
+				4A2718B5204CF37F002BC55C /* Shaders.metal */,
 				4A4907AE206DDCF80073D529 /* Supporting Files */,
 				4A4907AD206DDCD80073D529 /* Resources */,
 			);
@@ -275,7 +275,7 @@
 			files = (
 				4A3BCEC51FF61B14001E55D4 /* ViewController.swift in Sources */,
 				4A3BCEC31FF61B14001E55D4 /* AppDelegate.swift in Sources */,
-				4A2718B6204CF37F002BC55C /* metalSingle.metal in Sources */,
+				4A2718B6204CF37F002BC55C /* Shaders.metal in Sources */,
 				4A3ABB0A207CBAE5000DB0B4 /* Utilities.swift in Sources */,
 				4A4907AC206DDCCC0073D529 /* Render.swift in Sources */,
 			);

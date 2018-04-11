@@ -52,6 +52,10 @@ func matrix_perspective_right_hand(fovyRadians fovy: Float, aspectRatio: Float, 
                                          vector_float4( 0,  0, zs * nearZ, 0)))
 }
 
-func radians_from_degrees(_ degrees: Float) -> Float {
+func deg2rad(_ degrees: Float) -> Float {
     return (degrees / 180) * .pi
+}
+
+func rad2deg(_ radius: Float) -> Float {
+    return (radius / .pi) * 180
 }

@@ -40,12 +40,12 @@ class Render: NSObject {
     var rotation: Float = 0
     var mesh: MTKMesh
     
-
+    
     init?(_ mtkView: MTKView) {
         self.mtkView = mtkView
         guard let device = mtkView.device else { return nil }
         self.device = device
-
+        
         guard let queue = device.makeCommandQueue() else { return nil }
         commandQueue = queue
         
@@ -111,7 +111,7 @@ class Render: NSObject {
         des.colorAttachments[0].pixelFormat = mtkView.colorPixelFormat
         des.depthAttachmentPixelFormat = mtkView.depthStencilPixelFormat
         des.stencilAttachmentPixelFormat = mtkView.depthStencilPixelFormat
-
+        
         return try device.makeRenderPipelineState(descriptor: des)
     }
     
@@ -145,8 +145,8 @@ class Render: NSObject {
         let textureLoader = MTKTextureLoader(device: device)
         
         let options: [MTKTextureLoader.Option: Any] = [
-            .textureUsage: MTLTextureUsage.shaderRead,
-            .textureStorageMode: MTLStorageMode.`private`.rawValue
+            .textureUsage: NSNumber(value: MTLTextureUsage.shaderRead.rawValue),
+            .textureStorageMode: NSNumber(value: MTLStorageMode.`private`.rawValue)
         ]
         
         return try textureLoader.newTexture(name: textureName,
@@ -164,7 +164,7 @@ class Render: NSObject {
         positionAttribute?.format = .float3
         positionAttribute?.bufferIndex = BufferIndex.meshPositions.rawValue
         positionAttribute?.offset = 0
-
+        
         texcoordAttribute?.format = .float2
         texcoordAttribute?.bufferIndex = BufferIndex.meshTexcoords.rawValue
         texcoordAttribute?.offset = 0
@@ -179,10 +179,10 @@ class Render: NSObject {
         texcoordsBufferLayout?.stepFunction = .perVertex
         texcoordsBufferLayout?.stepRate = 1
         texcoordsBufferLayout?.stride = 2 * MemoryLayout<Float>.size
-
+        
         return des
     }
-
+    
     private func updateDynamicBuffeState() {
         uniformBufferIndex = (uniformBufferIndex + 1) % maxBuffersInFlight
         uniformBufferOffset = aligned256UniformsSize * uniformBufferIndex
@@ -190,18 +190,80 @@ class Render: NSObject {
             .bindMemory(to: Uniforms.self, capacity: 1)
     }
     
-    private func updateProjectionMatrix() {
+    private func updateModelViewMatrix() {
         uniforms[0].projectionMatrix = projectionMatrix
         
         let rotationAxis = float3(0, 1, 0)
+        
+        let modelMatrix = matrix4x4_rotation(radians: deg2rad(23.9), axis: float3(0, 0, -1))
+            * matrix4x4_rotation(radians: rotation, axis: rotationAxis)
+        
+        let viewMatrix = matrix4x4_translation(0, 0, -8)
+        
+        uniforms[0].modelViewMatrix = viewMatrix * modelMatrix
+        
+        rotation += 0.01
     }
 }
 
 extension Render: MTKViewDelegate {
     func mtkView(_ view: MTKView, drawableSizeWillChange size: CGSize) {
+        let aspect = Float(size.width) / Float(size.height)
+        projectionMatrix = matrix_perspective_right_hand(fovyRadians: deg2rad(65), aspectRatio:aspect, nearZ: 0.1, farZ: 100.0)
     }
     
     func draw(in view: MTKView) {
-        print(CACurrentMediaTime())
+        guard let commandBuffer = commandQueue.makeCommandBuffer() else { return }
+        guard let renderPassDescriptor = view.currentRenderPassDescriptor else { return }
+        guard let renderEncoder = commandBuffer.makeRenderCommandEncoder(descriptor: renderPassDescriptor) else { return }
+        
+        /** wait semaphore */
+        _ = inFlightSemaphore.wait(timeout: .distantFuture)
+        
+        defer { commandBuffer.commit() }
+        
+        commandBuffer.addCompletedHandler({ [weak inFlightSemaphore] (_) in
+            inFlightSemaphore?.signal()
+        })
+
+        updateDynamicBuffeState()
+        updateModelViewMatrix()
+        
+        renderEncoder.label = "Primary Render Encoder"
+        renderEncoder.pushDebugGroup("Draw Ball")
+        renderEncoder.setFrontFacing(.counterClockwise)
+        renderEncoder.setRenderPipelineState(pipelineState)
+        renderEncoder.setDepthStencilState(depthState)
+        
+        renderEncoder.setVertexBuffer(dynamicUniformBuffer, offset: uniformBufferOffset, index: BufferIndex.uniforms.rawValue)
+        renderEncoder.setFragmentBuffer(dynamicUniformBuffer, offset: uniformBufferOffset, index: BufferIndex.uniforms.rawValue)
+        
+        for (index, element) in mesh.vertexDescriptor.layouts.enumerated() {
+            guard let layout = element as? MDLVertexBufferLayout else {
+                return
+            }
+            
+            if layout.stride != 0 {
+                let buffer = mesh.vertexBuffers[index]
+                renderEncoder.setVertexBuffer(buffer.buffer, offset: buffer.offset, index: index)
+            }
+        }
+        
+        renderEncoder.setFragmentTexture(texture, index: TextureIndex.color.rawValue)
+        
+        for submesh in mesh.submeshes {
+            renderEncoder.drawIndexedPrimitives(type: submesh.primitiveType,
+                                                indexCount: submesh.indexCount,
+                                                indexType: submesh.indexType,
+                                                indexBuffer: submesh.indexBuffer.buffer,
+                                                indexBufferOffset: submesh.indexBuffer.offset)
+        }
+        
+        renderEncoder.popDebugGroup()
+        renderEncoder.endEncoding()
+        
+        if let drawable = view.currentDrawable {
+            commandBuffer.present(drawable)
+        }
     }
 }

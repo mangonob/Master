@@ -30,6 +30,11 @@ vertex VertexOutput vertexShader(VertexInput in [[ stage_in ]],
                                  constant Uniforms &uniforms [[ buffer(BufferIndexUniforms) ]])
 {
     VertexOutput out;
+    
+    float4 position = float4(in.position, 1.0);
+    out.position = uniforms.projectionMatrix * uniforms.modelViewMatrix * position;
+    out.texCoord = in.texCoord;
+
     return out;
 }
 
@@ -42,6 +47,7 @@ fragment float4 fragmentShader(FragmentInput in [[ stage_in ]],
                                    mag_filter::linear,
                                    min_filter::linear);
     
-    half4 colorSample = texture.sample(colorSampler, in.texCoord.xy);
-    return float4(colorSample);
+//    half4 colorSample = texture.sample(colorSampler, in.texCoord.xy);
+//    return float4(colorSample);
+    return float4(1, 0, 0, 1);
 }
