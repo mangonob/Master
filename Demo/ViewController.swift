@@ -32,6 +32,8 @@ class ViewController: UIViewController {
         render = Render(mtkView)
         
         mtkView.delegate = render
+        
+        render.mtkView(mtkView, drawableSizeWillChange: mtkView.drawableSize)
     }
     
     override func didReceiveMemoryWarning() {

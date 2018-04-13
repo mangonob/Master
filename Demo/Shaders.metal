@@ -47,7 +47,6 @@ fragment float4 fragmentShader(FragmentInput in [[ stage_in ]],
                                    mag_filter::linear,
                                    min_filter::linear);
     
-//    half4 colorSample = texture.sample(colorSampler, in.texCoord.xy);
-//    return float4(colorSample);
-    return float4(1, 0, 0, 1);
+    half4 colorSample = texture.sample(colorSampler, in.texCoord.xy);
+    return float4(colorSample);
 }
