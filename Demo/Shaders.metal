@@ -26,6 +26,11 @@ typedef struct {
 
 typedef VertexOutput FragmentInput;
 
+
+typedef struct {
+    float4 color [[ color(0) ]];
+} FragmentOutput;
+
 vertex VertexOutput vertexShader(VertexInput in [[ stage_in ]],
                                  constant Uniforms &uniforms [[ buffer(BufferIndexUniforms) ]])
 {
@@ -39,14 +44,15 @@ vertex VertexOutput vertexShader(VertexInput in [[ stage_in ]],
 }
 
 
-fragment float4 fragmentShader(FragmentInput in [[ stage_in ]],
+fragment FragmentOutput fragmentShader(FragmentInput in [[ stage_in ]],
                                constant Uniforms & uniforms [[ buffer(BufferIndexUniforms) ]],
                                texture2d<half> texture  [[ texture(TextureIndexColor) ]])
 {
+    FragmentOutput out;
     constexpr sampler colorSampler(mip_filter::linear,
                                    mag_filter::linear,
                                    min_filter::linear);
     
-    half4 colorSample = texture.sample(colorSampler, in.texCoord.xy);
-    return float4(colorSample);
+    out.color = float4(texture.sample(colorSampler, in.texCoord.xy));
+    return out;
 }
