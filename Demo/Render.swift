@@ -29,6 +29,7 @@ class Render: NSObject {
     let dynamicUniformBuffer: MTLBuffer
     let pipelineState: MTLRenderPipelineState
     let depthState: MTLDepthStencilState
+    let samplerState: MTLSamplerState?
     let texture: MTLTexture
     
     let inFlightSemaphore = DispatchSemaphore(value: maxBuffersInFlight)
@@ -41,7 +42,7 @@ class Render: NSObject {
     var projectionMatrix = matrix_float4x4()
     var rotation: Float = 0
     var mesh: MTKMesh
-    
+
     init?(_ mtkView: MTKView) {
         self.mtkView = mtkView
         guard let device = mtkView.device else { return nil }
@@ -96,6 +97,8 @@ class Render: NSObject {
             return nil
         }
         
+        samplerState = Render.buildSamplerState(device: device)
+        
         super.init()
     }
     
@@ -144,6 +147,15 @@ class Render: NSObject {
         mdlMesh.vertexDescriptor = mdlVertexDescriptor
 
         return try MTKMesh(mesh: mdlMesh, device: device)
+    }
+    
+    /// Build sampler state
+    class func buildSamplerState(device: MTLDevice) -> MTLSamplerState? {
+        let desc = MTLSamplerDescriptor()
+        desc.mipFilter = .linear
+        desc.minFilter = .linear
+        desc.magFilter = .linear
+        return device.makeSamplerState(descriptor: desc)
     }
     
     /// Load texture data
@@ -242,6 +254,8 @@ extension Render: MTKViewDelegate {
         renderEncoder.setRenderPipelineState(pipelineState)
         renderEncoder.setDepthStencilState(depthState)
         renderEncoder.setTriangleFillMode(.lines)
+        
+        renderEncoder.setFragmentSamplerState(samplerState, index: 0)
 
         renderEncoder.setVertexBuffer(dynamicUniformBuffer, offset: uniformBufferOffset, index: BufferIndex.uniforms.rawValue)
         renderEncoder.setFragmentBuffer(dynamicUniformBuffer, offset: uniformBufferOffset, index: BufferIndex.uniforms.rawValue)

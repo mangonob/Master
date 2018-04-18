@@ -45,14 +45,11 @@ vertex VertexOutput vertexShader(VertexInput in [[ stage_in ]],
 
 
 fragment FragmentOutput fragmentShader(FragmentInput in [[ stage_in ]],
-                               constant Uniforms & uniforms [[ buffer(BufferIndexUniforms) ]],
-                               texture2d<half> texture  [[ texture(TextureIndexColor) ]])
+                                       constant Uniforms & uniforms [[ buffer(BufferIndexUniforms) ]],
+                                       texture2d<half> texture  [[ texture(TextureIndexColor) ]],
+                                       sampler s [[ sampler(0) ]])
 {
     FragmentOutput out;
-    constexpr sampler colorSampler(mip_filter::linear,
-                                   mag_filter::linear,
-                                   min_filter::linear);
-    
-    out.color = float4(texture.sample(colorSampler, in.texCoord.xy));
+    out.color = float4(texture.sample(s, in.texCoord.xy));
     return out;
 }
