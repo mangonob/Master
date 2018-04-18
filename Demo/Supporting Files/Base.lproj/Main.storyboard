@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -13,10 +14,37 @@
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Demo" customModuleProvider="target" sceneMemberID="viewController">
-                    <mtkView key="view" contentMode="scaleToFill" colorPixelFormat="BGRA8Unorm" depthStencilPixelFormat="Depth32Float" id="NTD-zL-4IE">
+                    <view key="view" contentMode="scaleToFill" id="uYd-2i-PDt">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    </mtkView>
+                        <subviews>
+                            <mtkView contentMode="scaleToFill" colorPixelFormat="BGRA8Unorm" depthStencilPixelFormat="Depth32Float" translatesAutoresizingMaskIntoConstraints="NO" id="JdV-Sz-jZ0">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </mtkView>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="10" minValue="2" maxValue="25" translatesAutoresizingMaskIntoConstraints="NO" id="92B-dy-JsU">
+                                <rect key="frame" x="14" y="617" width="347" height="31"/>
+                                <connections>
+                                    <action selector="sliderAction:" destination="BYZ-38-t0r" eventType="valueChanged" id="mCi-R6-G36"/>
+                                </connections>
+                            </slider>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="JdV-Sz-jZ0" firstAttribute="trailing" secondItem="BXt-FE-208" secondAttribute="trailing" id="3hs-gJ-2NH"/>
+                            <constraint firstItem="BXt-FE-208" firstAttribute="trailing" secondItem="92B-dy-JsU" secondAttribute="trailing" constant="16" id="5tu-w1-s1s"/>
+                            <constraint firstItem="JdV-Sz-jZ0" firstAttribute="top" secondItem="uYd-2i-PDt" secondAttribute="top" id="6At-3Q-2U3"/>
+                            <constraint firstItem="BXt-FE-208" firstAttribute="bottom" secondItem="92B-dy-JsU" secondAttribute="bottom" constant="20" id="E86-Vv-iOT"/>
+                            <constraint firstAttribute="bottom" secondItem="JdV-Sz-jZ0" secondAttribute="bottom" id="Ljo-6s-akf"/>
+                            <constraint firstItem="JdV-Sz-jZ0" firstAttribute="leading" secondItem="BXt-FE-208" secondAttribute="leading" id="N3D-Mb-bTb"/>
+                            <constraint firstItem="92B-dy-JsU" firstAttribute="leading" secondItem="BXt-FE-208" secondAttribute="leading" constant="16" id="wfQ-yF-RxJ"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="BXt-FE-208"/>
+                    </view>
+                    <connections>
+                        <outlet property="mtkView" destination="JdV-Sz-jZ0" id="ze0-Bs-ivt"/>
+                        <outlet property="segmentSlider" destination="92B-dy-JsU" id="YWN-fH-UM1"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

@@ -14,7 +14,7 @@ let aligned256UniformsSize = (MemoryLayout<Uniforms>.size & ~0xFF) + 0x100
 
 let maxBuffersInFlight = 3
 
-let segments = uint2(100, 50)
+let segments = uint2(2, 1)
 
 enum RenderError: Error {
     case badVertexDescriptor
@@ -40,7 +40,10 @@ class Render: NSObject {
     var uniforms: UnsafeMutablePointer<Uniforms>
     var projectionMatrix = matrix_float4x4()
     var rotation: Float = 0
-    var mesh: MTKMesh
+    var mesh: MTKMesh!
+    var vertexDescriptor: MTLVertexDescriptor
+    
+    static var segmentFactor: UInt32 = 0
     
     init?(_ mtkView: MTKView) {
         self.mtkView = mtkView
@@ -62,13 +65,13 @@ class Render: NSObject {
         mtkView.colorPixelFormat = .bgra8Unorm_srgb
         mtkView.sampleCount = 1
         
-        let mtlVertexDescriptor = Render.buildVertexDescriptor()
+        vertexDescriptor = Render.buildVertexDescriptor()
         
         do {
             pipelineState = try
                 Render.buildRenderPipelineWithDevice(device: device,
                                                      mtkView: mtkView,
-                                                     vertexDescriptor: mtlVertexDescriptor)
+                                                     vertexDescriptor: vertexDescriptor)
         } catch {
             print("Unable to compile render pipeline state. Error info: \(error)")
             return nil
@@ -80,14 +83,6 @@ class Render: NSObject {
         
         guard let depthState = device.makeDepthStencilState(descriptor: depthStateDescriptor) else { return nil }
         self.depthState = depthState
-        
-
-        do {
-            mesh = try Render.buildMesh(device: device, vertexDescriptor: mtlVertexDescriptor)
-        } catch {
-            print("Unable to build MetalKit Mesh. Error info: \(error)")
-            return nil
-        }
         
         do {
             texture = try Render.loadTexture(device: device, textureName: "Earth")
@@ -127,7 +122,7 @@ class Render: NSObject {
         
         let mdlMesh =
             MDLMesh.init(sphereWithExtent: float3(2, 2, 2),
-                         segments: segments,
+                         segments: segments &* segmentFactor,
                          inwardNormals: true,
                          geometryType: .triangles,
                          allocator: allocator)
@@ -223,11 +218,18 @@ extension Render: MTKViewDelegate {
         guard let commandBuffer = commandQueue.makeCommandBuffer() else { return }
         guard let renderPassDescriptor = view.currentRenderPassDescriptor else { return }
         guard let renderEncoder = commandBuffer.makeRenderCommandEncoder(descriptor: renderPassDescriptor) else { return }
-        
+
         /** wait semaphore */
         _ = inFlightSemaphore.wait(timeout: .distantFuture)
         
         defer { commandBuffer.commit() }
+
+        do {
+            mesh = try Render.buildMesh(device: device, vertexDescriptor: vertexDescriptor)
+        } catch {
+            print("Unable to build MetalKit Mesh. Error info: \(error)")
+            return
+        }
         
         commandBuffer.addCompletedHandler({ [weak inFlightSemaphore] (_) in
             inFlightSemaphore?.signal()
@@ -242,7 +244,7 @@ extension Render: MTKViewDelegate {
         renderEncoder.setRenderPipelineState(pipelineState)
         renderEncoder.setDepthStencilState(depthState)
         renderEncoder.setTriangleFillMode(.lines)
-
+        
         renderEncoder.setVertexBuffer(dynamicUniformBuffer, offset: uniformBufferOffset, index: BufferIndex.uniforms.rawValue)
         renderEncoder.setFragmentBuffer(dynamicUniformBuffer, offset: uniformBufferOffset, index: BufferIndex.uniforms.rawValue)
         
