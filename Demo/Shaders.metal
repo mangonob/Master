@@ -21,11 +21,14 @@ typedef struct {
 
 typedef struct {
     float4 position [[ position ]];
-    float2 texCoord;
+    float2 texCoord [[ user(TextureCoordinate) ]];
 } VertexOutput;
 
-typedef VertexOutput FragmentInput;
+//typedef VertexOutput FragmentInput;
 
+typedef struct {
+    float2 uv [[ user(TextureCoordinate) ]];
+} FragmentInput;
 
 typedef struct {
     float4 color [[ color(0) ]];
@@ -50,6 +53,6 @@ fragment FragmentOutput fragmentShader(FragmentInput in [[ stage_in ]],
                                        sampler s [[ sampler(0) ]])
 {
     FragmentOutput out;
-    out.color = float4(texture.sample(s, in.texCoord.xy));
+    out.color = float4(texture.sample(s, in.uv.xy));
     return out;
 }
