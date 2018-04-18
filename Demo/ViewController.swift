@@ -13,37 +13,32 @@ import MetalKit
 import ModelIO
 
 class ViewController: UIViewController {
-    @IBOutlet var segmentSlider: UISlider!
-    @IBOutlet var mtkView: MTKView!
-    
     var render: Render!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        guard let mtkView = view as? MTKView else {
+            return
+        }
         
         guard let defaultDevice = MTLCreateSystemDefaultDevice() else {
             return
         }
         
         mtkView.device = defaultDevice
-        mtkView.backgroundColor = .black
+        mtkView.backgroundColor = .clear
         
         render = Render(mtkView)
         
         mtkView.delegate = render
         
         render.mtkView(mtkView, drawableSizeWillChange: mtkView.drawableSize)
-        
-        sliderAction(segmentSlider)
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-    
-    @IBAction func sliderAction(_ sender: UISlider) {
-        Render.segmentFactor = UInt32(sender.value)
     }
 }
 
