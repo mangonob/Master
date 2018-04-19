@@ -14,9 +14,8 @@
 		4A3BCEC81FF61B14001E55D4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4A3BCEC61FF61B14001E55D4 /* Main.storyboard */; };
 		4A3BCECA1FF61B14001E55D4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4A3BCEC91FF61B14001E55D4 /* Assets.xcassets */; };
 		4A3BCECD1FF61B14001E55D4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4A3BCECB1FF61B14001E55D4 /* LaunchScreen.storyboard */; };
-		4A3D979A206B7E8500453F06 /* test-texture.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A3D9799206B7E8500453F06 /* test-texture.png */; };
 		4A4907AC206DDCCC0073D529 /* Render.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A4907AB206DDCCC0073D529 /* Render.swift */; };
-		4A9238092068F2E9006F4703 /* grey-linen.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4A9238082068F2E9006F4703 /* grey-linen.jpg */; };
+		4ABE946620886F9B00633B67 /* Model.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 4ABE946520886F9B00633B67 /* Model.bundle */; };
 		73FBB2A4D570B3E2942882FB /* Pods_Demo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A593EA03845944D71C059F55 /* Pods_Demo.framework */; };
 /* End PBXBuildFile section */
 
@@ -31,10 +30,9 @@
 		4A3BCEC91FF61B14001E55D4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		4A3BCECC1FF61B14001E55D4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4A3BCECE1FF61B14001E55D4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4A3D9799206B7E8500453F06 /* test-texture.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "test-texture.png"; sourceTree = "<group>"; };
 		4A4907AB206DDCCC0073D529 /* Render.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Render.swift; sourceTree = "<group>"; };
 		4A4907AF206DEB990073D529 /* ShaderTypes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShaderTypes.h; sourceTree = "<group>"; };
-		4A9238082068F2E9006F4703 /* grey-linen.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "grey-linen.jpg"; sourceTree = "<group>"; };
+		4ABE946520886F9B00633B67 /* Model.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Model.bundle; path = Demo/Model.bundle; sourceTree = SOURCE_ROOT; };
 		7D83304A7CF46DF5F08A64B8 /* Pods-Demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Demo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Demo/Pods-Demo.debug.xcconfig"; sourceTree = "<group>"; };
 		A593EA03845944D71C059F55 /* Pods_Demo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Demo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -87,8 +85,7 @@
 		4A4907AD206DDCD80073D529 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				4A9238082068F2E9006F4703 /* grey-linen.jpg */,
-				4A3D9799206B7E8500453F06 /* test-texture.png */,
+				4ABE946520886F9B00633B67 /* Model.bundle */,
 				4A3BCEC91FF61B14001E55D4 /* Assets.xcassets */,
 			);
 			path = Resources;
@@ -185,10 +182,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				4A3BCECD1FF61B14001E55D4 /* LaunchScreen.storyboard in Resources */,
-				4A3D979A206B7E8500453F06 /* test-texture.png in Resources */,
+				4ABE946620886F9B00633B67 /* Model.bundle in Resources */,
 				4A3BCECA1FF61B14001E55D4 /* Assets.xcassets in Resources */,
 				4A3BCEC81FF61B14001E55D4 /* Main.storyboard in Resources */,
-				4A9238092068F2E9006F4703 /* grey-linen.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
